@@ -13,6 +13,7 @@
   "dependencies": {
     "angular": "^1.5.0-beta.0",
     "angular-animate": "^1.4.7",
+    "angular-leaflet-directive": "^0.10.0",
     "angular-mocks": "^1.4.0",
     "angular-ui-bootstrap": "^0.14.3",
     "angular-ui-router": "^0.2.15",
@@ -47,6 +48,7 @@
     "karma-mocha": "^0.1.10",
     "karma-mocha-reporter": "^1.0.2",
     "karma-phantomjs-launcher": "^0.1.4",
+    "leaflet": "^0.7.7",
     "lodash": "^3.9.3",
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
