@@ -12,7 +12,7 @@ module.exports = function (server) {
         console.log('We have a new fellow in our quest: ' + socket.id);
 
         socket.on('disconnect', function() {
-        	console.log('We have lost ' + socket.id + ' to the worlves');
+        	console.log('We have lost ' + socket.id + ' to the wolves');
         });
 
         socket.on('hereIAm', function(location, accuracy) {
