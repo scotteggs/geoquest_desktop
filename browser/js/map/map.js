@@ -44,7 +44,7 @@ app.controller('MapController', function ($scope, leafletData) {
                 setView: true, 
                 maxZoom: 20, 
                 watch: true,
-                zoom: 20, 
+                zoom: 16, 
                 enableHighAccuracy: true
             });
             map.on('locationfound', function (e) {
@@ -56,8 +56,13 @@ app.controller('MapController', function ($scope, leafletData) {
     $scope.getLocation();
 
     socket.on('fellowLocation', function(location, accuracy) {
+<<<<<<< HEAD
         alert('You have a fellow fellow at latitude ' + location[0] + ' and longitude ' 
             + location[1] + ' with an accuracy of ' + accuracy);
+=======
+        alert('you have a friend at latitude ' + location[0] + ' and longitude ' + location[1] + 
+            ' with a location accuracy of ' + accuracy + ' , whatever that means.');
+>>>>>>> 04c1bd073033f6501459a0f32bddd1abf8ec88f1
     });
 
 
