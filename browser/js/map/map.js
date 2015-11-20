@@ -9,12 +9,15 @@ app.config(function ($stateProvider) {
 
 });
 
+
+
 app.controller('MapController', function ($scope, leafletData) {
     // make map by addn some sh*t to the MF $scope!
     angular.extend($scope, {
         center: {
             autoDiscover: true
         },
+        tiles: {},
         events: {},
     });
 
