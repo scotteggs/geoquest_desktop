@@ -9,26 +9,37 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AboutController', function ($scope) {
-    // make map
+app.controller('AboutController', function ($scope, leafletData) {
+    // make map by addn some sh*t to the MF $scope!
     angular.extend($scope, {
-        san_fran: {
-            lat: 37.78,
-            lng: -122.42,
-            zoom: 13
+        center: {
+            autoDiscover: true
         },
         events: {},
-        layers: {
-            baselayers: {
-                osm: {
-                    name: 'OpenStreetMap',
-                    url: 'https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png',
-                    type: 'xyz'
-                }
-            }
-        },
+        defaults: {
+                    tileLayer: "https://api.tiles.mapbox.com/v4/scotteggs.o7614jl2/{z}/{x}/{y}.png",
+                    zoomControlPosition: 'topright',
+                    tileLayerOptions: {
+                        opacity: 0.9,
+                        detectRetina: true,
+                        reuseTiles: true,
+                    },
+                    scrollWheelZoom: false
+                },
         defaults: {
             scrollWheelZoom: false
         }
     });
+
+    $scope.getLocation = function() {
+        leafletData.getMap('map').then(function(map) {
+            map.locate({setView: true, maxZoom: 16, watch: true, enableHighAccuracy: true});
+            map.on('locationfound', function (e) {
+                console.log(e.latlng, e.accuracy);
+            });
+        });
+    };
+    $scope.getLocation();
+
+
 });
