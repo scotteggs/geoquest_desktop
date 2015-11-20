@@ -47,16 +47,18 @@ app.controller('MapController', function ($scope, leafletData) {
                 zoom: 20, 
                 enableHighAccuracy: true
             });
-            console.log('map', map)
             map.on('locationfound', function (e) {
-                console.log(e.latlng, e.accuracy);
+                socket.emit('hereIAm', [e.latitude, e.longitude], e.accuracy);
             });
         });
 
     };
     $scope.getLocation();
 
-
+    socket.on('fellowLocation', function(location, accuracy) {
+        alert('You have a fellow fellow at latitude ' + location[0] + ' and longitude ' 
+            + location[1] + ' with an accuracy of ' + accuracy);
+    });
 
 
 
