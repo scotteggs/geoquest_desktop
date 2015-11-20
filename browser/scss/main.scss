@@ -2,9 +2,8 @@
   box-sizing: border-box;
 }
 
-#map {
-  height: 300px;
-  width: auto;
+html, body, , #main, #map {
+    height: 100%;
 }
 
 @mixin clearfix {
