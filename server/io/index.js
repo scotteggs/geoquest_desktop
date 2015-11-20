@@ -2,6 +2,8 @@
 var socketio = require('socket.io');
 var io = null;
 
+var everyone  = [];
+
 module.exports = function (server) {
 
     if (io) return io;
@@ -9,14 +11,30 @@ module.exports = function (server) {
     io = socketio(server);
 
     io.on('connection', function (socket) {
-        console.log('We have a new fellow in our quest: ' + socket.id);
 
         socket.on('disconnect', function() {
-        	console.log('We have lost ' + socket.id + ' to the wolves');
+        	everyone = everyone.filter(function(fellow) {
+        		return fellow.id !== socket.id;
+        	});
+        	socket.broadcast.emit('death', socket.id);
         });
 
-        socket.on('hereIAm', function(location, accuracy) {
-        	socket.broadcast.emit('fellowLocation', location, accuracy);
+        socket.on('hereIAm', function(location) {
+        	var fellow = {id: socket.id, location: location};
+           	var haveThem = false;
+        	for (var i = 0; i < everyone.length; i++) {
+        		if (everyone[i].id === fellow.id) {
+        			everyone[i].location = location;
+        			haveThem = true;
+        		}
+        	}
+        	if (!haveThem) {
+        		socket.emit('yourId', socket.id);
+        		socket.emit('yourFellows', everyone);
+        		everyone.push(fellow);
+        	} 
+        	io.emit('fellowLocation', fellow);
+
         });
 
 
