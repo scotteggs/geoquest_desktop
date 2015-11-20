@@ -3,11 +3,8 @@
 }
 
 #map {
-  height: 200px;
-}
-
-body {
-  background: #fdfdfd;
+  height: 300px;
+  width: auto;
 }
 
 @mixin clearfix {
@@ -18,14 +15,7 @@ body {
   }
 }
 
-#main {
-  padding-top: 60px;
-  width: 1200px;
-  margin: 0 auto;
-}
-
 @import 'directives/main';
 @import 'home/main';
-@import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
