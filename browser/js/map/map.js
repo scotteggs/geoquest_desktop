@@ -10,7 +10,6 @@ app.config(function ($stateProvider) {
 });
 
 
-
 app.controller('MapController', function ($scope, leafletData) {
     $scope.map = L.map('map');
     $scope.me = {};
@@ -59,6 +58,7 @@ app.controller('MapController', function ($scope, leafletData) {
         socket.emit('hereIAm', $scope.me.location);
     });
 
+    // When a fellow arrives or moves
     socket.on('fellowLocation', function(fellow) {
         if (fellow.id === $scope.me.id) return;
         for (var i=0; i<$scope.fellows.length; i++) {
@@ -74,6 +74,7 @@ app.controller('MapController', function ($scope, leafletData) {
         $scope.fellows.push(newFellow);
     });
 
+    // When a fellow leaves
     socket.on('death', function(id) {
         var index;
         for (var i=0; i< $scope.fellows.length; i++) {
@@ -85,10 +86,12 @@ app.controller('MapController', function ($scope, leafletData) {
         $scope.fellows.splice(index,1);
     });
 
+    // When you first show up, so you can tell who you are relative to your fellows
     socket.on('yourId', function(id) {
         $scope.me.id = id;
     });
 
+    // When you first show up, so you know your fellows
     socket.on('yourFellows', function (everyone) {
         for (var i=0; i< everyone.length; i++) {
             var newFellow = everyone[i];
