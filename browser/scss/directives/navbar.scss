@@ -37,6 +37,7 @@ navbar {
     }
   }
 
+
   .login-button {
     float: right;
     border: 1px solid black;
@@ -60,3 +61,24 @@ navbar {
   }
 
 }
+
+@media (max-width: 768px) {
+  .nav.navbar-nav > ul >li {
+    display: inline;
+  }
+  .nav.navbar-nav ul {
+    width: 50%;
+  }
+
+  .navbar-nav>li, .navbar-nav {
+    float: left !important;
+  }
+
+  .nav.navbar-nav {
+    height: 10% !important;
+  }
+}
+
+
+
+

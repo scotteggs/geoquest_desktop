@@ -11,6 +11,14 @@ app.config(function ($stateProvider) {
 
 
 app.controller('MapController', function ($scope, leafletData) {
+
+    // Set up sockets
+    var socket = io(window.location.origin); 
+
+    socket.on('connect', function(){
+      console.log('I have connected and am ready to quest!'); 
+    });
+
     $scope.map = L.map('map');
     $scope.me = {};
     $scope.fellows = []; 
