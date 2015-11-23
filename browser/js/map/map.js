@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('MapController', function ($scope, leafletData) {
+app.controller('MapController', function ($scope, leafletData, $uibModal) {
 
     // Set up sockets
     var socket = io(window.location.origin); 
@@ -19,28 +19,56 @@ app.controller('MapController', function ($scope, leafletData) {
       console.log('I have connected and am ready to quest!'); 
     });
 
+    //main map object
     $scope.map = L.map('map');
+    //object to contain current status of client
     $scope.me = {};
-    $scope.fellows = []; 
+    $scope.me.currentRegion;
+    $scope.me.regionsVisited = [];
+    $scope.me.regionsVisible = []
+    //object to contain shapes data
+    $scope.shapes = {};
+    //array containing information of others
+    $scope.fellows = [];
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         maxZoom: 18,
         id: 'scotteggs.o7614jl2',
         accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
     }).addTo($scope.map);
-    var polygon1 = L.polygon([
-        [40.705156, -74.010013],
-        [40.705280, -74.009059],
-        [40.704871, -74.008855],
-        [40.704570, -74.009466]
-    ]).addTo($scope.map);
-    var polygon2 = L.polygon([
-        [40.705305, -74.009000],
-        [40.704910, -74.008836],
-        [40.705364, -74.008118],
-        [40.705378, -74.008287]
-    ]).addTo($scope.map);
 
+    $scope.shapes.polygon1 = {
+        shapeobject: L.polygon([
+            [40.705156, -74.010013],
+            [40.705280, -74.009059],
+            [40.704871, -74.008855],
+            [40.704570, -74.009466]
+        ]),
+        name: 'polygon1'
+    }
+    $scope.shapes.polygon2 = {
+        shapeobject: L.polygon([
+            [40.705305, -74.009000],
+            [40.704910, -74.008836],
+            [40.705364, -74.008118],
+            [40.705378, -74.008287]
+        ]),
+        name: 'polygon2'
+    }
+
+    $scope.shapes.polygon3 = {
+        shapeobject: L.polygon([
+            [40.704521, -74.009407],
+            [40.704997, -74.008557],
+            [40.705473, -74.007921],
+            [40.705176, -74.007465],
+            [40.704132, -74.008971]
+        ]),
+        name: 'polygon3'
+    }
+
+
+    //locate and zoom map
     $scope.map.locate({
         setView: true, 
         maxZoom: 20, 
@@ -48,23 +76,93 @@ app.controller('MapController', function ($scope, leafletData) {
         zoom: 16, 
         enableHighAccuracy: true
     });
+
+
     $scope.map.on('locationfound', function (e) {
         $scope.me.location = e.latlng;
+        console.log('new location found')
 
+        //if no client marker exists, create new marker
         if (!$scope.myMarker) {
             var meIcon = L.icon({
-                iconUrl: 'http://s17.postimg.org/wrmvxxo1r/map_logo.png',
+                iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_red8.png',
                 iconSize:     [38, 38], // size of the icon
-                iconAnchor:   [22, 38], // point of the icon which will correspond to marker's location
+                iconAnchor:   [19, 38], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
             });
             $scope.myMarker = new L.marker($scope.me.location, {icon: meIcon});
             $scope.map.addLayer($scope.myMarker);
         } else {
+            //otherwise take myMarker and update location
             $scope.myMarker.setLatLng($scope.me.location);
         }
+        //emit notification to server //possibly send $scope.me
         socket.emit('hereIAm', $scope.me.location);
+
+        //generate region based on client location within bounds
+        var newRegion = $scope.generateRegion($scope.me.location)
+
+        //check to see if status has changed, if so, update
+        if(!_.isEqual(newRegion, $scope.me.currentRegion)) {
+            //if status properties are not equal we update
+            $scope.me.currentRegion = newRegion;
+            //add location to locations visited
+            $scope.me.regionsVisited.push($scope.me.currentRegion)
+            //make regions visible based on current and visited regions
+            $scope.makeVisible();
+            //open up modal to client showing map status
+            $scope.openMapStatus();
+            //redraw map based on regions set to true
+
+            for (var key in $scope.me.regionsVisible) {
+                $scope.me.regionsVisible[key].shapeobject.addTo($scope.map)
+            }
+            console.log($scope.me)   
+        }
+
     });
+    //function to detect if within bounds of polygon 1
+    $scope.generateRegion = function (point) {
+        for (var key in $scope.shapes) {
+            if($scope.shapes[key].shapeobject.getBounds().contains(point)) {
+                console.log('region found')
+                return $scope.shapes[key]
+            }
+        }
+    }
+    //function to update visibility of regions
+    $scope.makeVisible = function () {
+        //empty array if not alreay empty
+        $scope.me.regionsVisible = []
+        //make visible polygon1 always
+        $scope.me.regionsVisible.push($scope.shapes.polygon1)
+        
+        //if currently within polygon1, make visible polygon2
+        if($scope.me.currentRegion === $scope.shapes.polygon1) {
+            $scope.me.regionsVisible.push($scope.shapes.polygon2)
+        }
+        //if at any time you have visited polygon1, make visible polygon 3
+        if($scope.me.regionsVisited.indexOf($scope.shapes.polygon1) > -1) {
+            $scope.me.regionsVisible.push($scope.shapes.polygon3)
+        }
+        return;
+    }
+
+
+    $scope.openMapStatus = function() {
+        $uibModal.open({
+            animation: true,
+            templateUrl: '/js/common/modals/map-status.html',
+            controller: 'MapStatusCtrl',
+            size: 'lg',
+            resolve: {
+                currentStatus: function () {
+                    return $scope.me
+                }
+            }
+        })
+    };
+
 
     // When a fellow arrives or moves
     socket.on('fellowLocation', function(fellow) {
