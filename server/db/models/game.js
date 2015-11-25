@@ -16,11 +16,7 @@ var schema = new mongoose.Schema({
     distance: {
         type: String
     },
-    zip: {
-        type: String,
-        max: 5,
-        min: 5
-    }
+    start: [String]
 });
 
 mongoose.model('Game', schema);

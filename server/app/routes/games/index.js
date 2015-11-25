@@ -2,3 +2,13 @@
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
+var mongoose = require('mongoose');
+var Game = mongoose.model('Game');
+
+router.get('/', function(req, res, next) {
+	console.log('hi');
+	Game.find({})
+	.then(function(games) {
+		res.status(200).json(games);
+	});
+});
