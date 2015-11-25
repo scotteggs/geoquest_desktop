@@ -11,12 +11,14 @@ module.exports = function (server) {
     io = socketio(server);
 
     io.on('connection', function (socket) {
+        console.log ('we have a new fellow! ', socket.id);
 
         socket.on('disconnect', function() {
         	everyone = everyone.filter(function(fellow) {
         		return fellow.id !== socket.id;
         	});
         	socket.broadcast.emit('death', socket.id);
+            console.log('We have lost ', socket.id);
         });
 
         socket.on('hereIAm', function(location) {
