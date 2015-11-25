@@ -1,9 +1,6 @@
 'use strict';
 var router = require('express').Router();
 module.exports = router;
-var cors = require('cors');
-
-router.use(cors);
 
 router.use('/members', require('./members'));
 router.use('/users', require('./users'));

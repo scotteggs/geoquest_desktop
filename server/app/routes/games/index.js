@@ -10,5 +10,7 @@ router.get('/', function(req, res, next) {
 	Game.find({})
 	.then(function(games) {
 		res.status(200).json(games);
+	}, function(err) {
+		console.log('YOU CANT HAVE THE GAMES: ', err);
 	});
 });
