@@ -28,3 +28,7 @@ startDb.then(createApplication).then(startServer).catch(function (err) {
     console.error(chalk.red(err.stack));
     process.kill(1);
 });
+
+// require Game model in this file, then start db, then just do the socket.io shit in this file
+// and build namespaces here, then call startServer. Will still be the problem that we can't 
+// create namespaces for new games that are created, but we'll cross that bridge later
