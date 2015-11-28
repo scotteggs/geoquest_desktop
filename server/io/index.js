@@ -85,10 +85,6 @@ module.exports = function (server) {
                             if (everyone[i].id == nsSocket.id) ind = i;
                         }
                         everyone.splice(ind,1);
-                        // everyone = everyone.filter(function(fellow) {
-                        //     console.log('fellowId', fellow.id, 'nsSocketId', nsSocket.id, everyone.length);
-                        //     return fellow.id != nsSocket.id;
-                        // });
                         nsSocket.broadcast.to(room.id).emit('death', nsSocket.id);
                         console.log('We have lost ', nsSocket.id);
                     });
