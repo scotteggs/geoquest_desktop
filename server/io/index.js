@@ -15,14 +15,30 @@ function findNs(gameId) {
 function createNs(gameId) {
     var ns = {
         id: gameId,
-        rooms: [],
-        everyone: []  // Everyone in your world (will be split up by room)
+        rooms: []
     };
     namespaces.push(ns);
     return ns;
 }
 
-var count = 0;
+function findorCreateRoom(ns, roomId) {
+    var desiredRoom;
+    if (roomId === null) {
+        roomId = Date.now();
+    } else {
+        ns.rooms.forEach(function(room) {
+            if (room.id == roomId) desiredRoom = room;
+        });
+    }
+    if (!desiredRoom) {
+        desiredRoom = {
+            id: roomId,
+            everyone: []
+        };
+        ns.rooms.push(desiredRoom);
+    }
+    return desiredRoom;
+}
 
 module.exports = function (server) {
 
@@ -30,31 +46,46 @@ module.exports = function (server) {
 
     io = socketio(server);
 
-    var main = io.of('').on('connection', function (socket) {
+    // On general, base connection
+    io.of('').on('connection', function (socket) {
         // The client asks to join the namespace for a particular game
-        socket.on('joinNs', function(gameId, join_cb) {
+        socket.on('joinNs', function(gameId) {
             // If a namespace doesn't exists for this game,
-            // create one and set all the listeners
-            var desiredNs = findNs(gameId);
-            console.log('should exist ', desiredNs);
-            if (!desiredNs) {   
-                desiredNs = createNs(gameId);
-                var everyone = desiredNs.everyone;
-                var dyn_socket = io.of('/' + gameId)
-                .on('connection', function(ns_socket){
-                    console.log('fellow connected to ' + desiredNs.id);
-                    
-                    ns_socket.on('disconnect', function() {
-                        everyone = everyone.filter(function(fellow) {
-                            return fellow.id !== ns_socket.id;
-                        });
-                        ns_socket.broadcast.emit('death', ns_socket.id);
-                        console.log('We have lost ', ns_socket.id);
+            // create one and set all the listeners (including ability
+            // to dynamically create rooms within the namespace)
+            var ns = findNs(gameId);
+            if (!ns) {   
+                ns = createNs(gameId);
+                io.of('/' + gameId)
+                .on('connection', function(nsSocket){
+                    console.log('fellow connected to ' + ns.id);
+                    var everyone;
+                    var room;
+                    // This happens when they enter a code, before they get to the map state
+                    // If no roomId specified, a new room will be created,
+                    // and the client joined to it, and sent the id. 
+                    nsSocket.on('joinRoom', function(roomId) {
+                        // Now they join a room in this namespace, which will be an instance of a quest
+                        // Fellows only share info with others in this room, never across the entire namespace
+                        room = findorCreateRoom(ns, roomId);
+                        everyone = room.everyone;
+                        // Join client to room
+                        nsSocket.join(room.id);
+                        nsSocket.emit('joinedRoom', room.id);
+                        console.log('fellow connected to room ' + room.id);
                     });
 
-                    ns_socket.on('hereIAm', function(location) {
-                        console.log('location', location)
-                        var fellow = {id: ns_socket.id, location: location};
+
+                    nsSocket.on('disconnect', function() {
+                        everyone = everyone.filter(function(fellow) {
+                            return fellow.id !== nsSocket.id;
+                        });
+                        nsSocket.broadcast.to(room.id).emit('death', nsSocket.id);
+                        console.log('We have lost ', nsSocket.id);
+                    });
+
+                    nsSocket.on('hereIAm', function(location) {
+                        var fellow = {id: nsSocket.id, location: location};
                         var haveThem = false;
                         for (var i = 0; i < everyone.length; i++) {
                             if (everyone[i].id === fellow.id) {
@@ -63,18 +94,16 @@ module.exports = function (server) {
                             }
                         }
                         if (!haveThem) {
-                            ns_socket.emit('yourId', ns_socket.id);
-                            ns_socket.emit('yourFellows', everyone);
+                            nsSocket.emit('yourId', nsSocket.id);
+                            nsSocket.emit('yourFellows', everyone);
                             everyone.push(fellow);
                         } 
-                        io.of('/' + desiredNs.id).emit('fellowLocation', fellow);
-                    });
-
-                 });
+                        io.of('/' + ns.id).to(room.id).emit('fellowLocation', fellow);
+                     });
+                });
             }
-            socket.emit('setToJoin', gameId);
+            socket.emit('setToJoinNs', gameId);
         });
-
     });
     return io;
 };
