@@ -23,6 +23,7 @@ function createNs(gameId) {
 
 function findorCreateRoom(ns, roomId) {
     var desiredRoom;
+    var created = false;
     if (roomId === null) {
         roomId = Date.now();
     } else {
@@ -31,13 +32,14 @@ function findorCreateRoom(ns, roomId) {
         });
     }
     if (!desiredRoom) {
+        created = true;
         desiredRoom = {
             id: roomId,
             everyone: []
         };
         ns.rooms.push(desiredRoom);
     }
-    return desiredRoom;
+    return {room: desiredRoom, created: created};
 }
 
 module.exports = function (server) {
@@ -67,11 +69,12 @@ module.exports = function (server) {
                     nsSocket.on('joinRoom', function(roomId) {
                         // Now they join a room in this namespace, which will be an instance of a quest
                         // Fellows only share info with others in this room, never across the entire namespace
-                        room = findorCreateRoom(ns, roomId);
+                        var roomData = findorCreateRoom(ns, roomId);
+                        room = roomData.room;
                         everyone = room.everyone;
                         // Join client to room
                         nsSocket.join(room.id);
-                        nsSocket.emit('joinedRoom', room.id);
+                        nsSocket.emit('joinedRoom', roomData);
                         console.log('fellow connected to room ' + room.id);
                     });
 
