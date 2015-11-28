@@ -80,9 +80,15 @@ module.exports = function (server) {
 
 
                     nsSocket.on('disconnect', function() {
-                        everyone = everyone.filter(function(fellow) {
-                            return fellow.id !== nsSocket.id;
-                        });
+                        var ind;
+                        for (var i = 0; i < everyone.length; i++) {
+                            if (everyone[i].id == nsSocket.id) ind = i;
+                        }
+                        everyone.splice(ind,1);
+                        // everyone = everyone.filter(function(fellow) {
+                        //     console.log('fellowId', fellow.id, 'nsSocketId', nsSocket.id, everyone.length);
+                        //     return fellow.id != nsSocket.id;
+                        // });
                         nsSocket.broadcast.to(room.id).emit('death', nsSocket.id);
                         console.log('We have lost ', nsSocket.id);
                     });
