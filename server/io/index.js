@@ -21,24 +21,21 @@ function createNs(gameId) {
     return ns;
 }
 
-function findorCreateRoom(ns, roomId) {
+function createRoom(ns) {
+    var roomId = Date.now();
+    var desiredRoom = {
+        id: roomId,
+        everyone: []
+    };
+    ns.rooms.push(desiredRoom);
+    return desiredRoom;
+}
+
+function findRoom(ns, roomId) {
     var desiredRoom;
-    var created = false;
-    if (roomId === null) {
-        roomId = Date.now();
-    } else {
-        ns.rooms.forEach(function(room) {
-            if (room.id == roomId) desiredRoom = room;
-        });
-    }
-    if (!desiredRoom) {
-        created = true;
-        desiredRoom = {
-            id: roomId,
-            everyone: []
-        };
-        ns.rooms.push(desiredRoom);
-    }
+    ns.rooms.forEach(function(room) {
+        if (room.id == roomId) desiredRoom = room;
+    });
     return desiredRoom;
 }
 
@@ -69,14 +66,17 @@ module.exports = function (server) {
                     nsSocket.on('joinRoom', function(roomId) {
                         // Now they join a room in this namespace, which will be an instance of a quest
                         // Fellows only share info with others in this room, never across the entire namespace
-                        room = findorCreateRoom(ns, roomId);
+                        if (!roomId) {
+                            room = createRoom(ns);
+                        } else {
+                            room = findRoom(ns, roomId);
+                        }
                         everyone = room.everyone;
                         // Join client to room
-                        nsSocket.join(roomId);
-                        nsSocket.emit('joinedRoom', roomId);
-                        console.log('fellow connected to room ' + roomId);
+                        nsSocket.join(room.id);
+                        nsSocket.emit('joinedRoom', room.id);
+                        console.log('fellow connected to room ' + room.id);
                     });
-
 
                     nsSocket.on('disconnect', function() {
                         var ind;
