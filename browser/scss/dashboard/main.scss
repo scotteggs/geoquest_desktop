@@ -12,20 +12,24 @@
 	margin: 10px;
 }
 
-.gameDetail {
+.gameDetailContainer {
 	padding-bottom:10px;
 	background-color: rgba(89, 165, 165, 0.2);
 	border-top: 1px solid;
 }
 
-.gameDetail.ng-hide-add, .gameDetail.ng-hide-remove {
+.gameDetailContainer.ng-hide-add, .gameDetailContainer.ng-hide-remove {
   transition: all linear 0.1s;
 }
 
-.gameDetail.ng-hide {
+.gameDetailContainer.ng-hide {
   line-height: 0;
   opacity: 0;
   padding: 0 10px;
+}
+
+.gameDetail {
+	padding:10px;
 }
 
 .gameClickeable {
@@ -34,3 +38,6 @@
 	padding: 10px;
 }
 
+label.activeSwitch {
+	margin:10px;
+}
