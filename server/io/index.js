@@ -4,17 +4,17 @@ var io = null;
 // Array of namespaces (one for each game), each with an id and an array of rooms
 var namespaces = [];
 
-function findNs(gameId) {
+function findNs(questId) {
     var desiredNs;
     namespaces.forEach(function(ns) {
-        if (ns.id == gameId) desiredNs = ns;
+        if (ns.id == questId) desiredNs = ns;
     });
     return desiredNs;
 }
 
-function createNs(gameId) {
+function createNs(questId) {
     var ns = {
-        id: gameId,
+        id: questId,
         rooms: []
     };
     namespaces.push(ns);
@@ -48,14 +48,14 @@ module.exports = function (server) {
     // On general, base connection
     io.of('').on('connection', function (socket) {
         // The client asks to join the namespace for a particular game
-        socket.on('joinNs', function(gameId) {
-            // If a namespace doesn't exists for this game,
-            // create one and set all the listeners (including ability
-            // to dynamically create rooms within the namespace)
-            var ns = findNs(gameId);
+        socket.on('joinNs', function(questId) {
+        // If a namespace doesn't exists for this game,
+        // create one and set all the listeners (including ability
+        // to dynamically create rooms within the namespace)
+            var ns = findNs(questId);
             if (!ns) {   
-                ns = createNs(gameId);
-                io.of('/' + gameId)
+                ns = createNs(questId);
+                io.of('/' + questId)
                 .on('connection', function(nsSocket){
                     console.log('fellow connected to ' + ns.id);
                     var everyone;
@@ -66,15 +66,18 @@ module.exports = function (server) {
                     nsSocket.on('joinRoom', function(roomId) {
                         // Now they join a room in this namespace, which will be an instance of a quest
                         // Fellows only share info with others in this room, never across the entire namespace
+                        var newRoom = false;
                         if (!roomId) {
                             room = createRoom(ns);
+                            newRoom = true;
                         } else {
                             room = findRoom(ns, roomId);
                         }
                         everyone = room.everyone;
-                        // Join client to room
+                        // Join client to room, and tell them whether it's new or not
+                        // If room is new, client will go directly to map without choosing fellows
                         nsSocket.join(room.id);
-                        nsSocket.emit('joinedRoom', room.id);
+                        nsSocket.emit('joinedRoom', {room: room.id, newRoom: newRoom});
                         console.log('fellow connected to room ' + room.id);
                     });
 
@@ -106,7 +109,7 @@ module.exports = function (server) {
                      });
                 });
             }
-            socket.emit('setToJoinNs', gameId);
+            socket.emit('setToJoinNs', questId);
         });
     });
     return io;
