@@ -7,9 +7,9 @@ app.config(function ($stateProvider){
 		data: {
             authenticate: true
         }
-	})
-})
+	});
+});
 
 app.controller('EditorCtrl', function ($scope) {
-
+	$scope.name = "Editor";
 })
