@@ -22,7 +22,7 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
-var Game = Promise.promisifyAll(mongoose.model('Game'));
+var Quest = Promise.promisifyAll(mongoose.model('Quest'));
 
 var seedUsers = function () {
     var users = [
@@ -38,8 +38,8 @@ var seedUsers = function () {
     return User.createAsync(users);
 };
 
-var seedGames = function () {
-    var games = [
+var seedQuests = function () {
+    var quests = [
         {
             name: 'Tour of Olde Shit',
             summary: 'Check out cool historical stuff in the area',
@@ -83,7 +83,7 @@ var seedGames = function () {
             start: [40.930791, -74.275668]
         }
     ];
-    return Game.createAsync(games);
+    return Quest.createAsync(quests);
 };
 
 connectToDb.then(function () {
@@ -91,9 +91,9 @@ connectToDb.then(function () {
 }).then(function(){
     return seedUsers();
 }).then(function(){
-    return Game.remove({});
-}).then(function (users) {
-    return seedGames();
+    return Quest.remove({});
+}).then(function () {
+    return seedQuests();
 }).then(function () {
     console.log(chalk.green('Seed successful!'));
     process.kill(0);
