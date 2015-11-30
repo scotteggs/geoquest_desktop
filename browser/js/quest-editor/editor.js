@@ -2,7 +2,7 @@ app.config(function ($stateProvider){
 	$stateProvider.state('editor',
 	{
 		url: '/editor',
-		templateUrl: 'js/editor/editor.html',
+		templateUrl: 'js/quest-editor/editor.html',
 		controller: 'EditorCtrl',
 		data: {
             authenticate: true
