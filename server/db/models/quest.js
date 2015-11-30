@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema
 
 var schema = new mongoose.Schema({
     name: {
@@ -20,19 +21,24 @@ var schema = new mongoose.Schema({
         type: []
     },
     mapStates: {
-        type: [mongoose.Schema.Types.ObjectId]
+        ref: 'MapState', 
+        type:[Schema.Types.ObjectId]
     },
     regions: {
-        type: [mongoose.Schema.Types.ObjectId]
+        ref: 'Region',
+        type: [Schema.Types.ObjectId]
     },
     startingState: {
-        type: mongoose.Schema.Types.ObjectId
+        ref: 'MapState',
+        type: Schema.Types.ObjectId
     },
     endingState: {
-        type: mongoose.Schema.Types.ObjectId
+        ref: 'MapState',
+        type: Schema.Types.ObjectId
     },
     currentState: {
-        type: mongoose.Schema.Types.ObjectId
+        ref: 'MapState',
+        type: Schema.Types.ObjectId
     }
 });
 

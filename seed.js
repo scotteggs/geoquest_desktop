@@ -21,8 +21,11 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
+var Region = Promise.promisifyAll(mongoose.model('Region'));
+var MapState = Promise.promisifyAll(mongoose.model('MapState'));
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Quest = Promise.promisifyAll(mongoose.model('Quest'));
+
 
 var seedUsers = function () {
     var users = [
@@ -31,15 +34,181 @@ var seedUsers = function () {
             password: 'password'
         },
         {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
+            email: 'joe@geoquest.com',
+            password: 'password'
+        },
+        {
+            email: 'scott@geoquest.com',
+            password: 'password'
+        },
+        {
+            email: 'will@geoquest.com',
+            password: 'password'
+        },
+
     ];
     return User.createAsync(users);
 };
 
-var seedQuests = function () {
+var seedRegions = function () {
+    var regions = [];
+    regions[0] = {
+        name: 'startingPoint',
+        shapeObject: 'L.circle([40.712655, -74.004928], 200)',
+        shapeType: 'Circle',
+        location: [40.712655, -74.004928],
+        radius: 100,
+    };
+    regions[1] = {
+        name: 'bridgeBegin',
+        shapeObject: 'L.circle([40.710884, -74.002919], 50)',
+        shapeType: 'Circle',
+        location: [40.710884, -74.002919],
+        radius: 50,
+    };
+    regions[2] = {
+        name: 'towerOne',
+        shapeObject: 'L.circle([40.707629, -73.998792], 50)',
+        shapeType: 'Circle',
+        location: [40.707629, -73.998792],
+        radius: 50,
+    };
+    regions[3] = {
+        name: 'midway',
+        shapeObject: 'L.circle([40.706077, -73.996841], 50)',
+        shapeType: 'Circle',
+        location: [40.706077, -73.996841],
+        radius: 50,
+    };
+    regions[4] = {
+        name: 'towerTwo',
+        shapeObject: 'L.circle([40.704540, -73.994944], 50)',
+        shapeType: 'Circle',
+        location: [40.704540, -73.994944],
+        radius: 50,
+    };   
+    regions[45] = {
+        name: 'bridgeEnd',
+        shapeObject: 'L.circle([40.701132, -73.990630], 50)',
+        shapeType: 'Circle',
+        location: [40.701132, -73.990630],
+        radius: 50,
+    }; 
+    return Region.createAsync(regions);
+}
+var seedMapStates = function (regions) {
+    var mapStates = [];
+    mapStates[0] = 
+    {
+        name: 'mapOpen',
+        modal: {
+            title: 'Welcome to the Brooklyn Bridge Tour',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'Head on over to the starting point to meet up with your group'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion'
+        }
+    };
+    mapStates[1] = 
+    {
+        name: 'startingPoint',
+        visibleRegions: [regions[0].id],
+        modal: {
+            title: 'You have arrived at the beginning',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'Welcome to the bridge, wait here for your fellow questers to arrive. Take a quick look around, you\'re currently near city hall and the office of the Manhattan Borough President'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[0].id
+        }
+    };
+    mapStates[2] = 
+    {
+        name: 'bridgeBegin',
+        visibleRegions: [regions[1].id],
+        modal: {
+            title: 'You are now on the Bridge',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'You are now on the bridge, please do not fall off'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[1].id
+        }
+    };
+    mapStates[3] = 
+    {
+        name: 'towerOne',
+        visibleRegions: [regions[2].id],
+        modal: {
+            title: 'Welcome to tower 1',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'People got the bends going down under the water to dig the foundation'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[2].id
+        }
+    };
+    mapStates[4] = 
+    {
+        name: 'midway',
+        visibleRegions: [regions[3].id],
+        modal: {
+            title: 'Welcome to midway',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'the cables used to make this bridge are pretty long... we think.'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[3].id
+        }
+    };
+    mapStates[5] = 
+    {
+        name: 'towerTwo',
+        visibleRegions: [regions[4].id],
+        nextState: 'bridgeEnd',
+        modal: {
+            title: 'Welcome to towerTwo',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'Tower two was easier to build than tower one. Trust me, it was.'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[4].id
+        }
+    };
+    mapStates[6] = 
+    {
+        name: 'bridgeEnd',
+        visibleRegions: [regions[5].id],
+        modal: {
+            title: 'Welcome to the end of the bridge',
+            imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
+            text: 'You have just walked a pretty long ways. Take the stairs up and to the left to drop down into DUMBO'
+        },
+        transitionCondition: {
+            name: 'clientWithinRegion',
+            region: regions[5].id
+        }
+    }
+    
+    return MapState.createAsync(mapStates);
+}
+
+var seedQuests = function (mapStates) {
     var quests = [
+        {
+            name: 'Brooklyn Bridge Crossing',
+            summary: 'A jaunt over this civil engineering landmark',
+            time: '1',
+            distance: '2',
+            start: [40.712655, -74.004928],
+            mapStates: [mapStates[0].id, mapStates[1].id]
+        },
         {
             name: 'Tour of Olde Shit',
             summary: 'Check out cool historical stuff in the area',
@@ -87,17 +256,27 @@ var seedQuests = function () {
 };
 
 connectToDb.then(function () {
-    return User.remove({});
-}).then(function(){
-    return seedUsers();
-}).then(function(){
-    return Quest.remove({});
-}).then(function () {
-    return seedQuests();
-}).then(function () {
-    console.log(chalk.green('Seed successful!'));
-    process.kill(0);
-}).catch(function (err) {
-    console.error(err);
-    process.kill(1);
-});
+    mongoose.connection.db.dropDatabase(function() {
+            var regions;
+            var mapStates;
+            seedRegions()
+        .then(function(_regions) {
+            regions = _regions;
+            return seedMapStates(regions);
+        })
+        .then(function(_mapStates) {
+            mapStates = _mapStates;
+            return seedQuests(mapStates);
+        })
+        .then(function() {
+            return seedUsers
+        }).then(function () {
+            console.log(chalk.green('Seed successful!'));
+            process.kill(0);
+        }).catch(function (err) {
+            console.error(err);
+            process.kill(1);
+        });
+    })
+})
+   

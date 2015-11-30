@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var schema = new mongoose.Schema({
     name: {
@@ -7,10 +8,8 @@ var schema = new mongoose.Schema({
         max: 20
     },
     visibleRegions: {
-        type: [mongoose.Schema.Types.ObjectId],
-    },
-    nextState: {
-        type: mongoose.Schema.Types.ObjectId
+        ref: 'Region',
+        type: [Schema.Types.ObjectId],
     },
     modal: {
         title: String,
@@ -19,7 +18,10 @@ var schema = new mongoose.Schema({
     },
     transitionCondition: {
         name: String,
-        region: mongoose.Schema.Types.ObjectId
+        region: {
+            ref: 'Region',
+            type: Schema.Types.ObjectId
+        }
     },
 });
 
