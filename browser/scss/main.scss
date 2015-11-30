@@ -14,7 +14,25 @@ html, body, , #main, #map {
   }
 }
 
+.repeat-item.ng-enter,
+.repeat-item.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.repeat-item.ng-enter,
+.repeat-item.ng-leave.ng-leave-active {
+  opacity:0;
+  height: 0px;
+}
+.repeat-item.ng-leave,
+.repeat-item.ng-enter.ng-enter-active {
+  opacity:1;
+   height: 30px;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'tutorial/main';
 @import 'auth/main';
+@import 'dashboard/main';
