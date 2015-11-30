@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'leaflet-directive']);
+window.app = angular.module('GeoQuest', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'leaflet-directive']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

@@ -47,7 +47,6 @@
             }
         ]);
     });
-
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
@@ -91,6 +90,21 @@
                 .then(onSuccessfulLogin)
                 .catch(function () {
                     return $q.reject({ message: 'Invalid login credentials.' });
+                });
+        };
+        
+
+        this.signup = function (credentials) {
+            //sends a post request containing the user's credentials to 
+            return $http.post('api/users/signup', credentials)
+                //once the user has been created on the backend...
+                .then(function(response) {
+                    //a second post request is created to log the user in
+                    return $http.post('/login', credentials);
+                })
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid signup credentials.' });
                 });
         };
 
