@@ -30,7 +30,7 @@ html, body, , #main, #map {
    height: 30px;
 }
 
-@import 'directives/main';
+@import 'directives/_main';
 @import 'home/main';
 @import 'tutorial/main';
 @import 'auth/main';

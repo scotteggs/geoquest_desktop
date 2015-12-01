@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
         resolve: {
         	quest: function(QuestFactory, $stateParams){
         		return $stateParams.id !== "" ?
-					QuestFactory.getOneGame($stateParams.id) : 
+					QuestFactory.getOneQuest($stateParams.id) : 
 					undefined;
         	}
         },
@@ -18,6 +18,9 @@ app.config(function ($stateProvider){
 });
 
 app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
+	
+	$scope.quest = {states: [{name: "state1"}]};
+
 	// no previously created quest is being loaded in the editor
 	if (!quest){
 		// load modal
@@ -35,7 +38,6 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 	
 	}
 
-	$scope.quest = {};
 
 	// mapStatesDock is loaded from the states
 
