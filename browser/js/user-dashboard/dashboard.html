@@ -1,0 +1,15 @@
+<h2>Dashboard</h2>
+<hr>
+<h3>Your Quests</h3>
+<div ng-repeat="game in games" class="userGame repeat-item">
+	 <div class="gameClickeable" ng-click="parentClick($index)">
+		<p>{{game.name}} - {{game.summary | trimSummary }}</p>
+	</div>
+	<div class="gameDetail" ng-show="game.showDetail">
+		<p>This is the detail!</p>
+		<p>{{ game }}</p>
+	</div>
+</div>
+<div class="createNewQuest">
+	<button class="btn-lg btn btn-active" ui-sref="editor">Create New Quest</button>
+</div>
