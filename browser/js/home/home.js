@@ -4,13 +4,13 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/home/home.html',
         controller: 'HomeCtrl',
         resolve: {
-        	games: function(GamesFactory) {
-        		return GamesFactory.getAllGames();
+        	quests: function(QuestFactory) {
+        		return QuestFactory.getAllQuests();
         	}
         }
     });
 });
 
-app.controller('HomeCtrl', function($scope, games) {
-    $scope.games = games;
+app.controller('HomeCtrl', function($scope, quests) {
+    $scope.quests = quests;
 });
