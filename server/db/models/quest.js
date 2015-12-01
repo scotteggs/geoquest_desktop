@@ -20,24 +20,28 @@ var schema = new mongoose.Schema({
     start: {
         type: []
     },
-    mapStates: {
-        ref: 'MapState', 
-        type:[Schema.Types.ObjectId]
+    author: {
+        ref: 'User', 
+        type: Schema.Types.ObjectId
     },
-    regions: {
+    mapstates: [{
+        ref: 'Mapstate', 
+        type: Schema.Types.ObjectId
+    }],
+    regions: [{
         ref: 'Region',
-        type: [Schema.Types.ObjectId]
-    },
-    startingState: {
-        ref: 'MapState',
+        type: Schema.Types.ObjectId
+    }],
+    startingstate: {
+        ref: 'Mapstate',
         type: Schema.Types.ObjectId
     },
-    endingState: {
-        ref: 'MapState',
+    endingstate: {
+        ref: 'Mapstate',
         type: Schema.Types.ObjectId
     },
-    currentState: {
-        ref: 'MapState',
+    currentstate: {
+        ref: 'Mapstate',
         type: Schema.Types.ObjectId
     }
 });

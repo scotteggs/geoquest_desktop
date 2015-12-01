@@ -22,7 +22,7 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var Region = Promise.promisifyAll(mongoose.model('Region'));
-var MapState = Promise.promisifyAll(mongoose.model('MapState'));
+var Mapstate = Promise.promisifyAll(mongoose.model('Mapstate'));
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Quest = Promise.promisifyAll(mongoose.model('Quest'));
 
@@ -96,9 +96,9 @@ var seedRegions = function () {
     }; 
     return Region.createAsync(regions);
 }
-var seedMapStates = function (regions) {
-    var mapStates = [];
-    mapStates[0] = 
+var seedMapstates = function (regions) {
+    var mapstates = [];
+    mapstates[0] = 
     {
         name: 'mapOpen',
         modal: {
@@ -110,7 +110,7 @@ var seedMapStates = function (regions) {
             name: 'clientWithinRegion'
         }
     };
-    mapStates[1] = 
+    mapstates[1] = 
     {
         name: 'startingPoint',
         visibleRegions: [regions[0].id],
@@ -124,7 +124,7 @@ var seedMapStates = function (regions) {
             region: regions[0].id
         }
     };
-    mapStates[2] = 
+    mapstates[2] = 
     {
         name: 'bridgeBegin',
         visibleRegions: [regions[1].id],
@@ -138,7 +138,7 @@ var seedMapStates = function (regions) {
             region: regions[1].id
         }
     };
-    mapStates[3] = 
+    mapstates[3] = 
     {
         name: 'towerOne',
         visibleRegions: [regions[2].id],
@@ -152,7 +152,7 @@ var seedMapStates = function (regions) {
             region: regions[2].id
         }
     };
-    mapStates[4] = 
+    mapstates[4] = 
     {
         name: 'midway',
         visibleRegions: [regions[3].id],
@@ -166,7 +166,7 @@ var seedMapStates = function (regions) {
             region: regions[3].id
         }
     };
-    mapStates[5] = 
+    mapstates[5] = 
     {
         name: 'towerTwo',
         visibleRegions: [regions[4].id],
@@ -181,7 +181,7 @@ var seedMapStates = function (regions) {
             region: regions[4].id
         }
     };
-    mapStates[6] = 
+    mapstates[6] = 
     {
         name: 'bridgeEnd',
         visibleRegions: [regions[5].id],
@@ -196,10 +196,10 @@ var seedMapStates = function (regions) {
         }
     }
     
-    return MapState.createAsync(mapStates);
+    return Mapstate.createAsync(mapstates);
 }
 
-var seedQuests = function (mapStates, regions) {
+var seedQuests = function (mapstates, regions, users) {
     var quests = [
         {
             name: 'Brooklyn Bridge Crossing',
@@ -207,8 +207,9 @@ var seedQuests = function (mapStates, regions) {
             time: '1',
             distance: '2',
             start: [40.712655, -74.004928],
+            author: users[0].id,
             regions: [regions[0].id, regions[1].id, regions[2].id, regions[3].id, regions[4].id, regions[5].id],
-            mapStates: [mapStates[0].id, mapStates[1].id, mapStates[2].id, mapStates[3].id, mapStates[4].id, mapStates[5].id, mapStates[6].id]
+            mapstates: [mapstates[0].id, mapstates[1].id, mapstates[2].id, mapstates[3].id, mapstates[4].id, mapstates[5].id, mapstates[6].id]
         },
         {
             name: 'Tour of Olde Shit',
@@ -259,18 +260,20 @@ var seedQuests = function (mapStates, regions) {
 connectToDb.then(function () {
     mongoose.connection.db.dropDatabase(function() {
             var regions;
-            var mapStates;
-            seedRegions()
+            var users;
+            var mapstates;
+            return seedUsers()
+        .then(function(_users) {
+            users = _users;
+            return seedRegions()
+        })
         .then(function(_regions) {
             regions = _regions;
-            return seedMapStates(regions);
+            return seedMapstates(regions);
         })
-        .then(function(_mapStates) {
-            mapStates = _mapStates;
-            return seedQuests(mapStates, regions);
-        })
-        .then(function() {
-            return seedUsers
+        .then(function(_mapstates) {
+            mapstates = _mapstates;
+            return seedQuests(mapstates, regions, users);
         }).then(function () {
             console.log(chalk.green('Seed successful!'));
             process.kill(0);
