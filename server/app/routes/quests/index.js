@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 
 router.param('questId', function(req, res, next, id) {
-  Quest.findById(id).populate('MapState', 'Region')
+  Quest.findById(id).populate('mapstates')
     .then(function(quest) {
       if(!quest) throw new Error('not found!')
       req.quest = quest
@@ -28,4 +28,30 @@ router.param('questId', function(req, res, next, id) {
 
 router.get('/:questId', function (req, res, next) {
 	res.json(req.quest)
+})
+
+router.post('/', function (req, res, next) {
+  	Quest.create(req.body)
+  	.then(function(newQuest){
+  		res.status(201).json(newQuest);
+  	})
+  	.then(null, next)
+})
+
+
+router.put('/:questId', function(req, res, next) {
+    req.quest.set(req.body)
+    req.quest.save()
+      .then(function(quest) {
+        res.status(200).json(quest)
+      })
+      .then(null, next)
+})
+
+router.delete('/:questId', function(req, res, next){
+    req.quest.remove()
+    .then(function(){
+      res.status(204).end()
+    })
+    .then(null, next)
 })

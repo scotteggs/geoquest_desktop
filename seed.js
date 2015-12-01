@@ -87,7 +87,7 @@ var seedRegions = function () {
         location: [40.704540, -73.994944],
         radius: 50,
     };   
-    regions[45] = {
+    regions[5] = {
         name: 'bridgeEnd',
         shapeObject: 'L.circle([40.701132, -73.990630], 50)',
         shapeType: 'Circle',
@@ -199,7 +199,7 @@ var seedMapStates = function (regions) {
     return MapState.createAsync(mapStates);
 }
 
-var seedQuests = function (mapStates) {
+var seedQuests = function (mapStates, regions) {
     var quests = [
         {
             name: 'Brooklyn Bridge Crossing',
@@ -207,7 +207,8 @@ var seedQuests = function (mapStates) {
             time: '1',
             distance: '2',
             start: [40.712655, -74.004928],
-            mapStates: [mapStates[0].id, mapStates[1].id]
+            regions: [regions[0].id, regions[1].id, regions[2].id, regions[3].id, regions[4].id, regions[5].id],
+            mapStates: [mapStates[0].id, mapStates[1].id, mapStates[2].id, mapStates[3].id, mapStates[4].id, mapStates[5].id, mapStates[6].id]
         },
         {
             name: 'Tour of Olde Shit',
@@ -266,7 +267,7 @@ connectToDb.then(function () {
         })
         .then(function(_mapStates) {
             mapStates = _mapStates;
-            return seedQuests(mapStates);
+            return seedQuests(mapStates, regions);
         })
         .then(function() {
             return seedUsers

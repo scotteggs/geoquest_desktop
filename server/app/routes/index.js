@@ -5,6 +5,8 @@ module.exports = router;
 router.use('/members', require('./members'));
 router.use('/users', require('./users'));
 router.use('/quests', require('./quests'));
+router.use('/mapstates', require('./mapstates'))
+router.use('/regions', require('./regions'))
 
 // Make sure this is after all of
 // the registered routes!
