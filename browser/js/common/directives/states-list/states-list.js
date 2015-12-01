@@ -6,7 +6,8 @@ app.directive('statesList', function(){
 		},
 		templateUrl: 'js/common/directives/states-list/states-list.html',
 		link: function(scope){
-			console.log("quest in states-list", scope.quest)
+			// console.log("quest in states-list", scope.quest)
+			// console.log("mapstates in states-list", scope.quest.mapstates)
 		}
 	}
 })

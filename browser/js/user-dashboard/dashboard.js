@@ -6,7 +6,6 @@ app.config(function ($stateProvider){
 		controller: 'DashCtrl',
 		resolve: {
 			userGames: function(QuestFactory, $stateParams){
-				console.log("stateParams", $stateParams)
 				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
