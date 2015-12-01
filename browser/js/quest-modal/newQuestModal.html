@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2 questModal">
+		<h3 class="modalTitle">Make A New Quest</h3>
+		<form>
+			<label for="QuestName">Quest Name</label>
+			<input type="text" name="QuestName" ng-model="newQuest.name" /><br>
+			<label for="QuestDesc">Quest Description</label>
+			<input type="textarea" cols="40" rows="5" name="QuestDesc" ng-model="newQuest.desc"/><br>
+			<div class="center-block">
+				<button class="btn btn-lg btn-success" ng-click="makeQuest()">Create Quest</button>
+				<button class="btn btn-lg btn-danger" ng-click="cancelQuest()">Cancel Quest</button>
+			</div>
+		</form>
+	</div>
+</div>

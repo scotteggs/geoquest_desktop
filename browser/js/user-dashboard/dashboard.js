@@ -1,12 +1,13 @@
 app.config(function ($stateProvider){
 	$stateProvider.state('dashboard',
 	{
-		url: '/dashboard',
+		url: '/dashboard/:userId',
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
 		resolve: {
-			userGames: function(GamesFactory, $stateParams){
-				return GamesFactory.getUserGames($stateParams.userId);
+			userGames: function(QuestFactory, $stateParams){
+				console.log("stateParams", $stateParams)
+				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
 		data: {
@@ -16,6 +17,7 @@ app.config(function ($stateProvider){
 });
 
 app.controller('DashCtrl', function($scope, userGames){
+	$scope.games = [];
 	$scope.games = userGames.map(function(g) { 
 		g.showDetail = false;
 		return g;
