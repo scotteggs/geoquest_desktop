@@ -14,7 +14,7 @@ app.factory('GamesFactory', function($http) {
 			// 	.then(function(res){
 			// 		return res.data;
 			// 	})
-			var game = {states: []};
+				var game = {states: ['state1']};
 			return game;
 		},
 

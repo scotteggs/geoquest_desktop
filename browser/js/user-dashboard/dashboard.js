@@ -16,6 +16,7 @@ app.config(function ($stateProvider){
 });
 
 app.controller('DashCtrl', function($scope, userGames){
+	$scope.games = [];
 	$scope.games = userGames.map(function(g) { 
 		g.showDetail = false;
 		return g;
