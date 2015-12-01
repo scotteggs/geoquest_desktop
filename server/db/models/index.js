@@ -3,5 +3,5 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./quest');
-require('./mapstate');
+require('./mapState');
 require('./region');

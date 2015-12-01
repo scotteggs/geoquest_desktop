@@ -19,7 +19,7 @@ app.config(function ($stateProvider){
 
 app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 	
-	$scope.quest = {states: [{name: "state1"}]};
+	$scope.quest;
 
 	// no previously created quest is being loaded in the editor
 	if (!quest){
@@ -30,7 +30,8 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 	    	controller: 'QuestModalCtrl'
 	    }).result.then(function(newQuest){
 	    	// attach modal info to scope as the quest
-	    	$scope.quest = newQuest;
+	    	// $scope.quest = newQuest;
+			$scope.quest = {states: [{name: "state1"}, {name: "state2"}]};
 	    }, function() {
 	    	// if clicked out of, redirect to dashboard.
 	    	$state.go('dashboard');
