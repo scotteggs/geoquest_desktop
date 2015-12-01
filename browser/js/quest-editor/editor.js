@@ -39,6 +39,7 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 	
 	}
 
+	$scope.quest = 	quest
 
 	// mapStatesDock is loaded from the states
 
