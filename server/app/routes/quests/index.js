@@ -30,6 +30,16 @@ router.get('/:questId', function (req, res, next) {
 	res.json(req.quest)
 })
 
+
+router.get('/userquests/:authorId', function (req, res, next) {
+  // res.send(req.params.userId);
+  Quest.find({author: req.params.authorId})
+  .then(function(data){
+    res.send(data)
+  })
+  .then(null, next)
+})
+
 router.post('/', function (req, res, next) {
   	Quest.create(req.body)
   	.then(function(newQuest){
