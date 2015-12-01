@@ -209,7 +209,10 @@ var seedQuests = function (mapstates, regions, users) {
             start: [40.712655, -74.004928],
             author: users[0].id,
             regions: [regions[0].id, regions[1].id, regions[2].id, regions[3].id, regions[4].id, regions[5].id],
-            mapstates: [mapstates[0].id, mapstates[1].id, mapstates[2].id, mapstates[3].id, mapstates[4].id, mapstates[5].id, mapstates[6].id]
+            mapstates: [mapstates[0].id, mapstates[1].id, mapstates[2].id, mapstates[3].id, mapstates[4].id, mapstates[5].id, mapstates[6].id],
+            startingstate: mapstates[0].id,
+            endingstate: mapstates[6].id,
+            currentstate: mapstates[0].id
         },
         {
             name: 'Tour of Olde Shit',
