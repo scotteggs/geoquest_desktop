@@ -5,8 +5,8 @@ app.config(function ($stateProvider){
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
 		resolve: {
-			userGames: function(GamesFactory, $stateParams){
-				return GamesFactory.getUserGames($stateParams.userId);
+			userGames: function(QuestFactory, $stateParams){
+				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
 		data: {

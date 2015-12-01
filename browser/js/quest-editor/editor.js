@@ -5,9 +5,9 @@ app.config(function ($stateProvider){
 		templateUrl: 'js/quest-editor/editor.html',
 		controller: 'EditorCtrl',
         resolve: {
-        	quest: function(GamesFactory, $stateParams){
+        	quest: function(QuestFactory, $stateParams){
         		return $stateParams.id !== "" ?
-					GamesFactory.getOneGame($stateParams.id) : 
+					QuestFactory.getOneGame($stateParams.id) : 
 					undefined;
         	}
         },
