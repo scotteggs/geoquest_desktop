@@ -71,7 +71,7 @@ app.factory('QuestFactory', function($http) {
 		 //    ];
 
 			// return quests;
-			return $http.get('/api/quests/' + userId)
+			return $http.get('/api/quests/userquests/' + userId)
 			.then(function(res){
 				return res.data;
 			})

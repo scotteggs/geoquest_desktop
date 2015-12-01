@@ -1,11 +1,12 @@
 app.config(function ($stateProvider){
 	$stateProvider.state('dashboard',
 	{
-		url: '/dashboard',
+		url: '/dashboard/:userId',
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
 		resolve: {
 			userGames: function(QuestFactory, $stateParams){
+				console.log("stateParams", $stateParams)
 				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
