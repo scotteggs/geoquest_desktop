@@ -25,4 +25,4 @@ var schema = new mongoose.Schema({
     },
 });
 
-mongoose.model('MapState', schema);
+mongoose.model('Mapstate', schema);
