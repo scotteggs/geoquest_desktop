@@ -6,7 +6,6 @@ app.config(function ($stateProvider){
 		controller: 'EditorCtrl',
         resolve: {
         	quest: function(GamesFactory, $stateParams){
-        		console.log("$stateParams.id", $stateParams.id)
         		return $stateParams.id !== "" ?
 					GamesFactory.getOneGame($stateParams.id) : 
 					undefined;
@@ -24,15 +23,16 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 		// load modal
 		var newQuestModal = $uibModal.open({
 	    	animation: true,
-	    	templateUrl: 'js/quest-editor/newQuestModal.html',
+	    	templateUrl: 'js/quest-modal/newQuestModal.html',
 	    	controller: 'QuestModalCtrl'
 	    }).result.then(function(newQuest){
-	    	console.log("Quest from newQuestModal", newQuest)
+	    	// attach modal info to scope as the quest
+	    	$scope.quest = newQuest;
 	    }, function() {
+	    	// if clicked out of, redirect to dashboard.
 	    	$state.go('dashboard');
 	    })
-		// modal on submit makes a post request to make a new quest
-		// adds it on scope w/ id
+	
 	}
 
 	$scope.quest = {};
