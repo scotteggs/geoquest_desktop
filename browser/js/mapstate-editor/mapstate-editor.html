@@ -1,0 +1,40 @@
+<div class="state-editor">
+	<div class="state-form">
+		<h1>Edit State</h1>
+		<form class="form-horizontal edit-state" name="editStateForm" ng-submit="update()">
+			<div class="formitem">
+				<span class="formtitle">Name</span><br>
+				<input name="name" class="form-control" type="text" ng-model="mapstate.name"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">(Array of) Visible Regions</span><br>
+				<input name="visibleRegions" class="form-control"  type="text" ng-model="mapstate.visibleRegions"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">Message Title</span><br>
+				<input name="modal.title" class="form-control" type="text" ng-model="mapstate.modal.title"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">Message Text</span><br>
+				<input name="modal.text" class="form-control"  type="text" ng-model="mapstate.modal.text"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">Message Image URL</span><br>
+				<input name="mapstate.modal.imageUrl" class="form-control"  type="text" ng-model="mapstate.modal.imageUrl"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">Transition Condition Name</span><br>
+				<input name="transitionCondition.name" class="form-control"  type="text" ng-model="mapstate.transitionCondition.name"><br>
+			</div>
+			<div class="formitem">
+				<span class="formtitle">Transition Condition Region</span><br>
+				<input name="transitionCondition.region" class="form-control"  type="text" ng-model="transitionCondition.region"><br>
+			</div>
+
+			<button type="submit" class="btn bmu-bg-blue">Save</button>
+
+	</div>
+	<section id="map" class="state-map">
+		<leaflet></leaflet>
+	<section>
+</div>

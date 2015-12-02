@@ -7,10 +7,10 @@ var schema = new mongoose.Schema({
         type: String,
         max: 20
     },
-    visibleRegions: {
+    visibleRegions: [{
         ref: 'Region',
-        type: [Schema.Types.ObjectId],
-    },
+        type: Schema.Types.ObjectId,
+    }],
     modal: {
         title: String,
         imageUrl: String,

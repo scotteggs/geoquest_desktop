@@ -4,16 +4,16 @@ app.config(function ($stateProvider){
 		url: '/editor/:id',
 		templateUrl: 'js/quest-editor/editor.html',
 		controller: 'EditorCtrl',
-        resolve: {
-        	quest: function(QuestFactory, $stateParams){
-        		return $stateParams.id !== "" ?
-					QuestFactory.getOneQuest($stateParams.id) : 
-					undefined;
-        	}
-        },
+    resolve: {
+    	quest: function(QuestFactory, $stateParams){
+    		return $stateParams.id !== "" ?
+			QuestFactory.getOneQuest($stateParams.id) : 
+			undefined;
+    	}
+    },
 		data: {
-            authenticate: true
-        }
+        authenticate: true
+    }
 	});
 });
 
