@@ -17,10 +17,13 @@ app.config(function ($stateProvider) {
 })
 
 
-app.controller('MapStateEditController', function ($scope, mapstate, MapStateFactory){
+app.controller('MapStateEditController', function ($scope, mapstate, MapStateFactory, quest){
 	$scope.mapstate = mapstate;
-	$scope.update = function () {
+	$scope.quest = quest
+	
+	$scope.switchState = function () {
 		MapStateFactory.update($scope.mapstate)
+		//then state.go to state selected
 	}
 
 	var map = L.map('map', {drawControl: true}).setView([40.712655,-74.004928], 15);

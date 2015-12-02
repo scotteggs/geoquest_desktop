@@ -17,9 +17,13 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
+app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state, QuestFactory, $stateParams) {
 	
-	$scope.quest;
+	$scope.quest = quest;
+	$scope.saveQuest = function() {
+		QuestFactory.update($scope.quest)
+		console.log("quest", $scope.quest)
+	}
 
 	// no previously created quest is being loaded in the editor
 	if (!quest){
