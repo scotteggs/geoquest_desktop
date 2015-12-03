@@ -78,11 +78,7 @@ app.controller('MapStateEditController', function ($scope, $state, mapstate, Map
   	if(circle) map.removeLayer(circle);
   	var type = e.layerType;
   	var layer = e.layer;
-
-    var newRegion = {
-    	radius: layer._mRadius,
-    	locationPoints: [layer._latlng.lat,layer._latlng.lng]
-    };
+  	
     $scope.mapstate.targetRegion.locationPoints = [layer._latlng.lat,layer._latlng.lng];
     $scope.mapstate.targetRegion.radius = layer._mRadius
     circle = L.circle(newRegion.locationPoints, newRegion.radius);
@@ -93,12 +89,3 @@ app.controller('MapStateEditController', function ($scope, $state, mapstate, Map
 
 
 })
-
-
-
-
-
-
-
-
-
