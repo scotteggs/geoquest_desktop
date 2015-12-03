@@ -4,6 +4,8 @@ module.exports = router;
 var _ = require('lodash');
 var mongoose = require('mongoose');
 var Quest = mongoose.model('Quest');
+var Promise = require('bluebird');
+Promise.promisifyAll(mongoose);
 
 router.get('/', function(req, res, next) {
 	Quest.find()

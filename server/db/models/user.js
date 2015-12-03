@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
-    questsInProgress: {
+    startedQuests: {
         ref: 'Quest',
         type: [mongoose.Schema.Types.ObjectId],
     }
@@ -50,3 +50,4 @@ schema.method('correctPassword', function (candidatePassword) {
 });
 
 mongoose.model('User', schema);
+
