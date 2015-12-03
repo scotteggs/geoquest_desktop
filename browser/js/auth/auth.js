@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('auth', {
-        url: '/auth',
+        url: '/',
         templateUrl: 'js/auth/auth.html',
         controller: 'AuthCtrl'
     });

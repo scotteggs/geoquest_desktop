@@ -7,22 +7,23 @@ var schema = new mongoose.Schema({
         type: String,
         max: 20
     },
-    visibleRegions: {
+    visibleRegions: [{
         ref: 'Region',
-        type: [Schema.Types.ObjectId],
-    },
+        type: Schema.Types.ObjectId,
+    }],
     modal: {
         title: String,
         imageUrl: String,
         text: String
     },
-    transitionCondition: {
-        name: String,
-        region: {
-            ref: 'Region',
-            type: Schema.Types.ObjectId
-        }
-    },
+    targetRegion: {
+        shapeObject: String,
+        locationPoints: [],
+        radius: Number
+    }, 
+    transitionRule: {
+        type: String
+    }
 });
 
 mongoose.model('Mapstate', schema);

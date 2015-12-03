@@ -1,10 +1,7 @@
 <div class="row">
+	<button class="btn btn-info" ui-sref="editor.mapstate({mapstateid: quest.mapstates[0]._id})">MapState Editor</button>
+
 	<div class="editor-container">
-		<div class="col-xs-10">
-			<state-editor quest="quest"></state-editor>
-		</div>
-		<div class="col-xs-2">
-			<states-list quest="quest"></states-list>
-		</div>
+		<ui-view></ui-view>
 	</div>
 </div>

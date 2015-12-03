@@ -4,22 +4,26 @@ app.config(function ($stateProvider){
 		url: '/editor/:id',
 		templateUrl: 'js/quest-editor/editor.html',
 		controller: 'EditorCtrl',
-        resolve: {
-        	quest: function(QuestFactory, $stateParams){
-        		return $stateParams.id !== "" ?
-					QuestFactory.getOneQuest($stateParams.id) : 
-					undefined;
-        	}
-        },
+    resolve: {
+    	quest: function(QuestFactory, $stateParams){
+    		return $stateParams.id !== "" ?
+			QuestFactory.getOneQuest($stateParams.id) : 
+			undefined;
+    	}
+    },
 		data: {
-            authenticate: true
-        }
+        authenticate: true
+    }
 	});
 });
 
-app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
+app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state, QuestFactory, $stateParams) {
 	
-	$scope.quest;
+	$scope.quest = quest;
+	$scope.saveQuest = function() {
+		QuestFactory.update($scope.quest)
+		console.log("quest", $scope.quest)
+	}
 
 	// no previously created quest is being loaded in the editor
 	if (!quest){
@@ -36,20 +40,7 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state) {
 	    	// if clicked out of, redirect to dashboard.
 	    	$state.go('dashboard');
 	    })
-	
 	}
 
-	$scope.quest = 	quest
-
-	// mapStatesDock is loaded from the states
-
-	// statesEditor is loaded with the latest state.
-
-
-
-
-	// on addition of a mapState, add to the scope quest object.
-
-	// on change of the quest object - do a put request to update
-
+	$scope.quest = quest;
 })

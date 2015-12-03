@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-
 router.param('regionId', function(req, res, next, id) {
   Region.findById(id)
     .then(function(region) {
@@ -25,12 +24,9 @@ router.param('regionId', function(req, res, next, id) {
     .then(null, next)
 })
 
-
 router.get('/:regionId', function (req, res, next) {
 	res.json(req.region)
 }) 
-
-
 
 router.post('/', function (req, res, next) {
   	Region.create(req.body)
@@ -39,7 +35,6 @@ router.post('/', function (req, res, next) {
   	})
   	.then(null, next)
 })
-
 
 router.put('/:regionId', function(req, res, next) {
     req.region.set(req.body)
