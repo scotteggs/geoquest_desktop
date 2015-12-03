@@ -12,15 +12,12 @@ var schema = new mongoose.Schema({
         type: String,
         enum: ['Polygon', 'Circle']
     },
-    location: {
+    locationPoints: {
         type: []
     },
     radius: {
         type: Number
     },
-    locationPoints: {
-        type: []
-    }
 });
 
 mongoose.model('Region', schema);

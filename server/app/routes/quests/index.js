@@ -16,9 +16,8 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-
 router.param('questId', function(req, res, next, id) {
-  Quest.findById(id).populate('mapstates').populate('author').populate('startingstate').populate('endingstate').populate('currentstate')
+  Quest.findById(id).populate('mapstates').populate('author').populate('startingstate').populate('endingstate').populate('currentstate').populate('regions')
     .then(function(quest) {
       if(!quest) throw new Error('not found!')
       req.quest = quest
@@ -27,14 +26,11 @@ router.param('questId', function(req, res, next, id) {
     .then(null, next)
 })
 
-
 router.get('/:questId', function (req, res, next) {
 	res.json(req.quest)
 })
 
-
 router.get('/userquests/:authorId', function (req, res, next) {
-  // res.send(req.params.userId);
   Quest.find({author: req.params.authorId})
   .then(function(data){
     res.send(data)
@@ -50,8 +46,8 @@ router.post('/', function (req, res, next) {
   	.then(null, next)
 })
 
-
 router.put('/:questId', function(req, res, next) {
+    console.log('put route hit')
     req.quest.set(req.body)
     req.quest.save()
       .then(function(quest) {
