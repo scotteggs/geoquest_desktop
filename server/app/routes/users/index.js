@@ -46,7 +46,7 @@ router.post('/:userId/startedQuests', function (req, res, next) {
 		return req.user.save();
 	})
 	.then(function() {
-		res.status(201).json(startedQuest);
+		res.status(201).json(theStartedQuest);
 	});
 });
 

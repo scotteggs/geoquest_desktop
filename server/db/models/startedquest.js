@@ -10,14 +10,13 @@ var startedQuestSchema = new mongoose.Schema({
     },
     room: String,
     currentMapState: { 
-        Number,
+        type: Number,
         default: 0
     },
     startDate: {
         type: Date,
         default: Date.now
-    } 
-
+    }
 });
 
 mongoose.model('StartedQuest', startedQuestSchema);

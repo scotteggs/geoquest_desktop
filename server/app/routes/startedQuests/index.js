@@ -17,6 +17,7 @@ router.param('startedQuestId', function(req, res, next, id) {
     .then(function(startedQuest) {
       if(!startedQuest) throw new Error('not found!');
       req.startedQuest = startedQuest;
+      console.log('startedquest', startedQuest);
       next();
     })
     .then(null, next);
@@ -24,8 +25,8 @@ router.param('startedQuestId', function(req, res, next, id) {
 
 // Updates a user's startedQuest object (when the status of the quest changes)
 router.put('/:startedQuestId', function (req, res, next) {
-  req.startedQuest.currentState++;
-  req.startedquest.save()
+  req.startedQuest.currentMapState++;
+  req.startedQuest.save()
   .then(function(startedQuest) {
       res.status(201).json(startedQuest);
   });
