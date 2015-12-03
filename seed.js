@@ -56,42 +56,42 @@ var seedRegions = function () {
         name: 'startingPoint',
         shapeObject: 'L.circle([40.712655, -74.004928], 200)',
         shapeType: 'Circle',
-        location: [40.712655, -74.004928],
+        locationPoints: [40.712655, -74.004928],
         radius: 100,
     };
     regions[1] = {
         name: 'bridgeBegin',
         shapeObject: 'L.circle([40.710884, -74.002919], 50)',
         shapeType: 'Circle',
-        location: [40.710884, -74.002919],
+        locationPoints: [40.710884, -74.002919],
         radius: 50,
     };
     regions[2] = {
         name: 'towerOne',
         shapeObject: 'L.circle([40.707629, -73.998792], 50)',
         shapeType: 'Circle',
-        location: [40.707629, -73.998792],
+        locationPoints: [40.707629, -73.998792],
         radius: 50,
     };
     regions[3] = {
         name: 'midway',
         shapeObject: 'L.circle([40.706077, -73.996841], 50)',
         shapeType: 'Circle',
-        location: [40.706077, -73.996841],
+        locationPoints: [40.706077, -73.996841],
         radius: 50,
     };
     regions[4] = {
         name: 'towerTwo',
         shapeObject: 'L.circle([40.704540, -73.994944], 50)',
         shapeType: 'Circle',
-        location: [40.704540, -73.994944],
+        locationPoints: [40.704540, -73.994944],
         radius: 50,
     };   
     regions[5] = {
         name: 'bridgeEnd',
         shapeObject: 'L.circle([40.701132, -73.990630], 50)',
         shapeType: 'Circle',
-        location: [40.701132, -73.990630],
+        locationPoints: [40.701132, -73.990630],
         radius: 50,
     }; 
     return Region.createAsync(regions);
@@ -119,9 +119,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'Welcome to the bridge, wait here for your fellow questers to arrive. Take a quick look around, you\'re currently near city hall and the office of the Manhattan Borough President'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[0].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.712655, -74.004928], 200)',
+            locationPoints: [40.712655, -74.004928],
+            radius: 100
         }
     };
     mapstates[2] = 
@@ -133,9 +134,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'You are now on the bridge, please do not fall off'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[1].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.710884, -74.002919], 50)',
+            locationPoints: [40.710884, -74.002919],
+            radius: 50
         }
     };
     mapstates[3] = 
@@ -147,9 +149,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'People got the bends going down under the water to dig the foundation'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[2].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.707629, -73.998792], 50)',
+            locationPoints: [40.707629, -73.998792],
+            radius: 50
         }
     };
     mapstates[4] = 
@@ -161,9 +164,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'the cables used to make this bridge are pretty long... we think.'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[3].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.706077, -73.996841], 50)',
+            locationPoints: [40.706077, -73.996841],
+            radius: 50
         }
     };
     mapstates[5] = 
@@ -176,9 +180,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'Tower two was easier to build than tower one. Trust me, it was.'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[4].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.704540, -73.994944], 50)',
+            locationPoints: [40.704540, -73.994944],
+            radius: 50
         }
     };
     mapstates[6] = 
@@ -190,9 +195,10 @@ var seedMapstates = function (regions) {
             imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
             text: 'You have just walked a pretty long ways. Take the stairs up and to the left to drop down into DUMBO'
         },
-        transitionCondition: {
-            name: 'clientWithinRegion',
-            region: regions[5].id
+        targetRegion: {
+            shapeObject: 'L.circle([40.701132, -73.990630], 50)',
+            locationPoints: [40.701132, -73.990630],
+            radius: 50
         }
     }
     

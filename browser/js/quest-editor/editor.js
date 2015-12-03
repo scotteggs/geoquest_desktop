@@ -40,20 +40,7 @@ app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state, QuestFa
 	    	// if clicked out of, redirect to dashboard.
 	    	$state.go('dashboard');
 	    })
-	
 	}
 
-	$scope.quest = 	quest
-
-	// mapStatesDock is loaded from the states
-
-	// statesEditor is loaded with the latest state.
-
-
-
-
-	// on addition of a mapState, add to the scope quest object.
-
-	// on change of the quest object - do a put request to update
-
+	$scope.quest = quest;
 })

@@ -16,13 +16,14 @@ var schema = new mongoose.Schema({
         imageUrl: String,
         text: String
     },
-    transitionCondition: {
-        name: String,
-        region: {
-            ref: 'Region',
-            type: Schema.Types.ObjectId
-        }
-    },
+    targetRegion: {
+        shapeObject: String,
+        locationPoints: [],
+        radius: Number
+    }, 
+    transitionRule: {
+        type: String
+    }
 });
 
 mongoose.model('Mapstate', schema);

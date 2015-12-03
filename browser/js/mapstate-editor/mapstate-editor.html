@@ -1,16 +1,12 @@
 <div class="row">
 	<div class="editor-container">
-		<div class="state-editor col-xs-10">
+		<div class="state-editor col-xs-5">
 			<div class="state-form">
-				<h1>Edit State</h1>
+				<h3>Mapstates Editor</h3>
 				<form class="form-horizontal edit-state" name="editStateForm" ng-submit="update()">
 					<div class="formitem">
 						<span class="formtitle">Name</span><br>
 						<input name="name" class="form-control" type="text" ng-model="mapstate.name"><br>
-					</div>
-					<div class="formitem">
-						<span class="formtitle">(Array of) Visible Regions</span><br>
-						<input name="visibleRegions" class="form-control"  type="text" ng-model="mapstate.visibleRegions"><br>
 					</div>
 					<div class="formitem">
 						<span class="formtitle">Message Title</span><br>
@@ -24,28 +20,20 @@
 						<span class="formtitle">Message Image URL</span><br>
 						<input name="mapstate.modal.imageUrl" class="form-control"  type="text" ng-model="mapstate.modal.imageUrl"><br>
 					</div>
-					<div class="formitem">
-						<span class="formtitle">Transition Condition Name</span><br>
-						<input name="transitionCondition.name" class="form-control"  type="text" ng-model="mapstate.transitionCondition.name"><br>
-					</div>
-					<div class="formitem">
-						<span class="formtitle">Transition Condition Region</span><br>
-						<input name="transitionCondition.region" class="form-control"  type="text" ng-model="mapstate.transitionCondition.region"><br>
-					</div>
-
 					<button type="submit" class="btn bmu-bg-blue">Save</button>
 				</form>
 			</div>
 		</div>
+		<div class="state-editor col-xs-5">
+			<section id="map" class="state-map">
+				<leaflet></leaflet>
+			<section>
+		</div>
 		<div class="states-list col-xs-2">
 			<div ui-sortable class="statesContainer" ng-model="quest.mapstates">
-				<div ng-repeat="state in quest.mapstates track by $index" class="stateIcon" ng-click="switchState()">{{state.name}}
+				<div ng-repeat="mapstate in quest.mapstates track by $index" class="stateIcon" ng-click="switchState(mapstate)">{{mapstate.name}}
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<section id="map" class="state-map">
-	<leaflet></leaflet>
-<section>
 </div>
