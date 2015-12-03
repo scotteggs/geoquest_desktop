@@ -5,3 +5,4 @@ require('./user');
 require('./quest');
 require('./mapstate');
 require('./region');
+require('./startedquest');
