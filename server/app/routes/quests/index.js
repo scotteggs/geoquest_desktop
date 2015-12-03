@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 
 router.param('questId', function(req, res, next, id) {
-  Quest.findById(id).populate('mapstates').populate('author').populate('startingstate').populate('endingstate').populate('currentstate')
+  Quest.findById(id).populate('mapstates').populate('author').populate('startingstate').populate('endingstate').populate('currentstate').populate('regions')
     .then(function(quest) {
       if(!quest) throw new Error('not found!')
       req.quest = quest
