@@ -39,7 +39,7 @@
 		</div>
 		<div class="states-list col-xs-2">
 			<div ui-sortable class="statesContainer" ng-model="quest.mapstates">
-				<div ng-repeat="state in quest.mapstates track by $index" class="stateIcon" ui-sref=".mapstate ({mapstateid: state._id})">{{state.name}}
+				<div ng-repeat="state in quest.mapstates track by $index" class="stateIcon" ng-click="switchState()">{{state.name}}
 				</div>
 			</div>
 		</div>
