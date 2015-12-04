@@ -1,14 +1,14 @@
 <h2>Dashboard</h2>
 <hr>
 <h3>Your Quests</h3>
-<div ng-repeat="game in games" class="repeat-item userGame">
-	 <div class="gameClickeable" ng-click="parentClick($index)">
-		<p>{{game.name}} - {{game.summary | trimSummary }}</p>
+<div ng-repeat="quest in quests" class="repeat-item userquest">
+	 <div class="questClickeable" ng-click="parentClick($index)">
+		<p>{{quest.name}} - {{quest.summary | trimSummary }}</p>
 	</div>
-	<div class="gameDetailContainer" ng-show="game.showDetail">
-		<div class="gameDetail">
+	<div class="questDetailContainer" ng-show="quest.showDetail">
+		<div class="questDetail">
 			<p>This is the detail!</p>
-			<p>{{ game }}</p>
+			<p>{{ quest }}</p>
 			<label class="switch-light switch-material activeSwitch" onclick="">
 				<input type="checkbox">
 
@@ -22,7 +22,7 @@
 			    	<a></a>
 			  	</span>
 			</label>
-			<button class="btn btn-sm btn-default" ui-sref="editor({id: game._id})">edit</button>
+			<button class="btn btn-sm btn-default" ui-sref="editor({id: quest._id})">edit</button>
 		</div>
 	</div>
 </div>

@@ -4,7 +4,7 @@ app.config(function ($stateProvider){
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
 		resolve: {
-			userGames: function(QuestFactory, $stateParams){
+			userQuests: function(QuestFactory, $stateParams){
 				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
@@ -14,16 +14,16 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('DashCtrl', function ($scope, userGames, Session){
-	$scope.games = [];
-	$scope.games = userGames.map(function(g) { 
+app.controller('DashCtrl', function ($scope, userQuests, Session){
+	$scope.quests = [];
+	$scope.quests = userQuests.map(function(g) { 
 		g.showDetail = false;
 		return g;
 	});
 	
 	$scope.parentClick = function(index) {
-		var game = $scope.games[index]
-		game.showDetail = !game.showDetail;
+		var quest = $scope.quests[index]
+		quest.showDetail = !quest.showDetail;
 	}
 })
 
