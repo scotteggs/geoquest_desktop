@@ -9,11 +9,10 @@ var schema = new mongoose.Schema({
     },
     name: {
         type: String,
-        max: 20
+        maxlength: 30
     },
     summary: {
-        type: String,
-        max: 30
+        type: String
     },
     time: {
         type: String

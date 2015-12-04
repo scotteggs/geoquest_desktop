@@ -7,6 +7,7 @@ router.use('/users', require('./users'));
 router.use('/quests', require('./quests'));
 router.use('/mapstates', require('./mapstates'))
 router.use('/regions', require('./regions'))
+router.use('/startedQuests', require('./startedQuests'))
 
 // Make sure this is after all of
 // the registered routes!

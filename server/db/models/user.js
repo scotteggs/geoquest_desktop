@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    email: {
+    userName: {
         type: String
     },
     password: {
@@ -11,6 +11,10 @@ var schema = new mongoose.Schema({
     },
     salt: {
         type: String
+    },
+    startedQuests: {
+        ref: 'Quest',
+        type: [mongoose.Schema.Types.ObjectId],
     }
 });
 
@@ -46,3 +50,4 @@ schema.method('correctPassword', function (candidatePassword) {
 });
 
 mongoose.model('User', schema);
+
