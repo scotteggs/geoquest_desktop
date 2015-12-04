@@ -1,7 +1,41 @@
-<div class="row">
-	<button class="btn btn-info" ui-sref="editor.mapstate({mapstateid: quest.mapstates[0]._id})">MapState Editor</button>
-
-	<div class="editor-container">
-		<ui-view></ui-view>
+<div class="container edit-quest-container">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="quest-form col-xs-4">
+			<h2>Quest Editor</h2> 
+				<form class="form-horizontal edit-state">
+					<div class="formitem">
+						<span class="formtitle">Name</span><br>
+						<input name="name" class="form-control" type="text" ng-model="quest.name"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Summary</span><br>
+						<textarea name="name" class="form-control" rows="2" type="text" ng-model="quest.summary"></textarea><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Estimated Time (Hrs)</span><br>
+						<input name="name" class="form-control" type="text" ng-model="quest.time"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Approx Distance (kilograms)</span><br>
+						<input name="name" class="form-control" type="text" ng-model="quest.distance"><br>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-8">
+				<section id="map" class="state-map">
+					<leaflet></leaflet>
+				<section>
+			</div>
+			<div class="col-xs-12">
+				<button class="btn btn-info" ui-sref="editor.mapstate({mapstateid: quest.mapstates[0]._id})">
+					MapState Editor
+				</button>
+				<button class="btn btn-info" ng-click="saveQuest()">
+					Save Quest
+				</button>
+			</div>
+			<ui-view></ui-view>
+		</div>
 	</div>
 </div>

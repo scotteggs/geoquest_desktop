@@ -1,6 +1,5 @@
 app.config(function ($stateProvider){
-	$stateProvider.state('dashboard',
-	{
+	$stateProvider.state('dashboard',{
 		url: '/dashboard/:userId',
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
@@ -15,13 +14,12 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('DashCtrl', function($scope, userGames){
+app.controller('DashCtrl', function ($scope, userGames, Session){
 	$scope.games = [];
 	$scope.games = userGames.map(function(g) { 
 		g.showDetail = false;
 		return g;
 	});
-
 	
 	$scope.parentClick = function(index) {
 		var game = $scope.games[index]

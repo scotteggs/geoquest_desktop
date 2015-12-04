@@ -1,5 +1,5 @@
 app.config(function ($stateProvider) {
-	$stateProvider.state('editor.mapstate', {
+$stateProvider.state('editor.mapstate', {
 		url: '/mapstate/:mapstateid', 
 		templateUrl: 'js/mapstate-editor/mapstate-editor.html',
 		controller: 'MapStateEditController',
@@ -22,17 +22,26 @@ app.config(function ($stateProvider) {
 })
 
 
-app.controller('MapStateEditController', function ($scope, $state, mapstate, MapStateFactory, quest){
+app.controller('MapStateEditController', function ($scope, $state, mapstate, quest, MapStateFactory, QuestFactory){
 	$scope.mapstate = mapstate;
 	$scope.quest = quest;
 	
 	$scope.switchState = function (clickedState) {
 		MapStateFactory.update($scope.mapstate)
 		.then(function () {
-			console.log(clickedState)
+			QuestFactory.update($scope.quest)})
+		.then(function () {
 			$state.go('editor.mapstate', {mapstateid: clickedState._id}, {reload: true});	
 		})
-	}
+	};
+	$scope.saveQuestAndStates = function () {
+		MapStateFactory.update($scope.mapstate)
+		.then(function () {
+			QuestFactory.update($scope.quest)})
+		.then(function() {
+			$state.go('editor', {id: $scope.quest._id}, {reload: true});
+		})
+	};
 	var mapView = function () {
 		if ($scope.mapstate.targetRegion.locationPoints.length ===2) {
 			return($scope.mapstate.targetRegion.locationPoints)
@@ -73,16 +82,14 @@ app.controller('MapStateEditController', function ($scope, $state, mapstate, Map
 	}
 	var circle;
 	map.on('draw:created', function (e) {
-		console.log('new');
-  	map.removeLayer(currentRegion);
+		//remove the loaded region
+  	if(currentRegion) map.removeLayer(currentRegion);
   	if(circle) map.removeLayer(circle);
   	var type = e.layerType;
   	var layer = e.layer;
-  	
     $scope.mapstate.targetRegion.locationPoints = [layer._latlng.lat,layer._latlng.lng];
     $scope.mapstate.targetRegion.radius = layer._mRadius
-    circle = L.circle(newRegion.locationPoints, newRegion.radius);
-    // Do whatever else you need to. (save to db, add to map etc)
+    circle = L.circle([layer._latlng.lat,layer._latlng.lng], layer._mRadius);
     map.addLayer(circle);
 	});
 

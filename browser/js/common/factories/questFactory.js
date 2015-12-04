@@ -23,7 +23,6 @@ app.factory('QuestFactory', function($http) {
 		update: function(quest){
 			return $http.put('/api/quests/' + quest._id, quest)
 			.then(function (res){
-				console.log("response", res)
 				return res.data;
 			}).catch(function (err){
 				console.log(err);
