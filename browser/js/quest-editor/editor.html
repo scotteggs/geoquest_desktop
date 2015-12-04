@@ -1,41 +1,56 @@
-<div class="container edit-quest-container">
+<div class="container edit-quest-container" ng-show="editorVisible">
 	<div class="row">
-			<h2>Quest Editor</h2> 
+		<h2>Quest Editor</h2> 
 		<div class="col-xs-12">
 			<div class="quest-form col-xs-4">
 				<form class="form-horizontal edit-state">
 					<div class="formitem">
 						<span class="formtitle">Name</span><br>
-						<input name="name" class="form-control" type="text" ng-model="quest.name"><br>
+						<input class="form-control" type="text" ng-model="quest.name"><br>
 					</div>
 					<div class="formitem">
 						<span class="formtitle">Summary</span><br>
-						<textarea name="name" class="form-control" rows="2" type="text" ng-model="quest.summary"></textarea><br>
+						<textarea class="form-control" rows="2" type="text" ng-model="quest.summary"></textarea><br>
 					</div>
 					<div class="formitem">
 						<span class="formtitle">Estimated Time (Hrs)</span><br>
-						<input name="name" class="form-control" type="text" ng-model="quest.time"><br>
+						<input class="form-control" type="number" ng-model="quest.time"><br>
 					</div>
 					<div class="formitem">
-						<span class="formtitle">Approx Distance (kilograms)</span><br>
-						<input name="name" class="form-control" type="text" ng-model="quest.distance"><br>
+						<span class="formtitle">Estimated Distance (Miles)</span><br>
+						<input class="form-control" type="number" ng-model="quest.distance"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Welcome Message</span><br>
+						<input class="form-control" type="text" ng-model="quest.mapstates[0].modal.title"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Opening Instructions</span><br>
+						<textarea class="form-control" rows="2" type="text" ng-model="quest.mapstates[0].modal.text"></textarea><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Active</span><br>
+						<input class="form-control" type="checkbox" ng-model="quest.active"><br>
 					</div>
 				</form>
 			</div>
 			<div class="col-xs-8">
-				<section id="map" class="state-map">
+				<div id="quest-map" class="state-map">
 					<leaflet></leaflet>
-				<section>
+				</div>
+				<div class="state-map">
+					<p>Drag a new marker on the map to change the start position</p>
+				</div>
 			</div>
 			<div class="col-xs-12">
-				<button class="btn btn-info" ui-sref="editor.mapstate({mapstateid: quest.mapstates[0]._id})">
+				<button class="btn btn-info" ng-click="transitionToMapStateEditor()">
 					MapState Editor
 				</button>
 				<button class="btn btn-info" ng-click="saveQuest()">
 					Save Quest
 				</button>
 			</div>
-			<ui-view></ui-view>
 		</div>
 	</div>
 </div>
+<ui-view></ui-view>

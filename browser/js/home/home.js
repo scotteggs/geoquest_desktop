@@ -9,10 +9,10 @@ app.config(function ($stateProvider) {
 })
 
 app.controller('HomeController', function ($state, Session) {	
-	// if (Session.user) {
-	// 	$state.go('dashboard', {userId: Session.user._id});
-	// } else {
-	// 	$state.go('auth')
-	// }
-	console.log(Session);
+	if (Session.user) {
+		$state.go('dashboard', {userId: Session.user._id});
+	} else {
+		$state.go('auth')
+	}
+	
 })

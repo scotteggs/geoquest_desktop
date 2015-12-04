@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-html, body, , #main {
+html, body, , #main, #questmap {
     height: 100%;
 }
 
@@ -32,6 +32,7 @@ html, body, , #main {
 
 
 @import 'quest-editor/main';
+@import 'mapstate-editor/main';
 @import 'leaflet-draw/main';
 @import 'directives/_main';
 @import 'home/main';

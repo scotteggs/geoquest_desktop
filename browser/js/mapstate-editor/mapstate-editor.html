@@ -23,9 +23,10 @@
 		</div>
 	</div>
 	<div class="state-editor col-xs-5">
-		<section id="map" class="state-map">
+		<div id="mapstate-map" class="state-map">
 			<leaflet></leaflet>
-		<section>
+		</div>
+
 	</div>
 	<div class="states-list col-xs-2">
 		<div ui-sortable class="statesContainer" ng-model="quest.mapstates">
@@ -35,5 +36,5 @@
 	</div>
 </div>
 <div class="row">
-	<button class="btn btn-info" ng-click="saveQuestAndStates()">Save Quest</button>	
+	<button class="btn btn-info" ng-click="saveQuestAndStates()">Save Mapstates</button>	
 </div>
