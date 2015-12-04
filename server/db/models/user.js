@@ -12,10 +12,10 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
-    startedQuests: {
+    startedQuests: [{
         ref: 'Quest',
-        type: [mongoose.Schema.Types.ObjectId],
-    }
+        type: mongoose.Schema.Types.ObjectId,
+    }]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
