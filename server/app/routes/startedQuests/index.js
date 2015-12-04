@@ -23,6 +23,11 @@ router.param('startedQuestId', function(req, res, next, id) {
     .then(null, next);
 });
 
+// Gets startedQuest object by id
+router.get('/:startedQuestId', function (req, res, next) {
+  res.status(200).json(req.startedQuest);
+});
+
 // Updates a user's startedQuest object (when the status of the quest changes)
 router.put('/:startedQuestId', function (req, res, next) {
   req.startedQuest.currentMapState++;
