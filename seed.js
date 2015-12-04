@@ -30,8 +30,8 @@ var Quest = Promise.promisifyAll(mongoose.model('Quest'));
 var seedUsers = function () {
     var users = [
         {
-            userName: 'testing@fsa.com',
-            password: 'password'
+            userName: 'fsa',
+            password: 'fsa'
         },
         {
             userName: 'joe@geoquest.com',
