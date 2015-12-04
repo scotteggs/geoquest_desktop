@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 var schema = new mongoose.Schema({
+    active: {
+        type: Boolean,
+        default: false
+    },
     name: {
         type: String,
         maxlength: 30

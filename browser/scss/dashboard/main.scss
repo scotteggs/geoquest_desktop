@@ -1,10 +1,10 @@
-.userGame {
+.userQuest {
 	background-color: light-grey;
 	border: 1px solid;
 	border-radius: 3px;
 }
 
-.gameClickeable:hover {
+.questClickeable:hover {
 	background-color: grey;
 }
 
@@ -12,27 +12,27 @@
 	margin: 10px;
 }
 
-.gameDetailContainer {
+.questDetailContainer {
 	padding-bottom:10px;
 	background-color: rgba(89, 165, 165, 0.2);
 	border-top: 1px solid;
 }
 
-.gameDetailContainer.ng-hide-add, .gameDetailContainer.ng-hide-remove {
+.questDetailContainer.ng-hide-add, .questDetailContainer.ng-hide-remove {
   transition: all linear 0.1s;
 }
 
-.gameDetailContainer.ng-hide {
+.questDetailContainer.ng-hide {
   line-height: 0;
   opacity: 0;
   padding: 0 10px;
 }
 
-.gameDetail {
+.questDetail {
 	padding:10px;
 }
 
-.gameClickeable {
+.questClickeable {
 	width: 100%;
 	height: 100%;
 	padding: 10px;

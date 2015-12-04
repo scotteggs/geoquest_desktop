@@ -1,4 +1,4 @@
-app.factory('QuestFactory', function($http) {
+app.factory('QuestFactory', function ($http, Session) {
 
 	return {
 
@@ -20,15 +20,29 @@ app.factory('QuestFactory', function($http) {
 				return res.data;
 			})
 		},
-		update: function(quest){
-			return $http.put('/api/quests/' + quest._id, quest)
-			.then(function (res){
-				console.log("response", res)
-				return res.data;
-			}).catch(function (err){
-				console.log(err);
-			})
-		}
-
+		save: function (quest, questIsNew) {
+			if (questIsNew) {
+				var openingState = quest.mapstates[0]
+				quest.mapstates = [];
+				return $http.post('/api/mapstates', openingState)
+				.then(function (newMapState) {
+					quest.mapstates.push(newMapState.data._id);
+					quest.author = Session.user._id;
+					return $http.post('/api/quests/', quest)
+				})
+				.then(function (res){
+					return res.data;
+				}).catch(function (err){
+					console.log(err);
+				})
+			} else {
+				return $http.put('/api/quests/' + quest._id, quest)
+				.then(function (res){
+					return res.data;
+				}).catch(function (err){
+					console.log(err);
+				})
+			}
+		},
 	};
 });
