@@ -21,21 +21,18 @@ function createNs(questId) {
     return ns;
 }
 
-function createRoom(ns) {
-    var roomId = Date.now();
-    var desiredRoom = {
-        id: roomId,
-        everyone: []
-    };
-    ns.rooms.push(desiredRoom);
-    return desiredRoom;
-}
-
-function findRoom(ns, roomId) {
+function findOrCreateRoom(ns, roomId) {
     var desiredRoom;
     ns.rooms.forEach(function(room) {
         if (room.id == roomId) desiredRoom = room;
     });
+    if (!desiredRoom) {
+        desiredRoom = {
+            id: roomId,
+            everyone: []
+        };
+        ns.rooms.push(desiredRoom);
+    }
     return desiredRoom;
 }
 
@@ -60,28 +57,19 @@ module.exports = function (server) {
                     console.log('fellow connected to ' + ns.id);
                     var everyone;
                     var room;
-                    // This happens when they enter a code, before they get to the map state
-                    // If no roomId specified, a new room will be created,
-                    // and the client joined to it, and sent the id. 
                     nsSocket.on('joinRoom', function(roomId) {
                         // Now they join a room in this namespace, which will be an instance of a quest
                         // Fellows only share info with others in this room, never across the entire namespace
-                        var newRoom = false;
-                        if (!roomId) {
-                            room = createRoom(ns);
-                            newRoom = true;
-                        } else {
-                            room = findRoom(ns, roomId);
-                        }
+                        room = findOrCreateRoom(ns, roomId);
                         everyone = room.everyone;
-                        // Join client to room, and tell them whether it's new or not
-                        // If room is new, client will go directly to map without choosing fellows
+                        // Join client to room
                         nsSocket.join(room.id);
-                        nsSocket.emit('joinedRoom', {room: room.id, newRoom: newRoom});
+                        nsSocket.emit('joinedRoom', room.id);
                         console.log('fellow connected to room ' + room.id);
                     });
 
                     nsSocket.on('disconnect', function() {
+                        // Take the client out of the 'everyone' array
                         var ind;
                         for (var i = 0; i < everyone.length; i++) {
                             if (everyone[i].id == nsSocket.id) ind = i;
