@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="step-editor col-xs-5">
+		<div class="step-form">
+			<h3>Quest Steps Editor</h3>
+			<form class="form-horizontal edit-step" name="editstepForm">
+				<div class="formitem">
+					<span class="formtitle">Name</span><br>
+					<input name="name" class="form-control" type="text" ng-model="questStep.name"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Title</span><br>
+					<input name="transitionInfo.title" class="form-control" type="text" ng-model="questStep.transitionInfo.title"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Text</span><br>
+					<input name="transitionInfo.text" class="form-control"  type="text" ng-model="questStep.transitionInfo.text"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Image URL</span><br>
+					<input name="questStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="questStep.transitionInfo.imageUrl"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Question</span><br>
+					<input name="questStep.transitionInfo.question" class="form-control"  type="text" ng-model="questStep.transitionInfo.question"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Correct Answer</span><br>
+					<input name="questStep.transitionInfo.answer" class="form-control"  type="text" ng-model="questStep.transitionInfo.answer"><br>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="step-editor col-xs-5">
+		<div id="quest-step-map" class="quest-step-map">
+			<leaflet></leaflet>
+		</div>
+
+	</div>
+	<div class="steps-list col-xs-2">
+		<div ui-sortable class="stepsContainer" ng-model="quest.questSteps">
+			<div ng-repeat="questStep in quest.questSteps track by $index" class="stepIcon" ng-click="switchStep(questStep)">{{questStep.name}}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<button class="btn btn-info" ng-click="saveQuestSteps()">Save Quest Steps</button>	
+</div>

@@ -21,20 +21,9 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	//variable saved to show/hide quest editor when editing individual states
 	$scope.editorVisible = true;
 	$scope.quest = quest;
+	console.log($scope.quest)
 	$scope.newQuest = false;
-	//update quest and go to dashboard for current user
-	$scope.saveQuest = function () {
-		QuestFactory.save($scope.quest, $scope.newQuest)
-		.then(function () {
-			$state.go('dashboard', {userId: Session.user._id});
-		})
-	};
-	//go to mapStates editor and hide Quest editor 
-	$scope.transitionToMapStateEditor = function () {
-			$state.go('editor.mapstate', {mapstateid: $scope.quest.mapstates[1]._id});	
-			$scope.editorVisible = false;
-	};
-
+	//if ther eis no new quest, set properties 
 	if(!quest) {
 		$scope.newQuest = true;
 		$scope.quest= {
@@ -42,22 +31,34 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		};
 		console.log('new quest in controller', $scope.quest)	
 	}
-	// no previously created quest is being loaded in the editor
-	// if (!quest){
-	// 	// load modal
-	// 	var newQuestModal = $uibModal.open({
-	//     	animation: true,
-	//     	templateUrl: 'js/quest-modal/newQuestModal.html',
-	//     	controller: 'QuestModalCtrl'
-	//     }).result.then(function(newQuest){
-	//     	// attach modal info to scope as the quest
-	//     	// $scope.quest = newQuest;
-	// 		$scope.quest = {states: [{name: "state1"}, {name: "state2"}]};
-	//     }, function() {
-	//     	// if clicked out of, redirect to dashboard.
-	//     	$state.go('dashboard');
-	//     })
-	// }
+	//update quest and go to dashboard for current user
+	$scope.saveQuest = function () {
+		if(!$scope.newQuest) {
+			return QuestFactory.save($scope.quest)		
+			.then(function () {
+				$state.go('dashboard', {userId: Session.user._id});
+			})
+		} else {
+			console.log("scope.quest within editor", $scope.quest);
+			return QuestFactory.saveNew($scope.quest)
+			.then(function () {
+				$state.go('dashboard', {userId: Session.user._id});
+			})
+		}
+	};
+	//go to mapStates editor and hide Quest editor 
+	$scope.transitionToMapStateEditor = function () {
+		if(!$scope.newQuest) {
+			return QuestFactory.save($scope.quest)
+			.then (function (newQuest) {
+
+			})
+		} else {
+			$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[1]._id});	
+			$scope.editorVisible = false;
+		}
+	};
+
 
 	
 	$scope.editorVisible = true;
