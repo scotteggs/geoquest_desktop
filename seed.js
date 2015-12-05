@@ -63,7 +63,6 @@ var seedQuests = function (users) {
             questSteps: [
                 {
                     name: 'Map Open',
-                    visibleRegions: [],
                     successInfo: {
                         title: 'Welcome to the Brooklyn Bridge Tour',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -76,12 +75,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Starting Point',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.712655, -74.004928],
-                            radius: 100
-                        }
-                    ],
                     successInfo: {
                         title: 'You have arrived at the beginning',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -95,12 +88,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Bridge Walkway',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.710884, -74.002919],
-                            radius: 50
-                        }
-                    ],
                     successInfo: {
                         title: 'You are now on the Bridge',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -114,12 +101,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Tower One',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.707629, -73.998792],
-                            radius: 50
-                        }
-                    ],
                     successInfo: {
                         title: 'Welcome to tower 1',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -133,12 +114,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Midway',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.706077, -73.996841],
-                            radius: 50
-                        }
-                    ],
                     successInfo: {
                         title: 'Welcome to the midway point',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -152,12 +127,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Tower Two',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.704540, -73.994944],
-                            radius: 50
-                        }
-                    ],
                     successInfo: {
                         title: 'Welcome to Tower Two',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
@@ -171,12 +140,6 @@ var seedQuests = function (users) {
                 },
                 {
                     name: 'Bridge End',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.701132, -73.990630],
-                            radius: 50
-                        }
-                    ],
                     successInfo: {
                         title: 'Welcome to the end of the bridge',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',

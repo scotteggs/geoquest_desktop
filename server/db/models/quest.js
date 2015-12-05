@@ -32,10 +32,6 @@ var schema = new mongoose.Schema({
             type: String,
             maxlength: 20
         },
-        visibleRegions: [{
-            locationPoints: [Number],
-            radius: Number
-        }],
         successInfo: {
             title: String,
             imageUrl: String,
@@ -46,6 +42,12 @@ var schema = new mongoose.Schema({
             radius: Number
         },
         transitionRule: {
+            type: String
+        }, 
+        question: {
+            type: String
+        },
+        answer: {
             type: String
         }
     }]

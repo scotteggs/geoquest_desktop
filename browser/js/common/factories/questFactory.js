@@ -51,5 +51,5 @@ app.factory('QuestFactory', function ($http, Session) {
 	// 			})
 	// 		}
 	// 	},
-	// };
+	}
 });
