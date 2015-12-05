@@ -7,9 +7,9 @@ app.config(function ($stateProvider){
     resolve: {
     	quest: function(QuestFactory, $stateParams){
     		return $stateParams.id !== "" ?
-			QuestFactory.getOneQuest($stateParams.id) : 
-			undefined;
-    	}
+				QuestFactory.getOneQuest($stateParams.id) : 
+				undefined;
+    	},
     },
 		data: {
         authenticate: true
@@ -17,30 +17,93 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('EditorCtrl', function ($scope, quest, $uibModal, $state, QuestFactory, $stateParams) {
-	
+app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, quest, Session, QuestFactory) {
+	//variable saved to show/hide quest editor when editing individual states
+	$scope.editorVisible = true;
 	$scope.quest = quest;
-	$scope.saveQuest = function() {
-		QuestFactory.update($scope.quest)
-		console.log("quest", $scope.quest)
-	}
+	$scope.newQuest = false;
+	//update quest and go to dashboard for current user
+	$scope.saveQuest = function () {
+		QuestFactory.save($scope.quest, $scope.newQuest)
+		.then(function () {
+			$state.go('dashboard', {userId: Session.user._id});
+		})
+	};
+	//go to mapStates editor and hide Quest editor 
+	$scope.transitionToMapStateEditor = function () {
+			$state.go('editor.mapstate', {mapstateid: $scope.quest.mapstates[1]._id});	
+			$scope.editorVisible = false;
+	};
 
+	if(!quest) {
+		$scope.newQuest = true;
+		$scope.quest= {
+			start:  [40.723008,-74.0006327]
+		};
+		console.log('new quest in controller', $scope.quest)	
+	}
 	// no previously created quest is being loaded in the editor
-	if (!quest){
-		// load modal
-		var newQuestModal = $uibModal.open({
-	    	animation: true,
-	    	templateUrl: 'js/quest-modal/newQuestModal.html',
-	    	controller: 'QuestModalCtrl'
-	    }).result.then(function(newQuest){
-	    	// attach modal info to scope as the quest
-	    	// $scope.quest = newQuest;
-			$scope.quest = {states: [{name: "state1"}, {name: "state2"}]};
-	    }, function() {
-	    	// if clicked out of, redirect to dashboard.
-	    	$state.go('dashboard');
-	    })
-	}
+	// if (!quest){
+	// 	// load modal
+	// 	var newQuestModal = $uibModal.open({
+	//     	animation: true,
+	//     	templateUrl: 'js/quest-modal/newQuestModal.html',
+	//     	controller: 'QuestModalCtrl'
+	//     }).result.then(function(newQuest){
+	//     	// attach modal info to scope as the quest
+	//     	// $scope.quest = newQuest;
+	// 		$scope.quest = {states: [{name: "state1"}, {name: "state2"}]};
+	//     }, function() {
+	//     	// if clicked out of, redirect to dashboard.
+	//     	$state.go('dashboard');
+	//     })
+	// }
 
-	$scope.quest = quest;
+	
+	$scope.editorVisible = true;
+	//***********  MAP FUNCTIONS BELOW  ***********************
+		var questMap = L.map('quest-map').setView($scope.quest.start, 13);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+	    maxZoom: 18,
+	    id: 'scotteggs.o7614jl2',
+	    accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
+		}).addTo(questMap);
+
+		var drawnItems = new L.FeatureGroup();
+		questMap.addLayer(drawnItems);	
+
+		// Initialise the draw control and pass it the FeatureGroup of editable layers
+		var drawControl = new L.Control.Draw({
+		    draw: {
+		    	polyline: false,
+		    	polygon: false,
+		    	rectangle: false,
+		    	circle: false
+		    },
+		    edit: {
+		        featureGroup: drawnItems
+		    }
+		});
+
+		questMap.addControl(drawControl);
+		if ($scope.quest.start.length === 2) {
+			var marker = L.marker($scope.quest.start).bindPopup('Quest Start Location');
+			questMap.addLayer(marker);
+		}
+
+		//saving marker for removal later
+		var currentMarker;
+		questMap.on('draw:created', function (e) {
+			//	remove the loaded region and any previously drawn markers
+		  if (marker) questMap.removeLayer(marker);
+		  if (currentMarker) questMap.removeLayer(circle);
+		  var type = e.layerType;
+		  var layer = e.layer;
+		  //save start location of new marker
+		  $scope.quest.start = [layer._latlng.lat,layer._latlng.lng];
+		  //create marker and add to map
+		  marker = L.marker([layer._latlng.lat,layer._latlng.lng]);
+		  questMap.addLayer(marker);
+		});
 })

@@ -1,11 +1,10 @@
 app.config(function ($stateProvider){
-	$stateProvider.state('dashboard',
-	{
+	$stateProvider.state('dashboard',{
 		url: '/dashboard/:userId',
 		templateUrl: 'js/user-dashboard/dashboard.html',
 		controller: 'DashCtrl',
 		resolve: {
-			userGames: function(QuestFactory, $stateParams){
+			userQuests: function(QuestFactory, $stateParams){
 				return QuestFactory.getUserQuests($stateParams.userId);
 			}
 		},
@@ -15,17 +14,18 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('DashCtrl', function($scope, userGames){
-	$scope.games = [];
-	$scope.games = userGames.map(function(g) { 
+app.controller('DashCtrl', function ($state, $scope, userQuests, Session){
+	$scope.quests = [];
+	$scope.quests = userQuests.map(function(g) { 
 		g.showDetail = false;
 		return g;
 	});
-
-	
+	$scope.goToEditor = function (questClicked) {
+		$state.go('editor', {id: questClicked._id}, {reload: true});
+	}
 	$scope.parentClick = function(index) {
-		var game = $scope.games[index]
-		game.showDetail = !game.showDetail;
+		var quest = $scope.quests[index]
+		quest.showDetail = !quest.showDetail;
 	}
 })
 
@@ -33,6 +33,6 @@ app.filter('trimSummary', function() {
 	// JO:
 	// TODO: replace this with a regular expression that gets the first three words
 	return function(str){
-		return str.slice(0, 30) + '...';
+		return str;
 	}
 })
