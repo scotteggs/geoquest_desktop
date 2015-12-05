@@ -75,7 +75,7 @@ module.exports = function (server) {
                             if (everyone[i].id == nsSocket.id) ind = i;
                         }
                         everyone.splice(ind,1);
-                        // nsSocket.broadcast.to(room.id).emit('fellowEvent', 'moose'); // {callMethod: 'death', deathId: nsSocket.id}
+                        nsSocket.broadcast.to(room.id).emit('fellowEvent', {callMethod: 'death', deathId: nsSocket.id});
                         console.log('We have lost ', nsSocket.id);
                     });
 
@@ -89,11 +89,11 @@ module.exports = function (server) {
                             }
                         }
                         if (!haveThem) {
-                            // nsSocket.emit('fellowEvent', 'hey'); //'fellowEvent', {callMethod: 'yourId', yourId: nsSocket.id}  
-                            // nsSocket.emit('fellowEvent', 'hum');  //'fellowEvent', {callMethod: 'yourFellows', fellows: everyone}
+                            nsSocket.emit('fellowEvent', {callMethod: 'yourId', yourId: nsSocket.id} );   
+                            nsSocket.emit('fellowEvent', {callMethod: 'yourFellows', fellows: everyone});
                             everyone.push(fellow);
                         } 
-                        io.of('/' + ns.id).to(room.id).emit('fellowEvent', 'hoo'); //'fellowEvent', {callMethod: 'fellowLocation', fellow: fellow}
+                        io.of('/' + ns.id).to(room.id).emit('fellowEvent', {callMethod: 'fellowLocation', fellow: fellow}); 
                      });
                 });
             }
