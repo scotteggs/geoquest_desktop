@@ -19,40 +19,32 @@ $stateProvider.state('editor.questStep', {
 
 app.controller('QuestStepEditController', function ($stateParams, $scope, $state, quest, QuestFactory){
 	$scope.quest = quest;
+	//remove first state for safe keeping
+	$scope.openingStep = $scope.quest.questSteps.shift()
 	$scope.quest.questSteps.forEach( function (step, index) {
 		if (step._id === $stateParams.questStepId) $scope.quest.idx = index;
 	})
 	$scope.questStep = $scope.quest.questSteps[$scope.quest.idx];
-
-
-
-	console.log("index", $scope.questStep);
-	
-
-	//remove first state for safe keeping
-	$scope.openingState = $scope.quest.questSteps.shift()
 	//function to switch states within mapState editor
 	$scope.switchStep = function (clickedStep) {
 	//updates current mapState
-		QuestFactory.update($scope.quest)
+		$scope.quest.questSteps.unshift($scope.openingStep)
+		QuestFactory.save($scope.quest)
 		.then(function () {
 			//redirect to the clicked mapstate
 			$state.go('editor.questStep', {questStepId: clickedStep._id});	
 		})
 	};
-	// //function to save and go to parent state
-	// $scope.saveQuestAndStates = function () {
-	// 	//save current mapState
-	// 	MapStateFactory.update($scope.mapstate)
-	// 	.then(function () {
-	// 		// replace first element from mapstates array (removed on load)
-	// 		$scope.quest.mapstates.unshift($scope.openingState)
-	// 		QuestFactory.update($scope.quest)})
-	// 	.then(function() {
-	// 		//reload resets editorVisible to True
-	// 		$state.go('editor', {id: $scope.quest._id}, {reload: true});
-	// 	})
-	// };
+	$scope.saveQuestSteps = function (clickedStep) {
+	//updates current mapState
+		$scope.quest.questSteps.unshift($scope.openingStep)
+		QuestFactory.save($scope.quest)
+		.then(function () {
+			//redirect to the clicked mapstate
+			$state.go('editor', {id: $scope.quest._id}, {reload: true});	
+		})
+	};
+
 	//function to set map to either target region or map starting point if no target region
 	var mapView = function () {
 		if ($scope.questStep.targetRegion.locationPoints.length ===2) {

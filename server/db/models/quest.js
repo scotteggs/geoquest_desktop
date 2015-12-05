@@ -35,19 +35,15 @@ var schema = new mongoose.Schema({
         successInfo: {
             title: String,
             imageUrl: String,
-            text: String
+            text: String,
+            question: String,
+            answer: String
         },
         targetRegion: {
             locationPoints: [Number],
             radius: Number
         },
         transitionRule: {
-            type: String
-        }, 
-        question: {
-            type: String
-        },
-        answer: {
             type: String
         }
     }]
