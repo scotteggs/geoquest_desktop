@@ -47,8 +47,8 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 
 	//function to set map to either target region or map starting point if no target region
 	var mapView = function () {
-		if ($scope.questStep.targetRegion.locationPoints.length ===2) {
-			return($scope.questStep.targetRegion.locationPoints)
+		if ($scope.questStep.targetCircle.center.length ===2) {
+			return($scope.questStep.targetCircle.center)
 		} else {
 			return($scope.quest.start)
 		}
@@ -80,8 +80,8 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 	});
 	questStepMap.addControl(drawControl);
 	// //if there is a target region, draw it on the map
-	if ($scope.questStep.targetRegion.locationPoints.length === 2) {
-		var currentRegion = L.circle($scope.questStep.targetRegion.locationPoints,$scope.questStep.targetRegion.radius);
+	if ($scope.questStep.targetCircle.center.length === 2) {
+		var currentRegion = L.circle($scope.questStep.targetCircle.center,$scope.questStep.targetCircle.radius);
 		questStepMap.addLayer(currentRegion);
 	}
 	var circle;
@@ -92,8 +92,8 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
   	var type = e.layerType;
   	var layer = e.layer;
   	//assign target region to properties of drawn object
-    $scope.questStep.targetRegion.locationPoints = [layer._latlng.lat,layer._latlng.lng];
-    $scope.questStep.targetRegion.radius = layer._mRadius
+    $scope.questStep.targetCircle.center = [layer._latlng.lat,layer._latlng.lng];
+    $scope.questStep.targetCircle.radius = layer._mRadius
     //declare new object based on propertied drawn and add to map
     circle = L.circle([layer._latlng.lat,layer._latlng.lng], layer._mRadius);
     questStepMap.addLayer(circle);

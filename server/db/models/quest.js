@@ -46,11 +46,11 @@ var schema = new mongoose.Schema({
         transitionRule: {
             type: String
         },
-        closingInfo: {
-            title: String,
-            text: String
-        }
-    }]
+    }],
+    closingInfo: {
+        title: String,
+        text: String
+    }   
 });
 
 mongoose.model('Quest', schema);
