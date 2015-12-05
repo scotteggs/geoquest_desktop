@@ -89,7 +89,7 @@ module.exports = function (server) {
                             }
                         }
                         if (!haveThem) {
-                            nsSocket.emit('fellowEvent', {callMethod: 'yourId', yourId: nsSocket.id} );   
+                            nsSocket.emit('yourId', nsSocket.id);   
                             nsSocket.emit('fellowEvent', {callMethod: 'yourFellows', fellows: everyone});
                             everyone.push(fellow);
                         } 
