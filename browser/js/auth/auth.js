@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('auth', {
-        url: '/',
+        url: '/auth',
         templateUrl: 'js/auth/auth.html',
         controller: 'AuthCtrl'
     });
@@ -9,14 +9,11 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('AuthCtrl', function ($scope, AuthService, $state) {
-
+    console.log('auth controller');
     $scope.login = {};
     $scope.signup = {};
-
     $scope.error = null;
-
     $scope.sendLogin = function (loginInfo) {
-
 
         $scope.error = null;
 

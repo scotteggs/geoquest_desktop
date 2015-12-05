@@ -23,26 +23,28 @@ var schema = new mongoose.Schema({
         ref: 'User', 
         type: Schema.Types.ObjectId
     },
-    mapstates: [{
-        ref: 'Mapstate', 
-        type: Schema.Types.ObjectId
-    }],
-    regions: [{
-        ref: 'Region',
-        type: Schema.Types.ObjectId
-    }],
-    startingstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
-    },
-    endingstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
-    },
-    currentstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
-    }
+    questSteps: [{
+        name: {
+            type: String,
+            maxlength: 20
+        },
+        visibleRegions: [{
+            locationPoints: [Number],
+            radius: Number
+        }],
+        successInfo: {
+            title: String,
+            imageUrl: String,
+            text: String
+        },
+        targetRegion: {
+            locationPoints: [Number],
+            radius: Number
+        },
+        transitionRule: {
+            type: String
+        }
+    }]
 });
 
 mongoose.model('Quest', schema);
