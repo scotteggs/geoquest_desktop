@@ -32,7 +32,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	};
 	//go to mapStates editor and hide Quest editor 
 	$scope.transitionToMapStateEditor = function () {
-			$state.go('editor.mapstate', {mapstateid: $scope.quest.questSteps[1]._id});	
+			$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[1]._id});	
 			// $scope.editorVisible = false;
 	};
 

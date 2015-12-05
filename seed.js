@@ -113,25 +113,6 @@ var seedQuests = function (users) {
                     transitionRule: 'clientWithinRegion'
                 },
                 {
-                    name: 'Bridge Walkway',
-                    visibleRegions: [
-                        {
-                            locationPoints: [40.710884, -74.002919],
-                            radius: 50
-                        }
-                    ],
-                    successInfo: {
-                        title: 'You are now on the Bridge',
-                        imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
-                        text: 'You are now on the bridge, please do not fall off'                    
-                    },
-                    targetRegion: {
-                        locationPoints: [40.710884, -74.002919],
-                        radius: 50
-                    },
-                    transitionRule: 'clientWithinRegion'
-                },
-                {
                     name: 'Tower One',
                     visibleRegions: [
                         {
