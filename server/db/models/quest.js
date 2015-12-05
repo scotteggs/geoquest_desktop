@@ -32,19 +32,23 @@ var schema = new mongoose.Schema({
             type: String,
             maxlength: 20
         },
-        successInfo: {
+        transitionInfo: {
             title: String,
             imageUrl: String,
             text: String,
             question: String,
             answer: String
         },
-        targetRegion: {
-            locationPoints: [Number],
+        targetCircle: {
+            center: [Number],
             radius: Number
         },
         transitionRule: {
             type: String
+        },
+        closingInfo: {
+            title: String,
+            text: String
         }
     }]
 });

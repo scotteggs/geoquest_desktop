@@ -63,90 +63,96 @@ var seedQuests = function (users) {
             questSteps: [
                 {
                     name: 'Map Open',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'Welcome to the Brooklyn Bridge Tour',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'Head on over to the starting point to meet up with your group'
                     },
-                    targetRegion: {
+                    targetCircle: {
 
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Starting Point',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'You have arrived at the beginning',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'Welcome to the bridge, wait here for your fellow questers to arrive. Take a quick look around, you\'re currently near city hall and the office of the Manhattan Borough President'
                     },
-                    targetRegion: {
-                        locationPoints: [40.712655, -74.004928],
+                    targetCircle: {
+                        center
+                        : [40.712655, -74.004928],
                         radius: 100
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Bridge Walkway',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'You are now on the Bridge',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'You are now on the bridge, please do not fall off'                    
                     },
-                    targetRegion: {
-                        locationPoints: [40.710884, -74.002919],
+                    targetCircle: {
+                        center
+                        : [40.710884, -74.002919],
                         radius: 50
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Tower One',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'Welcome to tower 1',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'People got the bends going down under the water to dig the foundation'                    
                     },
-                    targetRegion: {
-                        locationPoints: [40.707629, -73.998792],
+                    targetCircle: {
+                        center
+                        : [40.707629, -73.998792],
                         radius: 50
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Midway',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'Welcome to the midway point',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'People got the bends going down under the water to dig the foundation'                    
                     },
-                    targetRegion: {
-                        locationPoints: [40.706077, -73.996841],
+                    targetCircle: {
+                        center
+                        : [40.706077, -73.996841],
                         radius: 50
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Tower Two',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'Welcome to Tower Two',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'Tower two was easier to build than tower one. Trust me, it was.'                    
                     },
-                    targetRegion: {
-                        locationPoints: [40.704540, -73.994944],
+                    targetCircle: {
+                        center
+                        : [40.704540, -73.994944],
                         radius: 50
                     },
                     transitionRule: 'clientWithinRegion'
                 },
                 {
                     name: 'Bridge End',
-                    successInfo: {
+                    transitionInfo: {
                         title: 'Welcome to the end of the bridge',
                         imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
                         text: 'You have just walked a pretty long ways. Take the stairs up and to the left to drop down into DUMBO'                    
                     },
-                    targetRegion: {
-                        locationPoints: [40.701132, -73.990630],
+                    targetCircle: {
+                        center
+                        : [40.701132, -73.990630],
                         radius: 50
                     },
                     transitionRule: 'clientWithinRegion'
