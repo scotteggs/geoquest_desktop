@@ -15,10 +15,10 @@ var schema = new mongoose.Schema({
         type: String
     },
     time: {
-        type: String
+        type: Number
     },
     distance: {
-        type: String
+        type: Number
     },
     start: {
         type: []

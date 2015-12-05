@@ -21,6 +21,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	//variable saved to show/hide quest editor when editing individual states
 	$scope.editorVisible = true;
 	$scope.quest = quest;
+	console.log($scope.quest)
 	$scope.newQuest = false;
 	//update quest and go to dashboard for current user
 	$scope.saveQuest = function () {
@@ -31,8 +32,8 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	};
 	//go to mapStates editor and hide Quest editor 
 	$scope.transitionToMapStateEditor = function () {
-			$state.go('editor.mapstate', {mapstateid: $scope.quest.mapstates[1]._id});	
-			$scope.editorVisible = false;
+			$state.go('editor.mapstate', {mapstateid: $scope.quest.questSteps[1]._id});	
+			// $scope.editorVisible = false;
 	};
 
 	if(!quest) {
@@ -42,22 +43,6 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		};
 		console.log('new quest in controller', $scope.quest)	
 	}
-	// no previously created quest is being loaded in the editor
-	// if (!quest){
-	// 	// load modal
-	// 	var newQuestModal = $uibModal.open({
-	//     	animation: true,
-	//     	templateUrl: 'js/quest-modal/newQuestModal.html',
-	//     	controller: 'QuestModalCtrl'
-	//     }).result.then(function(newQuest){
-	//     	// attach modal info to scope as the quest
-	//     	// $scope.quest = newQuest;
-	// 		$scope.quest = {states: [{name: "state1"}, {name: "state2"}]};
-	//     }, function() {
-	//     	// if clicked out of, redirect to dashboard.
-	//     	$state.go('dashboard');
-	//     })
-	// }
 
 	
 	$scope.editorVisible = true;
