@@ -16,8 +16,6 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
-var Region = Promise.promisifyAll(mongoose.model('Region'));
-var Mapstate = Promise.promisifyAll(mongoose.model('Mapstate'));
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Quest = Promise.promisifyAll(mongoose.model('Quest'));
 
