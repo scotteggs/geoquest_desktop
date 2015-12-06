@@ -33,7 +33,6 @@ router.get('/:questId', function (req, res, next) {
 router.put('/:questId/review', function(req,res,next){
   req.quest.reviews.push(req.body.reviewToAdd)
   req.quest.save();
-  console.log("req.quest", req.quest);
   res.send(req.quest);
   // req.quest.
 })
