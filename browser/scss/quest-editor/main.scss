@@ -7,3 +7,35 @@
   width: 100%;
   margin-top: 40px;
 }
+
+
+.stepsContainer {
+	position:relative;
+	min-height: 80vh;
+	height: 80vh;
+	width: 90%;
+	background-color: #b2cccc;
+	border-radius: 5px;
+	margin: auto;
+	display: block;
+}
+
+.stepIcon {
+	position: relative;
+	height: 50px;
+	border-radius: 5px;
+	width: 90%;
+	margin-top: 10px;
+	margin-left: 5%;
+	background-color: #669999;
+}
+
+.stepIcon .dndDraggingSource {
+	display: none;
+}
+
+.stepsContainer .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
