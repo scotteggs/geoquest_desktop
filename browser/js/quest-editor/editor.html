@@ -17,16 +17,20 @@
 						<input class="form-control" type="number" ng-model="quest.time"><br>
 					</div>
 					<div class="formitem">
-						<span class="formtitle">Estimated Distance (Miles)</span><br>
-						<input class="form-control" type="number" ng-model="quest.distance"><br>
-					</div>
-					<div class="formitem">
 						<span class="formtitle">Welcome Message</span><br>
-						<input class="form-control" type="text" ng-model="quest.mapstates[0].modal.title"><br>
+						<input class="form-control" type="text" ng-model="quest.openingInfo.title"><br>
 					</div>
 					<div class="formitem">
-						<span class="formtitle">Opening Instructions</span><br>
-						<textarea class="form-control" rows="2" type="text" ng-model="quest.mapstates[0].modal.text"></textarea><br>
+						<span class="formtitle">Welcome Instructions</span><br>
+						<textarea class="form-control" rows="2" type="text" ng-model="quest.openingInfo.text"></textarea><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Closing Message</span><br>
+						<input class="form-control" type="text" ng-model="quest.closingInfo.title"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Closing Instructions</span><br>
+						<textarea class="form-control" rows="2" type="text" ng-model="quest.closingInfo.text"></textarea><br>
 					</div>
 					<div class="formitem">
 						<span class="formtitle">Active</span><br>

@@ -15,10 +15,10 @@ var schema = new mongoose.Schema({
         type: String
     },
     time: {
-        type: String
+        type: Number
     },
     distance: {
-        type: String
+        type: Number
     },
     start: {
         type: []
@@ -27,26 +27,34 @@ var schema = new mongoose.Schema({
         ref: 'User', 
         type: Schema.Types.ObjectId
     },
-    mapstates: [{
-        ref: 'Mapstate', 
-        type: Schema.Types.ObjectId
+    questSteps: [{
+        name: {
+            type: String,
+            maxlength: 20
+        },
+        transitionInfo: {
+            title: String,
+            imageUrl: String,
+            text: String,
+            question: String,
+            answer: String
+        },
+        targetCircle: {
+            center: [Number],
+            radius: Number
+        },
+        answerRequired: {
+            type: Boolean
+        },
     }],
-    regions: [{
-        ref: 'Region',
-        type: Schema.Types.ObjectId
-    }],
-    startingstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
+    closingInfo: {
+        title: String,
+        text: String
     },
-    endingstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
-    },
-    currentstate: {
-        ref: 'Mapstate',
-        type: Schema.Types.ObjectId
-    }
+    openingInfo: {
+        title: String,
+        text: String
+    }      
 });
 
 mongoose.model('Quest', schema);
