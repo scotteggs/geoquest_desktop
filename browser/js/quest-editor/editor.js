@@ -96,12 +96,14 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 
 		questMap.addControl(drawControl);
 		if ($scope.quest.start.length === 2) {
-			var marker = L.marker($scope.quest.start).bindPopup('Quest Start Location');
+			var marker = L.marker($scope.quest.start, {draggable: true}).bindPopup('Quest Start Location');
+			// marker.dragging.enable();
 			questMap.addLayer(marker);
+
 		}
 
 		//saving marker for removal later
-		var currentMarker;
+		var currentMarker;	
 		questMap.on('draw:created', function (e) {
 			//	remove the loaded region and any previously drawn markers
 		  if (marker) questMap.removeLayer(marker);
@@ -114,4 +116,9 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		  marker = L.marker([layer._latlng.lat,layer._latlng.lng]);
 		  questMap.addLayer(marker);
 		});
+		marker.on('dragend', function (e) {
+			$scope.quest.start = [e.target._latlng.lat,e.target._latlng.lng];
+		})
+
+
 })
