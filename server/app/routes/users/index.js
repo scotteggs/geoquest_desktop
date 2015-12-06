@@ -30,7 +30,6 @@ router.param('userId', function(req, res, next, id) {
 router.get('/:userId/startedQuests', function (req, res, next) {
 	var questsInProgressForUser = req.user.startedQuests;
 	StartedQuest.find({'_id': {$in: questsInProgressForUser} })
-	.populate('quest')
 	.then(function(startedQuests) {
 		res.status(200).json(startedQuests);
 	});

@@ -4,10 +4,7 @@ var Schema = mongoose.Schema;
 var Quest = mongoose.model('Quest');
 
 var startedQuestSchema = new mongoose.Schema({
-    quest: {
-        ref: 'Quest', 
-        type: Schema.Types.ObjectId
-    },
+    quest: {},
     room: String,
     currentMapState: { 
         type: Number,
