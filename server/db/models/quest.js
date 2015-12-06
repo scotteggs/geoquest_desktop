@@ -43,14 +43,18 @@ var schema = new mongoose.Schema({
             center: [Number],
             radius: Number
         },
-        transitionRule: {
-            type: String
+        answerRequired: {
+            type: Boolean
         },
     }],
     closingInfo: {
         title: String,
         text: String
-    }   
+    },
+    openingInfo: {
+        title: String,
+        text: String
+    }      
 });
 
 mongoose.model('Quest', schema);
