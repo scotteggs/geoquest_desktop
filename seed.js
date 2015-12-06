@@ -60,19 +60,15 @@ var seedQuests = function (users) {
             distance: 2,
             start: [40.712655, -74.004928],
             author: users[0].id,
+            openingInfo: {
+                title: 'Welcome to the Brooklyn Bridge Tour',
+                text: 'Head on over to the starting point to meet up with your group'
+            },
+            closingInfo: {
+                title: 'We hope you\'ve enjoyed this Tour',
+                text: 'Please exit through the gift shop.'
+            },
             questSteps: [
-                {
-                    name: 'Map Open',
-                    transitionInfo: {
-                        title: 'Welcome to the Brooklyn Bridge Tour',
-                        imageUrl: 'http://philhaberphotography.photoshelter.com/image/I0000CXCpZOo.6Kg',
-                        text: 'Head on over to the starting point to meet up with your group'
-                    },
-                    targetCircle: {
-
-                    },
-                    transitionRule: 'clientWithinRegion'
-                },
                 {
                     name: 'Starting Point',
                     transitionInfo: {
