@@ -50,19 +50,20 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		if(!$scope.newQuest) {
 			return QuestFactory.save($scope.quest)
 			.then(function () {
-				if(!$scope.quest.questSteps) {
+				if($scope.quest.questSteps.length === 0) {
 					$state.go('editor.questStep', {questStepId: null});
-				} else {
+				} else { 
+					console.log('go to existing steps', $scope.quest.questSteps.length)
 					$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[0]._id});	
 				}
 				$scope.editorVisible = false;
 			})
 		} else {
 			return QuestFactory.saveNew($scope.quest)
-			.then(function (newQuest) {
-					$state.go('editor.questStep', {id: newQuest._id, questStepId: null});
-					$scope.editorVisible = false;
+			.then(function (savedQuest) {
+					$state.go('editor.questStep', {id: savedQuest._id, questStepId: null});
 			})
+			$scope.editorVisible = false;
 		}
 	};
 
