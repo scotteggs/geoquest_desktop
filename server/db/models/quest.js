@@ -14,6 +14,9 @@ var schema = new mongoose.Schema({
     summary: {
         type: String
     },
+    reviews: {
+        type: [Number]
+    },
     time: {
         type: Number
     },
@@ -56,5 +59,9 @@ var schema = new mongoose.Schema({
         text: String
     }      
 });
+
+schema.virtual('averageReview').get(function(){
+    return this.reviews.reduce(function(cur, prev){ return cur + prev }, 0) / this.reviews.length;
+})
 
 mongoose.model('Quest', schema);

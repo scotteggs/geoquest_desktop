@@ -27,7 +27,14 @@ router.param('questId', function(req, res, next, id) {
 })
 
 router.get('/:questId', function (req, res, next) {
-	res.json(req.quest)
+  res.json(req.quest)
+})
+
+router.put('/:questId/review', function(req,res,next){
+  req.quest.reviews.push(req.body.reviewToAdd)
+  req.quest.save();
+  res.send(req.quest);
+  // req.quest.
 })
 
 router.get('/userquests/:authorId', function (req, res, next) {
