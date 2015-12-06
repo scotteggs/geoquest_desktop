@@ -14,6 +14,9 @@ var schema = new mongoose.Schema({
     summary: {
         type: String
     },
+    reviews: {
+        type: [Number]
+    },
     time: {
         type: Number
     },
