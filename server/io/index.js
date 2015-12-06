@@ -79,12 +79,17 @@ module.exports = function (server) {
                         console.log('We have lost ', nsSocket.id);
                     });
 
-                    nsSocket.on('hereIAm', function(location) {
-                        var fellow = {id: nsSocket.id, location: location};
+                    nsSocket.on('hereIAm', function(fellowData) {
+                        var fellow = {
+                            id: nsSocket.id, 
+                            name: fellowData.name, 
+                            location: fellowData.location, 
+                            currentStepIndex: fellowData.currentStep
+                        };
                         var haveThem = false;
                         for (var i = 0; i < everyone.length; i++) {
                             if (everyone[i].id === fellow.id) {
-                                everyone[i].location = location;
+                                everyone[i].location = fellowData.location;
                                 haveThem = true;
                             }
                         }
