@@ -17,9 +17,19 @@ $stateProvider.state('editor.questStep', {
 })
 
 
-app.controller('QuestStepEditController', function ($stateParams, $scope, $state, quest, QuestFactory){
+app.controller('QuestStepEditController', function ($stateParams, $scope, $state, $rootScope, quest, QuestFactory){
 	$scope.quest = quest;
-	//if we have steps left, set the currentStep equal to that which matches the params
+	$rootScope.editorVisible = false;
+	console.log("editor visible", $rootScope.editorVisible)
+	//defind new Step for adding to steps array
+	$scope.newStep = {
+		name: 'New Step',
+		targetCircle: {
+				center: [],
+				radius: null
+			}
+		}	
+	//if we have steps, find the index of the step that which matches the params
 	if($scope.quest.questSteps.length > 0) {
 		$scope.quest.questSteps.forEach( function (step, index) {
 			if (step._id === $stateParams.questStepId) {
@@ -29,15 +39,9 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 		//sets currentStep to that matching the parameters
 		$scope.currentStep = $scope.quest.questSteps[$scope.quest.idx];
 	} else {
-		$scope.currentStep = {
-		name: 'New Step (unsaved)',
-		targetCircle: {
-				center: [],
-				radius: null
-			}
-		}	
+		$scope.quest.questSteps.push($scope.newStep);
+		$scope.currentStep = $scope.quest.questSteps[0]
 	}
-	console.log('currentstep', $scope.currentStep);
 	//function to switch states within mapState editor
 	$scope.switchStep = function (clickedStep) {
 		QuestFactory.save($scope.quest)
@@ -54,15 +58,12 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 			$state.go('editor', {id: $scope.quest._id}, {reload: true});	
 		})
 	};
+	$scope.returnWithoutSaving = function () {
+			$state.go('editor', {id: $scope.quest._id}, {reload: true});	
+	};
 	$scope.addQuestStep = function () {
-		$scope.newStep = {
-			name: 'New Step',
-			targetCircle: {
-				center: [],
-				radius: null
-			}
-		}
 		$scope.quest.questSteps.push($scope.newStep);
+		console.log($scope.quest.questSteps);
 		return QuestFactory.save($scope.quest)
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
@@ -77,7 +78,8 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 		return QuestFactory.save($scope.quest)
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
-			$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[index]._id});
+			var stepDestination = $scope.quest.questSteps.length===0 ? null : $scope.quest.questSteps[index]._id;
+			$state.go('editor.questStep', {questStepId: stepDestination}, {reload: true});
 		})
 	};
 
