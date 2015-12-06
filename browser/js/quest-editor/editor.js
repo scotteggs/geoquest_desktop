@@ -17,9 +17,9 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, quest, Session, QuestFactory) {
+app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, $rootScope, quest, Session, QuestFactory) {
 	//variable saved to show/hide quest editor when editing individual states
-	$scope.editorVisible = true;
+	$rootScope.editorVisible = true;
 	$scope.quest = quest;
 	$scope.newQuest = false;
 	//if ther eis no new quest, set properties 
@@ -53,7 +53,6 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 				if($scope.quest.questSteps.length === 0) {
 					$state.go('editor.questStep', {questStepId: null});
 				} else { 
-					console.log('go to existing steps', $scope.quest.questSteps.length)
 					$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[0]._id});	
 				}
 				$scope.editorVisible = false;
@@ -61,9 +60,9 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		} else {
 			return QuestFactory.saveNew($scope.quest)
 			.then(function (savedQuest) {
-					$state.go('editor.questStep', {id: savedQuest._id, questStepId: null});
+				$scope.editorVisible = false;
+				$state.go('editor.questStep', {id: savedQuest._id, questStepId: null});
 			})
-			$scope.editorVisible = false;
 		}
 	};
 

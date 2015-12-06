@@ -8,21 +8,19 @@
 	<div class="questDetailContainer" ng-show="quest.showDetail">
 		<div class="questDetail">
 			<p>This is the detail!</p>
-			<p>{{ quest }}</p>
-			<label class="switch-light switch-material activeSwitch" onclick="">
-				<input type="checkbox">
-
-			  	<strong>
-			    	Active:
-			  	</strong>
-
+			<p>{{ quest.name }}</p>
+			<label class="switch-light switch-material activeSwitch" ng-click="switchActive(quest)">
+				<input type="checkbox" ng-model="quest.active">
+			  	<strong>Active:</strong>
 			  	<span>
 			    	<span>Off</span>
 			    	<span>On</span>
 			    	<a></a>
 			  	</span>
+			  </input>
 			</label>
-			<button class="btn btn-sm btn-default" ng-click="goToEditor(quest)">edit</button>
+			<button class="btn btn-sm btn-default" ng-click="goToEditor(quest)">Edit</button>
+			<button class="btn btn-sm btn-default" ng-click="deleteQuest(quest)">Delete</button>
 		</div>
 	</div>
 </div>

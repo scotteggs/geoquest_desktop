@@ -27,14 +27,14 @@ app.factory('QuestFactory', function ($http, Session) {
 			})
 		},
 		saveNew: function (quest) {
-			// var step = quest.questSteps[0];
-			// quest.questSteps = [];
-			// quest.questSteps.push(step);
 			quest.author = Session.user._id;
 			return $http.post('/api/quests/', quest)
 			.then(function (res) {
 				return res.data;
 			})
+		},
+		delete: function (quest) {
+			return $http.delete('/api/quests/' + quest._id)
 		}
 	}
 });
