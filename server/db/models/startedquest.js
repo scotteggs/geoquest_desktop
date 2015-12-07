@@ -6,7 +6,7 @@ var Quest = mongoose.model('Quest');
 var startedQuestSchema = new mongoose.Schema({
     quest: {},
     room: String,
-    currentMapState: { 
+    currentStepIndex: { 
         type: Number,
         default: 0
     },
