@@ -1,5 +1,64 @@
 #quest-step-map {
-	height: 400px;
+	height: 500px;
   width: 100%;
-  margin-top: 40px;
+  border-radius: 5px;
+}
+.row-title {
+	text-align: center;
+
+}
+.btn-row{
+	padding-left: 200px;
+}
+.step-btn {
+	margin: 10px;
+}
+
+.image-preview {
+	width: 100%;
+	height: 145px;
+}
+
+.step-image {
+	zoom: 2;
+  display: block;
+  margin: auto;
+  height: auto;
+  max-height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+.row {
+	margin: 10px;
+}
+.stepsContainer {
+	position:relative;
+	height: 500px;
+	width: 90%;
+	background-color: #b2cccc;
+	margin: auto;
+	display: block;
+	padding-top: 2px;
+	overflow: scroll;
+}
+
+.stepIcon {
+	position: relative;
+	height: 50px;
+	width: 90%;
+	margin-top: 10px;
+	margin-left: 5%;
+	background-color: #669999;
+	padding: 13px 2px 2px 2px;
+	text-align: center;
+}
+
+.stepIcon .dndDraggingSource {
+	display: none;
+}
+
+.stepsContainer .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
 }
