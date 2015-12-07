@@ -62,7 +62,6 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 	};
 	$scope.addQuestStep = function () {
 		$scope.quest.questSteps.push($scope.newStep);
-		console.log($scope.quest.questSteps);
 		return QuestFactory.save($scope.quest)
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
