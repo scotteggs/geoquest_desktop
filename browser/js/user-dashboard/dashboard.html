@@ -3,7 +3,7 @@
 <h3>Your Quests</h3>
 <div ng-repeat="quest in quests" class="repeat-item userquest">
 	 <div class="questClickeable" ng-click="parentClick($index)">
-		<p>{{quest.name}} - {{quest.summary | trimSummary }}</p>
+		<p>{{quest.name}} - {{quest.summary}}</p>
 	</div>
 	<div class="questDetailContainer" ng-show="quest.showDetail">
 		<div class="questDetail">

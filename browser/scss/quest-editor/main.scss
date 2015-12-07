@@ -8,6 +8,10 @@
   margin-top: 20px;
 }
 
-h2 {
-	margin-top: 10px;
+.edit-quest-form .ng-invalid.ng-touched{
+	background-color: #FA787E;
+}
+
+.btn-row {
+ padding-left: 50px;
 }

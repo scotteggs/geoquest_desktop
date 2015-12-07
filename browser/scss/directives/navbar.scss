@@ -26,9 +26,6 @@ navbar {
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
-    &.active {
-      color: darken(#f31214, 10%);
-    }
     &:hover {
       background: none;
       color: #f31214;
