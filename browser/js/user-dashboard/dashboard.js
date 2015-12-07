@@ -37,11 +37,3 @@ app.controller('DashCtrl', function ($state, $scope, userQuests, Session, QuestF
 		QuestFactory.save(questClicked)
 	}
 })
-
-app.filter('trimSummary', function() {
-	// JO:
-	// TODO: replace this with a regular expression that gets the first three words
-	return function(str){
-		return str;
-	}
-})

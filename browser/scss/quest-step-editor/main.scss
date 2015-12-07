@@ -7,8 +7,8 @@
 	text-align: center;
 
 }
-.btn-row{
-	padding-left: 200px;
+.step-btn-row{
+	padding-left: 60px;
 }
 .step-btn {
 	margin: 10px;
@@ -17,6 +17,10 @@
 .image-preview {
 	width: 100%;
 	height: 145px;
+}
+
+.edit-step .ng-invalid.ng-touched{
+	background-color: #FA787E;
 }
 
 .step-image {

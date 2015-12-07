@@ -1,27 +1,22 @@
 <div class="row btn-row">
-	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()">Save All Steps</button>
+	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()" ng-disabled="stepform.$invalid">Save And Return</button>
 	<button class="btn btn-info step-btn" ng-click="returnWithoutSaving()">Return w/o Saving</button>
-	<button class="btn btn-info step-btn" ng-click="addQuestStep()">Create New Step</button>
 	<button class="btn btn-info step-btn" ng-click="removeQuestStep()">Remove Current Step</button>
+	<button class="btn btn-info step-btn" ng-click="addQuestStep()" ng-disabled="stepform.$invalid">Create New Step</button>
 </div>
 <div class="row">
-	<div class="col-xs-7">
+	<div class="col-xs-6">
 		<div class="row">
 			<div class="col-xs-6">
-				<form class="form-horizontal edit-step" name="editstepForm">
+				<form name="stepform" class="form-horizontal edit-step" novalidate>
 					<div class="formitem">
 						<span class="formtitle">Name</span><br>
-						<input name="name" class="form-control" type="text" ng-model="currentStep.name"><br>
-						<div ng-messages="newProductForm.name.$error" ng-hide="!newProductForm.name.$dirty" role="alert">
-        <div ng-message="required" class="alert alert-warning">Please enter a name.</div> 
-      </div>
-					</div>
+						<input name="name" class="form-control" type="text" ng-model="currentStep.name" required><br>
+      		</div>
 					<div class="formitem">
 						<span class="formtitle">Message Title</span><br>
-						<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title"><br>
+						<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title" required><br>
 					</div>
-
-				</form>
 			</div>
 			<div class="col-xs-6">
 				<div class="image-preview">
@@ -31,7 +26,6 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<form class="form-horizontal edit-step" name="editstepForm2">
 					<div class="formitem">
 						<span class="formtitle">Message Image URL</span><br>
 						<input name="currentStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="currentStep.transitionInfo.imageUrl"><br>
@@ -52,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="step-editor col-xs-3">
+	<div class="step-editor col-xs-4">
 		<div id="quest-step-map" class="quest-step-map">
 			<leaflet></leaflet>
 		</div>

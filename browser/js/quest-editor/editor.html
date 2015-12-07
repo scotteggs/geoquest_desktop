@@ -1,10 +1,10 @@
 <div class="container edit-quest-container" ng-show="$root.editorVisible">
-	<div class="row btn-row step-btn">
+	<div class="row btn-row quest-btn">
 			<div class="col-xs-12">
-				<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="newProductForm.$invalid">
+				<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="form.$invalid">
 					MapState Editor
 				</button>
-				<button class="btn btn-info step-btn" ng-click="saveQuest()" ng-disabled="newProductForm.$invalid">
+				<button class="btn btn-info step-btn" ng-click="saveQuest()" ng-disabled="form.$invalid">
 					Save Quest
 				</button>
 			</div>
@@ -12,12 +12,10 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="quest-form col-xs-4">
-				<form class="form-horizontal edit-state" novalidate>
+				<form name="form" class="form-horizontal edit-quest-form" novalidate>
 					<div class="formitem">
 						<span class="formtitle">Name</span><br>
-						<input class="form-control" type="text" ng-model="quest.name" required><br>
-						<div ng-messages="newProductForm.name.$error" ng-hide="!newProductForm.name.$dirty" role="alert">
-						</div>
+						<input name="name" class="form-control" type="text" ng-model="quest.name" required><br>
 					</div>
 					<div class="formitem">
 						<span class="formtitle">Summary</span><br>
