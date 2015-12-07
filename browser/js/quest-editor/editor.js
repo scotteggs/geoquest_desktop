@@ -26,7 +26,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	if(!quest) {
 		$scope.newQuest = true;
 		$scope.quest= {
-			start:  [50.723008,-74.0006327]
+			start:  [40.723008,-74.0006327]
 		};
 		console.log('new quest in controller', $scope.quest)	
 	}
