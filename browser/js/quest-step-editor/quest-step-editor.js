@@ -20,7 +20,6 @@ $stateProvider.state('editor.questStep', {
 app.controller('QuestStepEditController', function ($stateParams, $scope, $state, $rootScope, quest, QuestFactory){
 	$scope.quest = quest;
 	$rootScope.editorVisible = false;
-	console.log("editor visible", $rootScope.editorVisible)
 	//defind new Step for adding to steps array
 	$scope.newStep = {
 		name: 'New Step',
@@ -137,7 +136,4 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
     circle = L.circle([layer._latlng.lat,layer._latlng.lng], layer._mRadius);
     questStepMap.addLayer(circle);
 	});
-
-
-
 })

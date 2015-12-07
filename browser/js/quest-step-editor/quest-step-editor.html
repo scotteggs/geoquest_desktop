@@ -1,40 +1,61 @@
+<div class="row btn-row">
+	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()">Save All Steps</button>
+	<button class="btn btn-info step-btn" ng-click="returnWithoutSaving()">Return w/o Saving</button>
+	<button class="btn btn-info step-btn" ng-click="addQuestStep()">Create New Step</button>
+	<button class="btn btn-info step-btn" ng-click="removeQuestStep()">Remove Current Step</button>
+</div>
 <div class="row">
-	<div class="step-editor col-xs-5">
-		<div class="step-form">
-			<h3>Quest Steps Editor</h3>
-			<form class="form-horizontal edit-step" name="editstepForm">
-				<div class="formitem">
-					<span class="formtitle">Name</span><br>
-					<input name="name" class="form-control" type="text" ng-model="currentStep.name"><br>
+	<div class="col-xs-7">
+		<div class="row">
+			<div class="col-xs-6">
+				<form class="form-horizontal edit-step" name="editstepForm">
+					<div class="formitem">
+						<span class="formtitle">Name</span><br>
+						<input name="name" class="form-control" type="text" ng-model="currentStep.name"><br>
+						<div ng-messages="newProductForm.name.$error" ng-hide="!newProductForm.name.$dirty" role="alert">
+        <div ng-message="required" class="alert alert-warning">Please enter a name.</div> 
+      </div>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Message Title</span><br>
+						<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title"><br>
+					</div>
+
+				</form>
+			</div>
+			<div class="col-xs-6">
+				<div class="image-preview">
+					<img class="step-image" ng-src="{{currentStep.transitionInfo.imageUrl}}">
 				</div>
-				<div class="formitem">
-					<span class="formtitle">Message Title</span><br>
-					<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title"><br>
-				</div>
-				<div class="formitem">
-					<span class="formtitle">Message Text</span><br>
-					<input name="transitionInfo.text" class="form-control"  type="text" ng-model="currentStep.transitionInfo.text"><br>
-				</div>
-				<div class="formitem">
-					<span class="formtitle">Message Image URL</span><br>
-					<input name="currentStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="currentStep.transitionInfo.imageUrl"><br>
-				</div>
-				<div class="formitem">
-					<span class="formtitle">Message Question</span><br>
-					<input name="currentStep.transitionInfo.question" class="form-control"  type="text" ng-model="currentStep.transitionInfo.question"><br>
-				</div>
-				<div class="formitem">
-					<span class="formtitle">Message Correct Answer</span><br>
-					<input name="currentStep.transitionInfo.answer" class="form-control"  type="text" ng-model="currentStep.transitionInfo.answer"><br>
-				</div>
-			</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-horizontal edit-step" name="editstepForm2">
+					<div class="formitem">
+						<span class="formtitle">Message Image URL</span><br>
+						<input name="currentStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="currentStep.transitionInfo.imageUrl"><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Message Text</span><br>
+						<textarea name="transitionInfo.text" class="form-control"  type="text" ng-model="currentStep.transitionInfo.text"></textarea><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Message Question</span><br>
+						<textarea name="currentStep.transitionInfo.question" class="form-control"  type="text" ng-model="currentStep.transitionInfo.question"></textarea><br>
+					</div>
+					<div class="formitem">
+						<span class="formtitle">Message Correct Answer</span><br>
+						<textarea name="currentStep.transitionInfo.answer" class="form-control"  type="text" ng-model="currentStep.transitionInfo.answer"></textarea><br>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-	<div class="step-editor col-xs-5">
+	<div class="step-editor col-xs-3">
 		<div id="quest-step-map" class="quest-step-map">
 			<leaflet></leaflet>
 		</div>
-
 	</div>
 	<div class="steps-list col-xs-2">
 		<div ui-sortable class="stepsContainer" ng-model="quest.questSteps">
@@ -42,11 +63,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
-	<button class="btn btn-info" ng-click="saveQuestSteps()">Save All Steps</button>
-	<button class="btn btn-info" ng-click="returnWithoutSaving()">Return w/o Saving</button>
-	<button class="btn btn-info" ng-click="addQuestStep()">Create New Step</button>
-	<button class="btn btn-info" ng-click="removeQuestStep()">Remove Current Step</button>
-
 </div>
