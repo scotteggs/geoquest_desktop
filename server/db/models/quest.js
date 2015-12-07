@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
     },
     name: {
         type: String,
-        maxlength: 30
+        maxlength: 100
     },
     summary: {
         type: String

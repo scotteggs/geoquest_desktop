@@ -28,7 +28,6 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 		$scope.quest= {
 			start:  [40.723008,-74.0006327]
 		};
-		console.log('new quest in controller', $scope.quest)	
 	}
 	//update quest and go to dashboard for current user
 	$scope.saveQuest = function () {
