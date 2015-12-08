@@ -66,16 +66,20 @@ schema.virtual('averageReview').get(function(){
 });
 
 schema.virtual('totalDistance').get(function(){
-    var totalDistance = 0;
-    for (var i = 1; i < this.questSteps.length; i++) {
-        var lat1 = this.questSteps[i-1].location[0];
-        var lon1 = this.questSteps[i-1].location[1];
-        var lat2 = this.questSteps[i].location[0];
-        var lon2 = this.questSteps[i].location[1];
-        totalDistance += getDistanceFromLatLonInMi(lat1, lon1, lat2, lon2);
+    if (this.questSteps.length) {
+        var totalDistance = 0;
+        for (var i = 1; i < this.questSteps.length; i++) {
+            var lat1 = this.questSteps[i-1].targetCircle.center[0];
+            var lon1 = this.questSteps[i-1].targetCircle.center[1];
+            var lat2 = this.questSteps[i].targetCircle.center[0];
+            var lon2 = this.questSteps[i].targetCircle.center[1];
+            totalDistance += getDistanceFromLatLonInMi(lat1, lon1, lat2, lon2);
+        }
+        return Math.round(totalDistance*100)/100;
     }
-    return totalDistance;
 });
+
+schema.set('toJSON', { virtuals: true });
 
 mongoose.model('Quest', schema);
 
@@ -91,6 +95,10 @@ function getDistanceFromLatLonInMi(lat1,lon1,lat2,lon2) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c; // Distance in km
     return d/1.60934; // convert to miles;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180);
 }
 
 
