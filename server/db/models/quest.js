@@ -7,6 +7,7 @@ var schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    shuffle: Boolean,
     name: {
         type: String,
         maxlength: 100
