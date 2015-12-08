@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 var schema = new mongoose.Schema({
-    toObject: { virtuals: true },
+    toJSON: {virtuals: true},
+    
     active: {
         type: Boolean,
         default: false
