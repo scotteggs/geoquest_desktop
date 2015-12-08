@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 var schema = new mongoose.Schema({
+    toObject: { virtuals: true },
     active: {
         type: Boolean,
         default: false
@@ -72,10 +73,8 @@ schema.virtual('totalDistance').get(function(){
         var lon1 = this.questSteps[i-1].location[1];
         var lat2 = this.questSteps[i].location[0];
         var lon2 = this.questSteps[i].location[1];
-        console.log('one leg', getDistanceFromLatLonInMi(lat1, lon1, lat2, lon2));
         totalDistance += getDistanceFromLatLonInMi(lat1, lon1, lat2, lon2);
     }
-    consolelog('totalDistance', totalDistance)
     return totalDistance;
 });
 
