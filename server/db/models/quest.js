@@ -3,8 +3,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 var schema = new mongoose.Schema({
-    toJSON: {virtuals: true},
-    
     active: {
         type: Boolean,
         default: false
@@ -66,6 +64,9 @@ var schema = new mongoose.Schema({
 schema.virtual('averageReview').get(function(){
     return this.reviews.reduce(function(cur, prev){ return cur + prev }, 0) / this.reviews.length;
 });
+
+schema.set('toObject', {virtuals: true});
+schema.set('toJSON', {virtuals: true});
 
 schema.virtual('totalDistance').get(function(){
     var totalDistance = 0;
