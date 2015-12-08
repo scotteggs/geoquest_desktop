@@ -84,7 +84,8 @@ module.exports = function (server) {
                             id: nsSocket.id, 
                             name: fellowData.name, 
                             location: fellowData.location, 
-                            currentStepIndex: fellowData.currentStepIndex
+                            currentStepIndex: fellowData.currentStepIndex,
+                            color: fellowData.color
                         };
                         var haveThem = false;
                         for (var i = 0; i < everyone.length; i++) {
