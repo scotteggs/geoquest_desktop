@@ -50,7 +50,6 @@ var seedQuests = function (users) {
             name: 'Brooklyn Bridge Crossing',
             summary: 'A jaunt over this civil engineering landmark',
             time: 1,
-            distance: 2,
             start: [40.712655, -74.004928],
             author: users[0].id,
             openingInfo: {
