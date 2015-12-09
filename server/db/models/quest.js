@@ -62,7 +62,8 @@ var schema = new mongoose.Schema({
 });
 
 schema.virtual('averageReview').get(function(){
-    return this.reviews.reduce(function(cur, prev){ return cur + prev }, 0) / this.reviews.length;
+    var avg = this.reviews.reduce(function(cur, prev){ return cur + prev }, 0) / this.reviews.length;
+    return Math.round(avg*10)/10;
 });
 
 schema.virtual('totalDistance').get(function(){
