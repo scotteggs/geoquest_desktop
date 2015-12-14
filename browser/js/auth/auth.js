@@ -13,22 +13,27 @@ app.controller('AuthCtrl', function ($scope, AuthService, $state) {
     $scope.signup = {};
     $scope.error = null;
     $scope.sendLogin = function (loginInfo) {
-
+        console.log('loginInfo', loginInfo);
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function (user) {
+            console.log('going dashboard');
             $state.go('dashboard', {userId: user._id});
         }).catch(function () {
+            console.log('NOPE');
             $scope.error = 'Either you\'ve entered the wrong info, or we already have someone by that name';
         });
 
     };
 
     $scope.sendSignup = function(signupInfo) {
+        console.log('sending signup');
         $scope.error = null;
         AuthService.signup(signupInfo).then(function (user) {
+            console.log('good signup');
             $state.go('dashboard', {userId: user._id}, {reload: true});
         }).catch(function(){
+            console.log('bad signup');
             $scope.error = "Invalid Signup Credentials";
         });
     };

@@ -50,6 +50,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">GeoQuest</a>
+            <span ng-show="user">Welcome, {{ user.userName }}!</span>
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
@@ -68,8 +69,11 @@
                 <li class="page-scroll">
                     <a href="#who">Who</a>
                 </li>
-                <li class="page-scroll">
+                <li ng-show="!user" class="page-scroll">
                     <a href="#auth">Login</a>
+                </li>
+                <li ng-show="user" class="page-scroll">
+                    <a href="#auth">Logout</a>
                 </li>
             </ul>
         </div>
