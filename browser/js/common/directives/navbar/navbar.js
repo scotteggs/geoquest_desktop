@@ -2,7 +2,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
     return {
         restrict: 'E',
-        scope: {},
+        scope: {
+            auth: '='
+        },
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
@@ -12,6 +14,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             ];
 
             scope.user = null;
+            console.log('scope.auth', scope.auth);
 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
@@ -58,7 +61,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                     event.preventDefault();
                 });
             });
-
 
         }
 
