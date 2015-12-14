@@ -1,47 +1,149 @@
-<div class="row">
-    <div class="jumbotron col-xs-12 auth-container">
-        <div class="login col-xs-4">
-            <h4>Login</h4>
-            <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
-                <alert type="danger" ng-show="error">
-                    {{ error }}
-                </alert>
-
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" ng-model="login.userName" class="form-control" id="userName" placeholder="Enter userName">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-lg btn-success auth-button">Submit</button>
-            </form>
+<section id="header" data-type="background" data-speed="2">
+    <div class="container">
+        <div class="header-text">
+            <h1>Welcome to The Quest Editor</h1>
+            <h2>Where you can create custom adventures for your friends and other humans with just a few clicks</h2>
         </div>
+    </div><!-- .container -->
+</section>
 
-            <div class="or buffer col-xs-2">
-                <div class="back-line"><span>OR</span></div>
+<section id="what">
+    <h2 class="center">Features of GeoQuest</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>All quests include:</h3>
+                <ul>
+                    <li>Sequential traversing of geographic checkpoints</li>
+                    <li>The option of inviting as many friends as you wish from your phone's contact list</li>
+                    <li>Real-time updating of other players' locations</li>
+                    <li>Live chat with other travelers</li>
+                    <li>Live updates of other travelers' progress on the quest</li>
+                </ul>
             </div>
+            <div class="col-md-6">
+                <h3>As quest designer, you can:</h3>
+                <ul>
+                    <li>Place checkpoints anywhere you wish simply by dragging and dropping</li>
+                    <li>Write messages and choose custom images that travelers see along the way</li>
+                    <li>Create location-specific questions that travelers must answer to progress</li>
+                    <li>Implement random shuffling of the sequence of checkpoints to accomodate large events</li>
+                </ul>
+            </div>
+        </div>
+        
+    </div><!-- .container -->
+</section>
 
-        <div class="signup col-xs-4">
-            <h4>Signup</h4>
-            <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+<section class="fixed-img" id="keep">
+    <h1 class="center">Keep your wander</h1>
+</section>
 
-                <alert type="danger" ng-show="error">
-                    {{ error }}
-                </alert>
-
-                <div class="form-group">
-                    <label for="email">Username</label>
-                    <input type="text" ng-model="signup.userName" class="form-control" id="userName" placeholder="Enter username">
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-lg btn-success auth-button">Submit</button>
-            </form>
+<section id="why">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="center">Why Use GeoQuest?</h2>
+            <p class="lead center">GeoQuest makes designing multi-location activities easy: anything from walking tours, to bar crawls, to large-scale competetive scavenger hunts.</p>
+            <p>Remember the sense of adventure you got from scavenger hunts when you were a kid? Now that we all have real lives, those kind of activities are few and far between. Geoquest makes organizing them a cinch, and takes care of the operation side of things.</p>
+            <p>Lead your friends though a journey of your own creation. Watch the tutorial below to get started!</p>
         </div>
     </div>
+</div>
+</section>
+
+<section class="fixed-img" id="cool">
+    <h1 class="center">Because the world is cool</h1>
+</section>
+
+<section id="how">
+    <h2 class="center">Watch the tutorial</h2>
+    <div class="wrapper">
+        <div class="h_iframe">
+            <!-- a transparent image is preferable -->
+            <img class="ratio" src="http://placehold.it/16x9"/>
+            <iframe src="https://www.youtube.com/embed/uPifqkYSA9c" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+<section class="fixed-img" id="also-cool">
+    <h1 class="center">Even the normal stuff</h1>
+</section>
+
+<section id="who">
+    <h1 class="center">Who are we?</h1>
+    <div class="container">
+      <p>We are Joe, Scott, and Will: three fullstack web developers combining our passions for exploring both the world and the www.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="one-of-us">
+            <img src="images/joe.jpg">
+            Joe Oliver
+            <div><a href="https://www.linkedin.com/in/joeyoliver"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="one-of-us">
+            <img src="images/scott.jpg">
+            Scott Eggenspurger
+            <div><a href="https://www.linkedin.com/in/scotteggs"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="one-of-us">
+            <img src="images/will.jpg">
+            Will Jacobson
+            <div><a href="https://www.linkedin.com/in/willzjnyc"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section id="auth" data-type="background" data-speed="2">
+<div class="container">
+  <div class="row">
+    <h2 class="center">Sign up or log in to get started</h2>
+      <div class="login col-md-6">
+          <h4>Login</h4>
+          <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+
+              <alert type="danger" ng-show="loginError">
+                  {{ error }}
+              </alert>
+
+              <div class="form-group">
+                  <input type="text" ng-model="login.userName" class="form-control" id="userName" placeholder="Enter userName">
+              </div>
+              <div class="form-group">
+                  <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-lg btn-success auth-button">Submit</button>
+          </form>
+      </div>
+
+      <div class="signup col-md-6">
+          <h4>Signup</h4>
+          <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+
+              <alert type="danger" ng-show="signupError">
+                  {{ error }}
+              </alert>
+
+              <div class="form-group">
+                  <input type="text" ng-model="signup.userName" class="form-control" id="userName" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                  <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-lg btn-success auth-button">Submit</button>
+          </form>
+      </div>
+  </div>
+  </div>
+</section>
+
+<div id="footer">
+  <p class="center">Go GeoQuest 2016</p>
 </div>

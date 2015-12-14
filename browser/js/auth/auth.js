@@ -11,15 +11,15 @@ app.config(function ($stateProvider) {
 app.controller('AuthCtrl', function ($scope, AuthService, $state) {
     $scope.login = {};
     $scope.signup = {};
-    $scope.error = null;
+    $scope.loginError = null;
+    $scope.signupError = null;
     $scope.sendLogin = function (loginInfo) {
-
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function (user) {
             $state.go('dashboard', {userId: user._id});
         }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
+            $scope.error = "I think you\'ve entered the wrong info, friend";
         });
 
     };
@@ -29,9 +29,29 @@ app.controller('AuthCtrl', function ($scope, AuthService, $state) {
         AuthService.signup(signupInfo).then(function (user) {
             $state.go('dashboard', {userId: user._id}, {reload: true});
         }).catch(function(){
-            $scope.error = "Invalid Signup Credentials";
-        })
+            $scope.error = "I'm afraid we already have someone by that name";
+        });
+    };
 
-    }
+    // PARALAX EFFECT
+    $(function() {
+    // Cache the window object (makes load time faster)
+    var $window = $(window);
+    // Parallax background effect
+    $('section[data-type="background"]').each(function() {
+        var $bgobj = $(this); // assigning the object
+        $(window).scroll(function() {
+            //scroll the background at var speed
+            // the yPos is a negative because we're scrolling it up
+            var yPos = -($window.scrollTop() / $bgobj.data('speed'));
+            // Put together our final background position
+            var coords = '50% ' + yPos + 'px';
+            // Move the background
+            $bgobj.css({ backgroundPosition: coords });
+        }); // end window scroll
+    });
+});
+
+
 
 });
