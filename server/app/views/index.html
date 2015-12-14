@@ -7,9 +7,13 @@
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/css-toggle-switch/dist/toggle-switch.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=montserrat:400,700' rel-'stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="/lodash/index.js"></script>
     <script src="/jquery/dist/jquery.js"></script>
     <script src="/jquery-ui/jquery-ui.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-sortable/dist/sortable.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
@@ -24,11 +28,9 @@
     <script src="/main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
-<body ng-app="GeoQuest">
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom" ng-app="GeoQuest">
     <navbar></navbar>
-    <div class="container">
-        <div id="main" ui-view></div>
-    </div>
+    <div id="main" ui-view></div>
 </body>
 </html>
 
