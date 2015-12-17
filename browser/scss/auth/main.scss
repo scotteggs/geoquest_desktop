@@ -103,3 +103,10 @@
       margin-bottom: 30px;
     }
   }
+
+  @media (max-width: 435px) {
+    .header-text {
+      position: relative;
+      top: 45px;
+    }
+  }

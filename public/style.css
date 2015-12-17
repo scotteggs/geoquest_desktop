@@ -18,6 +18,9 @@ html, body, #main, #questmap {
   opacity: 1;
   height: 30px; }
 
+.top-margin {
+  margin-top: 50px; }
+
 .edit-quest-container {
   margin-top: 5px; }
 
@@ -31,6 +34,9 @@ html, body, #main, #questmap {
 
 .btn-row {
   padding-left: 50px; }
+
+.top-margin {
+  margin-top: 50px; }
 
 #quest-step-map {
   height: 500px;
@@ -591,6 +597,11 @@ section.fixed-img {
 @media (min-width: 767px) {
   .login {
     margin-bottom: 30px; } }
+
+@media (max-width: 435px) {
+  .header-text {
+    position: relative;
+    top: 45px; } }
 
 .userQuest {
   background-color: light-grey;
