@@ -15,22 +15,22 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                  </li>
-                <li class="page-scroll">
+                <li ng-show="auth" class="page-scroll">
                     <a href="#what">What</a>
                 </li>
-                <li class="page-scroll">
+                <li ng-show="auth" class="page-scroll">
                     <a href="#why">Why</a>
                 </li>
-                <li class="page-scroll">
+                <li ng-show="auth" class="page-scroll">
                     <a href="#how">How</a>
                 </li>
-                <li class="page-scroll">
+                <li ng-show="auth" class="page-scroll">
                     <a href="#who">Who</a>
                 </li>
-                <li ng-show="!user" class="page-scroll">
+                <li ng-show="!user && auth" class="page-scroll">
                     <a href="#auth">Login</a>
                 </li>
-                <li ng-show="user" class="page-scroll">
+                <li ng-show="user && !auth" class="page-scroll">
                     <a ng-click="logout()">Logout</a>
                 </li>
             </ul>
