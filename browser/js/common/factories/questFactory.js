@@ -20,7 +20,7 @@ app.factory('QuestFactory', function ($http, Session) {
 				return res.data;
 			});
 		},
-		switchActive: function (quest) {
+		save: function (quest) {
 			return $http.put('/api/quests/' + quest._id, quest)
 			.then(function (res){
 				return res.data;

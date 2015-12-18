@@ -36,7 +36,7 @@ app.controller('DashCtrl', function ($state, $scope, userQuests, Session, QuestF
 		quest.showDetail = !quest.showDetail;
 	};
 	$scope.switchActive = function (questClicked) {
-		QuestFactory.switchActive(questClicked);
+		QuestFactory.save(questClicked);
 	};
 });
 

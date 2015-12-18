@@ -7,16 +7,16 @@
 </div>
 
 <div class="container">
-	<div class="row">
-		<div ng-show="$root.editorVisible">
-			<div class="btn-row">
-				<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="form.$invalid">
-					Step Editor
-				</button>
-				<button class="btn btn-info" ng-click="saveQuest()" ng-disabled="form.$invalid">
-					Save Quest
-				</button>
-			</div><!-- .btn-row -->
+	<div ng-show="$root.editorVisible">
+		<div class="btn-row">
+			<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="form.$invalid">
+				Step Editor
+			</button>
+			<button class="btn btn-info" ng-click="saveQuest()" ng-disabled="form.$invalid">
+				Save Quest
+			</button>
+		</div><!-- .btn-row -->
+		<div class="row">
 			<div class="col-sm-6">
 				<form name="form" class="form-horizontal edit-quest-form" novalidate>
 					<div class="formitem">
@@ -79,11 +79,11 @@
 					</div><!-- .container -->
 				</div>
 			</div><!-- .col-sm-6 -->
-		</div>
+		</div><!-- .row -->
+	</div>
 
-	</div><!-- .row -->
 </div><!-- .container -->
 <ui-view></ui-view>
 <footer>
-    <p class="center">Go GeoQuest 2016</p>
+    <p>Go GeoQuest 2016</p>
 </footer>

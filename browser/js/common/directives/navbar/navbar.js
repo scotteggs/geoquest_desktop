@@ -46,8 +46,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                 if (toState.name !== 'home') {
                     $('.navbar-fixed-top').addClass('top-nav-collapse');
+                    console.log('going not home');
                 } else {
                     $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                    console.log('going home')
                 }
             });
 
@@ -55,8 +57,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             $(window).scroll(function() {
                 if ($('.navbar').offset().top > 50 && scope.home) {
                     $('.navbar-fixed-top').addClass('top-nav-collapse');
-                } else {
+                    console.log('doooowwwwwn')
+                } else if (scope.home) {
                     $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                    console.log('uuuuuuup')
                 }
             });
 
