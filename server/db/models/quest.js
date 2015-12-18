@@ -57,12 +57,13 @@ var schema = new mongoose.Schema({
     },
     openingInfo: {
         title: String,
-        text: String
+        text: String,
+        imageUrl: String
     }      
 });
 
 schema.virtual('averageReview').get(function(){
-    var avg = this.reviews.reduce(function(cur, prev){ return cur + prev }, 0) / this.reviews.length;
+    var avg = this.reviews.reduce(function(cur, prev){ return cur + prev; }, 0) / this.reviews.length;
     return Math.round(avg*10)/10;
 });
 

@@ -1,19 +1,19 @@
 app.config(function ($stateProvider){
 	$stateProvider.state('editor',
-	{
-		url: '/editor/:id',
-		templateUrl: 'js/quest-editor/editor.html',
-		controller: 'EditorCtrl',
-    resolve: {
-    	quest: function(QuestFactory, $stateParams){
-    		return $stateParams.id !== "" ?
-				QuestFactory.getOneQuest($stateParams.id) : 
-				undefined;
-    	},
-    },
-		data: {
-        authenticate: true
-    }
+		{
+			url: '/editor/:id',
+			templateUrl: 'js/quest-editor/editor.html',
+			controller: 'EditorCtrl',
+		    resolve: {
+		    	quest: function(QuestFactory, $stateParams){
+		    		return $stateParams.id !== "" ?
+						QuestFactory.getOneQuest($stateParams.id) : 
+						undefined;
+		    	}
+		    },
+			data: {
+	        authenticate: true
+	    }
 	});
 });
 
@@ -21,6 +21,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	//variable saved to show/hide quest editor when editing individual states
 	$rootScope.editorVisible = true;
 	$scope.quest = quest;
+	$scope.viewMainMap = true;
 	$scope.newQuest = false;
 	//if there is no new quest, set properties 
 	if(!quest) {

@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box; }
 
+body {
+  background-color: #F5F5F5;
+  font-size: 16px; }
+
 html, body, #main, #questmap {
   height: 100%; }
 
@@ -18,12 +22,6 @@ html, body, #main, #questmap {
   opacity: 1;
   height: 30px; }
 
-.top-margin {
-  margin-top: 50px; }
-
-.edit-quest-container {
-  margin-top: 5px; }
-
 #quest-map {
   height: 400px;
   width: 100%;
@@ -32,72 +30,78 @@ html, body, #main, #questmap {
 .edit-quest-form .ng-invalid.ng-touched {
   background-color: #FA787E; }
 
+.btn {
+  margin-bottom: 15px;
+  margin-right: 5px; }
+
 .btn-row {
-  padding-left: 50px; }
+  margin-bottom: 5px; }
 
-.top-margin {
-  margin-top: 50px; }
+/* Scrolling Step Menu */
+.steps-list {
+  width: 100%;
+  padding: 10px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: rgba(91, 192, 222, 0.1);
+  margin: 10px 0;
+  border-radius: 2px;
+  max-height: 60px;
+  white-space: nowrap; }
 
+.stepIcon {
+  display: inline-block;
+  height: 40px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background-color: rgba(91, 192, 222, 0.3);
+  width: 80px;
+  overflow-x: scroll;
+  cursor: pointer; }
+
+/* Form */
+.edit-step .ng-invalid.ng-touched {
+  background-color: #FA787E; }
+
+.breadcrumb {
+  margin-bottom: 5px; }
+  .breadcrumb li {
+    cursor: pointer; }
+  .breadcrumb li.gray {
+    color: gray;
+    cursor: auto; }
+
+/* Map */
 #quest-step-map {
   height: 500px;
   width: 100%;
   border-radius: 5px; }
 
-.row-title {
-  text-align: center; }
+/* Modal Preview */
+.modal-preview {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  overflow-y: scroll;
+  border-radius: 2px;
+  max-height: 500px; }
+  .modal-preview input {
+    margin: 0 auto; }
+  .modal-preview .yellow-bar {
+    text-align: center;
+    padding: 2px;
+    margin: 20px 0;
+    background-color: #ffcc00;
+    border-radius: 5px;
+    cursor: pointer; }
+  .modal-preview .yellow-bar:hover {
+    background-color: #edbd00; }
 
-.step-btn-row {
-  padding-left: 60px; }
-
-.step-btn {
-  margin: 10px; }
-
-.image-preview {
+.modal-image {
   width: 100%;
-  height: 145px; }
-
-.edit-step .ng-invalid.ng-touched {
-  background-color: #FA787E; }
-
-.step-image {
-  zoom: 2;
-  display: block;
-  margin: auto;
-  height: auto;
-  max-height: 100%;
-  width: auto;
-  max-width: 100%; }
-
-.row {
-  margin: 10px; }
-
-.stepsContainer {
-  position: relative;
-  height: 500px;
-  width: 90%;
-  background-color: #b2cccc;
-  margin: auto;
-  display: block;
-  padding-top: 2px;
-  overflow: scroll; }
-
-.stepIcon {
-  position: relative;
-  height: 50px;
-  width: 90%;
-  margin-top: 10px;
-  margin-left: 5%;
-  background-color: #669999;
-  padding: 13px 2px 2px 2px;
-  text-align: center; }
-
-.stepIcon .dndDraggingSource {
-  display: none; }
-
-.stepsContainer .dndPlaceholder {
-  display: block;
-  background-color: #ddd;
-  min-height: 42px; }
+  margin: 15px 0; }
+  .modal-image img {
+    width: 100%; }
 
 /* ================================================================== */
 /* Toolbars
@@ -441,63 +445,10 @@ a, a:hover, a:focus {
   -moz-transition-property: -webkit-transform;
   -moz-transition-duration: 1s; }
 
-#home fullstack-logo {
-  padding-top: 30px;
-  width: 150px;
-  margin: 0 auto; }
-
-#home h1 {
-  margin-top: 40px;
-  text-align: center; }
-
-tutorial-section {
-  display: block;
-  width: 90%;
-  margin: 10px auto;
-  padding: 20px 0 60px 0; }
-  tutorial-section > h1 {
-    margin: 20px 0 40px 0;
-    text-align: center;
-    font-weight: bold; }
-
-tutorial-video {
-  display: block;
-  width: 600px;
-  margin: 0 auto; }
-  tutorial-video h1 {
-    font-weight: 300;
-    font-size: 24px;
-    margin-bottom: 15px; }
-  tutorial-video iframe {
-    width: 600px;
-    height: 400px; }
-
-tutorial-section-menu {
-  display: block; }
-  tutorial-section-menu:after {
-    content: "";
-    display: table;
-    clear: both; }
-  tutorial-section-menu ul {
-    margin-left: 23px;
-    list-style-type: none;
-    font-weight: 300; }
-    tutorial-section-menu ul li {
-      float: left;
-      margin-right: 40px;
-      padding: 10px;
-      cursor: pointer; }
-      tutorial-section-menu ul li:hover {
-        background: #f3f3f3; }
-
 * {
   font-family: 'Josefin Sans', sans-serif;
   /*Don't need important tags later*/
   font-weight: 700 !important; }
-
-body {
-  background-color: #F5F5F5;
-  font-size: 16px; }
 
 section {
   padding: 40px 0; }
@@ -589,9 +540,9 @@ section.fixed-img {
   background-size: cover;
   color: white; }
 
-#footer {
+footer {
   height: 40px; }
-  #footer p {
+  footer p {
     font-weight: normal !important; }
 
 @media (min-width: 767px) {
@@ -603,20 +554,78 @@ section.fixed-img {
     position: relative;
     top: 45px; } }
 
+tutorial-section {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 20px 0 60px 0; }
+  tutorial-section > h1 {
+    margin: 20px 0 40px 0;
+    text-align: center;
+    font-weight: bold; }
+
+tutorial-video {
+  display: block;
+  width: 600px;
+  margin: 0 auto; }
+  tutorial-video h1 {
+    font-weight: 300;
+    font-size: 24px;
+    margin-bottom: 15px; }
+  tutorial-video iframe {
+    width: 600px;
+    height: 400px; }
+
+tutorial-section-menu {
+  display: block; }
+  tutorial-section-menu:after {
+    content: "";
+    display: table;
+    clear: both; }
+  tutorial-section-menu ul {
+    margin-left: 23px;
+    list-style-type: none;
+    font-weight: 300; }
+    tutorial-section-menu ul li {
+      float: left;
+      margin-right: 40px;
+      padding: 10px;
+      cursor: pointer; }
+      tutorial-section-menu ul li:hover {
+        background: #f3f3f3; }
+
+.page-wrap {
+  height: 100%;
+  margin-bottom: -40px;
+  /* Equal to footer height */ }
+
+.page-wrap:after {
+  content: "";
+  display: block;
+  height: 40px; }
+
+.blue-band {
+  margin-top: 50px;
+  background-color: #5bc0de;
+  color: #f5f5f5;
+  padding: 10px;
+  margin-bottom: 15px; }
+
 .userQuest {
   background-color: light-grey;
   border: 1px solid;
   border-radius: 3px; }
 
 .questClickeable:hover {
-  background-color: grey; }
+  background-color: rgba(91, 192, 222, 0.3);
+  cursor: pointer; }
 
 .createNewQuest {
   margin: 10px; }
 
 .questDetailContainer {
   padding-bottom: 10px;
-  background-color: rgba(89, 165, 165, 0.2);
+  background-color: rgba(91, 192, 222, 0.1);
   border-top: 1px solid; }
 
 .questDetailContainer.ng-hide-add, .questDetailContainer.ng-hide-remove {
@@ -627,6 +636,9 @@ section.fixed-img {
   opacity: 0;
   padding: 0 10px; }
 
+questDetailContainer p {
+  margin-bottom: 0; }
+
 .questDetail {
   padding: 10px; }
 
@@ -636,8 +648,17 @@ section.fixed-img {
   padding: 10px; }
 
 label.activeSwitch {
-  margin: 10px; }
+  margin: 10px 15px 15px 15px;
+  cursor: pointer; }
 
 .checkbox {
   display: inline-block;
   margin-left: 5px; }
+
+.createNewQuest {
+  margin-top: 15px; }
+
+.orange-band {
+  color: white;
+  padding: 10px;
+  background-color: #5bc0de; }

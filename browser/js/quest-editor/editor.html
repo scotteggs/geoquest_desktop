@@ -1,17 +1,23 @@
-<div class="container top-margin edit-quest-container" ng-show="$root.editorVisible">
-	<div class="row btn-row quest-btn">
-			<div class="col-xs-12">
+<navbar></navbar>
+
+<div class="blue-band">
+	<div class="container">
+		<h2>Quest Editor</h2>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div ng-show="$root.editorVisible">
+			<div class="btn-row">
 				<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="form.$invalid">
-					MapState Editor
+					Step Editor
 				</button>
-				<button class="btn btn-info step-btn" ng-click="saveQuest()" ng-disabled="form.$invalid">
+				<button class="btn btn-info" ng-click="saveQuest()" ng-disabled="form.$invalid">
 					Save Quest
 				</button>
-			</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="quest-form col-xs-4">
+			</div><!-- .btn-row -->
+			<div class="col-sm-6">
 				<form name="form" class="form-horizontal edit-quest-form" novalidate>
 					<div class="formitem">
 						<span class="formtitle">Name</span><br>
@@ -30,6 +36,10 @@
 						<input class="form-control" type="text" ng-model="quest.openingInfo.title" required><br>
 					</div>
 					<div class="formitem">
+						<span class="formtitle">Welcome Image url</span><br>
+						<input class="form-control" placeholder="Paste URL Here" rows="2" type="text" ng-model="quest.openingInfo.imageUrl"><br>
+					</div>
+					<div class="formitem">
 						<span class="formtitle">Welcome Instructions</span><br>
 						<textarea class="form-control" rows="2" type="text" ng-model="quest.openingInfo.text" required></textarea><br>
 					</div>
@@ -46,14 +56,34 @@
 						<input class="checkbox" type="checkbox"><br>
 					</div>
 				</form>
-			</div>
-			<div class="col-xs-8">
-				<div id="quest-map" class="state-map">
+			</div><!-- .col-sm-6 -->
+			<div class="col-sm-6">
+
+				<ol class="breadcrumb">
+				    <li ng-click="viewMainMap=true" ng-class="{'gray':viewMainMap}">Map</li>
+				    <li ng-click="viewMainMap=false" ng-class="{'gray':!viewMainMap}">Preview Message</li>
+				</ol>
+
+				<p ng-show="viewMainMap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Targets</p>
+				<div ng-show="viewMainMap" id="quest-map">
 					<leaflet></leaflet>
 				</div>
-			</div>
 
+				<div ng-show="!viewMainMap" class="modal-preview">
+					<div class="container">
+						<!-- opening message -->
+						<h2 class="center">{{quest.openingInfo.title}}</h2>
+						<div ng-show="quest.openingInfo.imageUrl" class="modal-image"><img src="{{quest.openingInfo.imageUrl}}"></div>
+						<p>{{quest.openingInfo.text}}</p>
+						<div class="yellow-bar"><h4>Got it!</h4></div>
+					</div><!-- .container -->
+				</div>
+			</div><!-- .col-sm-6 -->
 		</div>
-	</div>
-</div>
+
+	</div><!-- .row -->
+</div><!-- .container -->
 <ui-view></ui-view>
+<footer>
+    <p class="center">Go GeoQuest 2016</p>
+</footer>
