@@ -1,72 +1,87 @@
-.top-margin {
-	margin-top: 50px;
-}
-
-#quest-step-map {
-	height: 500px;
-  width: 100%;
-  border-radius: 5px;
-}
-.row-title {
-	text-align: center;
-
-}
-.step-btn-row{
-	padding-left: 60px;
-}
-.step-btn {
-	margin: 10px;
-}
-
-.image-preview {
+/* Scrolling Step Menu */
+.steps-list {
 	width: 100%;
-	height: 145px;
+	padding: 13px;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	background-color: rgba(91, 192, 222, 0.1);
+	margin: 10px 0;
+	border-radius: 2px;
+	max-height: 65px;
+	white-space: nowrap;
+}
+.stepIcon {
+	display: inline-block;
+	height: 45px;
+	padding: 5px 10px;
+	margin-right: 10px;
+	border-radius: 2px;
+	background-color: rgba(91, 192, 222, 0.3);
+	width: 80px;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	cursor: pointer;
+}
+body ::-webkit-scrollbar {
+	background-color:rgba(91, 192, 222, 0.05);
 }
 
+
+/* Form */
 .edit-step .ng-invalid.ng-touched{
 	background-color: #FA787E;
 }
 
-.step-image {
-	zoom: 2;
-  display: block;
-  margin: auto;
-  height: auto;
-  max-height: 100%;
-  width: auto;
-  max-width: 100%;
-}
-.row {
-	margin: 10px;
-}
-.stepsContainer {
-	position:relative;
-	height: 500px;
-	width: 90%;
-	background-color: #b2cccc;
-	margin: auto;
-	display: block;
-	padding-top: 2px;
-	overflow: scroll;
+.breadcrumb {
+	margin-bottom: 5px;
+	li {
+		cursor: pointer;
+	}
+	li.gray {
+		color: gray;
+		cursor: auto;
+	}
 }
 
-.stepIcon {
-	position: relative;
-	height: 50px;
-	width: 90%;
-	margin-top: 10px;
-	margin-left: 5%;
-	background-color: #669999;
-	padding: 13px 2px 2px 2px;
-	text-align: center;
+/* Map */
+
+#quest-step-map {
+  height: 500px;
+  width: 100%;
+  border-radius: 5px;
 }
 
-.stepIcon .dndDraggingSource {
-	display: none;
+/* Modal Preview */
+.modal-preview {
+	background-color: rgba(0,0,0,0.8);
+	color: white;
+	overflow-y: scroll;
+	border-radius: 2px;
+	max-height: 500px;
+	input {
+		margin: 0 auto;
+	}
+	.yellow-bar {
+		text-align: center;
+		padding: 2px;
+		margin: 20px 0;
+		background-color: #ffcc00;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	.yellow-bar:hover {
+		background-color: #edbd00;
+	}
+}
+.modal-image {
+	width: 100%;
+	margin: 15px 0;
+	img {
+		width: 100%;
+	}
 }
 
-.stepsContainer .dndPlaceholder {
-    display: block;
-    background-color: #ddd;
-    min-height: 42px;
-}
+
+
+
+

@@ -1,13 +1,5 @@
-.top-margin {
-	margin-top: 50px;
-}
-
-.edit-quest-container {
-	margin-top: 5px;
-}
-
 #quest-map {
-	height: 400px;
+  height: 400px;
   width: 100%;
   margin-top: 20px;
 }
@@ -16,6 +8,11 @@
 	background-color: #FA787E;
 }
 
+.btn {
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
 .btn-row {
- padding-left: 50px;
+	margin-bottom: 5px;
 }

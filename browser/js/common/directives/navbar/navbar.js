@@ -3,7 +3,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
     return {
         restrict: 'E',
         scope: {
-            auth: '='
+            home: '=',
+            dashboard: '='
         },
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
@@ -14,7 +15,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             ];
 
             scope.user = null;
-            console.log('scope.auth', scope.auth);
 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
@@ -42,12 +42,25 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
 
-            // Pretty Scrolling Navbar Effect
-            $(window).scroll(function() {
-                if ($('.navbar').offset().top > 50) {
+            // If not 'Home', remove scroll animation
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                if (toState.name !== 'home') {
                     $('.navbar-fixed-top').addClass('top-nav-collapse');
+                    console.log('going not home');
                 } else {
                     $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                    console.log('going home')
+                }
+            });
+
+            // Pretty Scrolling Navbar Effect
+            $(window).scroll(function() {
+                if ($('.navbar').offset().top > 50 && scope.home) {
+                    $('.navbar-fixed-top').addClass('top-nav-collapse');
+                    console.log('doooowwwwwn')
+                } else if (scope.home) {
+                    $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                    console.log('uuuuuuup')
                 }
             });
 

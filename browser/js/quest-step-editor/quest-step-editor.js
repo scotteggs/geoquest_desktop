@@ -2,24 +2,26 @@ app.config(function ($stateProvider) {
 $stateProvider.state('editor.questStep', {
 		url: '/queststep/:questStepId', 
 		templateUrl: 'js/quest-step-editor/quest-step-editor.html',
-		controller: 'QuestStepEditController',
+		controller: 'QuestStepEditCtrl',
 		resolve: {
 			quest: function(QuestFactory, $stateParams){
     		return $stateParams.id !== "" ?
 					QuestFactory.getOneQuest($stateParams.id) : 
 					undefined;
-    	}
+    		}
 		},
 		data: {
-      authenticate: true
-    }
-	})
-})
+      		authenticate: true
+    	}
+	});
+});
 
 
-app.controller('QuestStepEditController', function ($stateParams, $scope, $state, $rootScope, quest, QuestFactory){
+app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $rootScope, quest, QuestFactory){
 	$scope.quest = quest;
 	$rootScope.editorVisible = false;
+	$scope.viewMap = true;
+
 	//defind new Step for adding to steps array
 	$scope.newStep = {
 		name: 'New Step',
@@ -28,7 +30,7 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
 				radius: null
 			}
 		}	
-	//if we have steps, find the index of the step that which matches the params
+	//if we have steps, find the index of the step that matches the params
 	if($scope.quest.questSteps.length > 0) {
 		$scope.quest.questSteps.forEach( function (step, index) {
 			if (step._id === $stateParams.questStepId) {
@@ -130,9 +132,17 @@ app.controller('QuestStepEditController', function ($stateParams, $scope, $state
   	var layer = e.layer;
   	//assign target region to properties of drawn object
     $scope.currentStep.targetCircle.center = [layer._latlng.lat,layer._latlng.lng];
-    $scope.currentStep.targetCircle.radius = layer._mRadius
+    $scope.currentStep.targetCircle.radius = layer._mRadius;
     //declare new object based on propertied drawn and add to map
     circle = L.circle([layer._latlng.lat,layer._latlng.lng], layer._mRadius);
     questStepMap.addLayer(circle);
 	});
-})
+
+	$scope.getModalButtonText = function() {
+		if ($scope.currentStep.transitionInfo.question.length) return "Submit!";
+		return "Got it!";
+	};
+});
+
+
+

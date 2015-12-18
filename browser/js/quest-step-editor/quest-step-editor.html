@@ -1,60 +1,80 @@
-<div class="top-margin row btn-row">
+<div class="container">
 	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()" ng-disabled="stepform.$invalid">Save And Return</button>
 	<button class="btn btn-info step-btn" ng-click="returnWithoutSaving()">Return w/o Saving</button>
 	<button class="btn btn-info step-btn" ng-click="removeQuestStep()">Remove Current Step</button>
 	<button class="btn btn-info step-btn" ng-click="addQuestStep()" ng-disabled="stepform.$invalid">Create New Step</button>
-</div>
-<div class="row">
-	<div class="col-xs-6">
-		<div class="row">
-			<div class="col-xs-6">
-				<form name="stepform" class="form-horizontal edit-step" novalidate>
-					<div class="formitem">
-						<span class="formtitle">Name</span><br>
-						<input name="name" class="form-control" type="text" ng-model="currentStep.name" required><br>
-      		</div>
-					<div class="formitem">
-						<span class="formtitle">Message Title</span><br>
-						<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title" required><br>
-					</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="image-preview">
-					<img class="step-image" ng-src="{{currentStep.transitionInfo.imageUrl}}">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-					<div class="formitem">
-						<span class="formtitle">Message Image URL</span><br>
-						<input name="currentStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="currentStep.transitionInfo.imageUrl"><br>
-					</div>
-					<div class="formitem">
-						<span class="formtitle">Message Text</span><br>
-						<textarea name="transitionInfo.text" class="form-control"  type="text" ng-model="currentStep.transitionInfo.text"></textarea><br>
-					</div>
-					<div class="formitem">
-						<span class="formtitle">Message Question</span><br>
-						<textarea name="currentStep.transitionInfo.question" class="form-control"  type="text" ng-model="currentStep.transitionInfo.question"></textarea><br>
-					</div>
-					<div class="formitem">
-						<span class="formtitle">Message Correct Answer</span><br>
-						<textarea name="currentStep.transitionInfo.answer" class="form-control"  type="text" ng-model="currentStep.transitionInfo.answer"></textarea><br>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="step-editor col-xs-4">
-		<div id="quest-step-map" class="quest-step-map">
-			<leaflet></leaflet>
-		</div>
-	</div>
-	<div class="steps-list col-xs-2">
-		<div ui-sortable class="stepsContainer" ng-model="quest.questSteps">
+</div><!-- .conatiner -->
+
+<div class="container">
+
+	<div class="steps-list">
+		<div ui-sortable class="stepsContainer pull-left" ng-model="quest.questSteps">
 			<div ng-repeat="questStep in quest.questSteps track by $index" class="stepIcon" ng-click="switchStep(questStep)">{{questStep.name}}
 			</div>
 		</div>
 	</div>
-</div>
+
+
+
+	<div class="row">
+		<div class="col-sm-6">
+			<form name="stepform" class="form-horizontal edit-step" novalidate>
+				<div class="formitem">
+					<span class="formtitle">Name</span><br>
+					<input name="name" class="form-control" type="text" ng-model="currentStep.name" required><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Title</span><br>
+					<input name="transitionInfo.title" class="form-control" type="text" ng-model="currentStep.transitionInfo.title" required><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Image URL</span><br>
+					<input name="currentStep.transitionInfo.imageUrl" class="form-control"  type="text" ng-model="currentStep.transitionInfo.imageUrl"><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Text</span><br>
+					<textarea name="transitionInfo.text" class="form-control"  type="text" ng-model="currentStep.transitionInfo.text"></textarea><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Question</span><br>
+					<textarea name="currentStep.transitionInfo.question" class="form-control"  type="text" ng-model="currentStep.transitionInfo.question"></textarea><br>
+				</div>
+				<div class="formitem">
+					<span class="formtitle">Message Correct Answer</span><br>
+					<textarea name="currentStep.transitionInfo.answer" class="form-control"  type="text" ng-model="currentStep.transitionInfo.answer"></textarea><br>
+				</div>
+			</form>
+		</div><!-- .col-sm-6 -->
+
+		<div class="col-sm-6">
+			<ol class="breadcrumb">
+			  <li ng-click="viewMap=true" ng-class="{'gray':viewMap}">Map</li>
+			  <li ng-click="viewMap=false" ng-class="{'gray':!viewMap}">Preview Message</li>
+			</ol>
+
+			<p ng-show="viewMap" >Pick a Target Region for This Step</p>
+			<div ng-show="viewMap" id="quest-step-map" class="quest-step-map">
+				<leaflet></leaflet>
+			</div>
+
+			<div ng-show="!viewMap" class="modal-preview">
+				<div class="container">
+					<!-- step-specific message -->
+					<h1 class="center">Region Information</h1>
+					<h2 class="center">{{currentStep.transitionInfo.title}}</h2>
+					<div ng-show="currentStep.transitionInfo.imageUrl" class="modal-image"><img src="{{currentStep.transitionInfo.imageUrl}}"></div>
+					<p>{{currentStep.transitionInfo.text}}</p>
+
+					<!-- Show only when an answer is required to move to next step -->
+					<p ng-show="currentStep.transitionInfo.question.length">{{currentStep.transitionInfo.question}}</p>
+					<div class="form-group">
+						<input ng-show="currentStep.transitionInfo.question.length" class="form-control" type="text" value={{currentStep.transitionInfo.answer}}>
+					</div><!-- .form-group -->
+					<div class="yellow-bar"><h4>{{getModalButtonText()}}</h4></div>
+				</div><!-- .container -->
+			</div>
+
+		</div><!-- .col-sm-6 -->
+	</div><!-- .row -->
+</div><!-- .container -->
+

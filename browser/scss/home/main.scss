@@ -1,12 +1,110 @@
-#home {
-  fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
+ * {
+    font-family: 'Josefin Sans', sans-serif;  /*Don't need important tags later*/
+    font-weight: 700 !important;
   }
-  h1 {
-    margin-top: 40px;
+  section {
+    padding: 40px 0;
+  }
+  .center {
     text-align: center;
+    margin: 20px 0;
   }
-}
 
+  #header {
+    position: relative;
+    height: 500px;
+    background: url('images/trail.JPG') 50% 0 no-repeat;
+    background-size: cover;
+    padding-top: 30px;
+    color: white;
+    .header-text {
+    	position: absolute;
+    	bottom: 220px;
+    }
+  }
+
+  section.fixed-img {
+    background-size: cover !important;
+    height: 200px;
+    color: white;
+    h1 {
+    	position: relative;
+	    box-sizing: border-box;
+	    margin: 0 auto;
+	    top: 35%;
+	    font-size: 50px;
+	    line-height: 50px;
+    }
+  }
+
+  #keep {
+    background: url('images/bridge.jpg') 50% 0 repeat fixed;
+  }
+  #cool {
+    background: url('images/turtle.jpeg') 50% 0 repeat fixed;
+  }
+  #also-cool {
+    background: url('images/ivy.jpg') 50% 0 repeat fixed;
+  }
+
+/* So iframe height stays proportional to width */
+  .wrapper         {width:70%;height:100%;margin:40px auto;background:#CCC}
+  .h_iframe        {position:relative;}
+  .h_iframe .ratio {display:block;width:100%;height:auto;}
+  .h_iframe iframe {position:absolute;top:0;left:0;width:100%; height:100%;}
+
+  #who {
+    padding-bottom: 60px;
+  }
+  .one-of-us {
+    min-width: 200px;
+    max-width: 300px;
+    margin: 0 auto;
+    img {
+    	margin: 20px 0 15px;
+	    width: 100%;
+	    border: 1px solid #666;
+    }
+    div {
+    	display: inline-block;
+	    margin-left: 10px;
+	    width: 30px;
+	    height: 30px;
+	    border-radius: 15px;
+	    background-color: #666;
+	    color: white;
+    }
+    div:hover {
+    	background-color: #1A85BC;
+    }
+    div a i {
+    	margin: 7px 0 0 9px;
+  	}
+  }
+
+  #auth {
+    background: url('images/trip-stuff.jpg') 50% 0 repeat fixed;
+    background-size: cover;
+    color: white;
+  }
+
+  footer {
+    height: 40px;
+    p {
+    	font-weight: normal !important;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 767px) {
+    .login {
+      margin-bottom: 30px;
+    }
+  }
+
+  @media (max-width: 435px) {
+    .header-text {
+      position: relative;
+      top: 45px;
+    }
+  }

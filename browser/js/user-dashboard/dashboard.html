@@ -1,29 +1,45 @@
-<h2>Dashboard</h2>
-<hr>
-<h3>Your Quests</h3>
-<div ng-repeat="quest in quests" class="repeat-item userquest">
-	 <div class="questClickeable" ng-click="parentClick($index)">
-		<p>{{quest.name}} - {{quest.summary}}</p>
-	</div>
-	<div class="questDetailContainer" ng-show="quest.showDetail">
-		<div class="questDetail">
-			<p>This is the detail!</p>
-			<p>{{ quest.name }}</p>
-			<label class="switch-light switch-material activeSwitch" ng-click="switchActive(quest)">
-				<input type="checkbox" ng-model="quest.active">
-			  	<strong>Active:</strong>
-			  	<span>
-			    	<span>Off</span>
-			    	<span>On</span>
-			    	<a></a>
-			  	</span>
-			  </input>
-			</label>
-			<button class="btn btn-sm btn-default" ng-click="goToEditor(quest)">Edit</button>
-			<button class="btn btn-sm btn-default" ng-click="deleteQuest(quest)">Delete</button>
+<div class="page-wrap"><!-- To make footer sticky -->
+	<navbar dashboard="dashboard"></navbar>
+
+	<div class="blue-band">
+		<div class="container">
+			<h2>Dashboard <small>Your Quests</small></h2>
 		</div>
 	</div>
-</div>
-<div class="createNewQuest">
-	<button class="btn-lg btn btn-active" ui-sref="editor({id: null})">Create New Quest</button>
-</div>
+
+	<div class="container">
+	</div>
+	<div ng-repeat="quest in quests" class="repeat-item userquest">
+		 <div class="questClickeable" ng-click="parentClick($index)">
+		 	<div class="container">
+				<p>{{quest.name}}</p>
+			</div><!-- .conatainer -->
+		</div>
+		<div class="questDetailContainer" ng-show="quest.showDetail">
+			<div class="questDetail container">
+				<p>{{ quest.summary }}</p>
+				<label class="switch-light switch-material activeSwitch" ng-click="switchActive(quest)">
+					<input type="checkbox" ng-model="quest.active">
+				  	<strong>Active:</strong>
+				  	<span>
+				    	<span>Off</span>
+				    	<span>On</span>
+				    	<a></a>
+				  	</span>
+				  </input>
+				</label>
+				<button class="btn btn-sm btn-info" ng-click="goToEditor(quest)">Edit</button>
+				<button class="btn btn-sm btn-danger" ng-click="deleteQuest(quest)">Delete</button>
+			</div>
+		</div>
+	</div>
+	<div class="createNewQuest">
+		<div class="container">
+			<button class="btn-lg btn btn-info btn-active" ui-sref="editor({id: null})">Create New Quest</button>
+		</div><!-- .container -->
+	</div>
+</div><!-- .page-wrap -->
+
+<footer>
+    <p>Go GeoQuest 2016</p>
+</footer>
