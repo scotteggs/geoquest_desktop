@@ -111,6 +111,9 @@ body ::-webkit-scrollbar {
   .modal-image img {
     width: 100%; }
 
+.right-panel {
+  margin-bottom: 20px; }
+
 /* ================================================================== */
 /* Toolbars
 /* ================================================================== */
@@ -549,7 +552,8 @@ section.fixed-img {
   color: white; }
 
 footer {
-  height: 40px; }
+  height: 40px;
+  margin-top: 20px; }
   footer p {
     font-weight: normal !important;
     text-align: center; }

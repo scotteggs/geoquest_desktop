@@ -139,7 +139,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 	});
 
 	$scope.getModalButtonText = function() {
-		if ($scope.currentStep.transitionInfo.question.length) return "Submit!";
+		if ($scope.currentStep.transitionInfo.question) return "Submit!";
 		return "Got it!";
 	};
 });
