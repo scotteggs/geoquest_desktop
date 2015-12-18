@@ -1,10 +1,5 @@
-<navbar></navbar>
-
-<div class="blue-band">
-	<div class="container">
-		<h2>Quest Editor</h2>
-	</div>
-</div>
+<blue-header ng-show="editorVisible" head="Quest Editor" small="General"></blue-header>
+<blue-header ng-show="!editorVisible" head="Quest Editor" small="Steps"></blue-header>
 
 <div class="container">
 	<div ng-show="$root.editorVisible">

@@ -17,7 +17,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, $rootScope, quest, Session, QuestFactory) {
+app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, $rootScope, quest, Session, QuestFactory, AuthService) {
 	//variable saved to show/hide quest editor when editing individual states
 	$rootScope.editorVisible = true;
 	$scope.quest = quest;
@@ -56,68 +56,74 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 					$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[0]._id});	
 				}
 				$scope.editorVisible = false;
-			})
+			});
 		} else {
 			return QuestFactory.saveNew($scope.quest)
 			.then(function (savedQuest) {
 				$scope.editorVisible = false;
 				$state.go('editor.questStep', {id: savedQuest._id, questStepId: null});
-			})
+			});
 		}
 	};
 
+	$scope.logout = function () {
+        AuthService.logout().then(function () {
+           $state.go('home');
+        });
+    };
+
 	//***********  MAP FUNCTIONS BELOW  ***********************
-		var questMap = L.map('quest-map').setView($scope.quest.start, 13);
+	var questMap = L.map('quest-map').setView($scope.quest.start, 13);
 
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-	    maxZoom: 18,
-	    id: 'scotteggs.o7614jl2',
-	    accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
-		}).addTo(questMap);
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    maxZoom: 18,
+    id: 'scotteggs.o7614jl2',
+    accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
+	}).addTo(questMap);
 
-		var drawnItems = new L.FeatureGroup();
-		questMap.addLayer(drawnItems);	
+	var drawnItems = new L.FeatureGroup();
+	questMap.addLayer(drawnItems);	
 
-		// Initialise the draw control and pass it the FeatureGroup of editable layers
-		var drawControl = new L.Control.Draw({
-		    draw: {
-		    	polyline: false,
-		    	polygon: false,
-		    	rectangle: false,
-		    	circle: false
-		    },
-		    edit: {
-		        featureGroup: drawnItems
-		    }
+	// Initialise the draw control and pass it the FeatureGroup of editable layers
+	var drawControl = new L.Control.Draw({
+	    draw: {
+	    	polyline: false,
+	    	polygon: false,
+	    	rectangle: false,
+	    	circle: false
+	    },
+	    edit: {
+	        featureGroup: drawnItems
+	    }
+	});
+
+	questMap.addControl(drawControl);
+
+	var marker = L.marker($scope.quest.start, {draggable: true});
+	questMap.addLayer(marker);
+
+	questMap.on('draw:created', function (e) {
+		//	remove any existing markers
+	  if (marker) questMap.removeLayer(marker);
+	  var type = e.layerType;
+	  var layer = e.layer;
+	  //save start location of new marker
+	  $scope.quest.start = [layer._latlng.lat,layer._latlng.lng];
+	  //create marker and add to map
+	  marker = L.marker([layer._latlng.lat,layer._latlng.lng], {draggable: true});
+	  questMap.addLayer(marker);
+	});
+
+	marker.on('dragend', function (e) {
+		$scope.quest.start = [e.target._latlng.lat,e.target._latlng.lng];
+	})
+
+	if ($scope.newQuest) {
+		questMap.locate().on('locationfound', function (e) {
+			questMap.setView([e.latitude,e.longitude], 14);
+			marker.setLatLng([e.latitude,e.longitude]);
+			$scope.quest.start = [e.latitude,e.longitude];
 		});
-
-		questMap.addControl(drawControl);
-
-		var marker = L.marker($scope.quest.start, {draggable: true});
-		questMap.addLayer(marker);
-
-		questMap.on('draw:created', function (e) {
-			//	remove any existing markers
-		  if (marker) questMap.removeLayer(marker);
-		  var type = e.layerType;
-		  var layer = e.layer;
-		  //save start location of new marker
-		  $scope.quest.start = [layer._latlng.lat,layer._latlng.lng];
-		  //create marker and add to map
-		  marker = L.marker([layer._latlng.lat,layer._latlng.lng], {draggable: true});
-		  questMap.addLayer(marker);
-		});
-
-		marker.on('dragend', function (e) {
-			$scope.quest.start = [e.target._latlng.lat,e.target._latlng.lng];
-		})
-
-		if ($scope.newQuest) {
-			questMap.locate().on('locationfound', function (e) {
-				questMap.setView([e.latitude,e.longitude], 14);
-				marker.setLatLng([e.latitude,e.longitude]);
-				$scope.quest.start = [e.latitude,e.longitude];
-			});
-		}
+	}
 
 })

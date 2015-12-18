@@ -29,7 +29,7 @@ app.controller('HomeCtrl', function ($scope, AuthService, $state, requestedUser)
         AuthService.login(loginInfo).then(function (user) {
             $state.go('dashboard', {userId: user._id});
         }).catch(function () {
-            $scope.error = "I think you\'ve entered the wrong info, friend";
+            $scope.loginError = "I think you\'ve entered the wrong info, friend";
         });
 
     };
@@ -39,7 +39,7 @@ app.controller('HomeCtrl', function ($scope, AuthService, $state, requestedUser)
         AuthService.signup(signupInfo).then(function (user) {
             $state.go('dashboard', {userId: user._id}, {reload: true});
         }).catch(function(){
-            $scope.error = "I'm afraid we already have someone by that name";
+            $scope.signupError = "I'm afraid we already have someone by that name";
         });
     };
 

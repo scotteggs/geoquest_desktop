@@ -1,18 +1,11 @@
 .page-wrap {
-	height: 100%;
+	height: calc(100% - 20px);
 	margin-bottom: -40px; /* Equal to footer height */
 }
 .page-wrap:after {
 	content: "";
 	display: block;
 	height: 40px;
-}
-
-.blue-band {
-  background-color: #5bc0de;
-  color: #f5f5f5;
-  padding: 10px;
-  margin-bottom: 15px;
 }
 
 .userQuest {
@@ -71,10 +64,4 @@ label.activeSwitch {
 
 .createNewQuest {
 	margin-top: 15px;
-}
-
-.orange-band {
-	color: white;
-	padding: 10px;
-	background-color: #5bc0de;
 }
