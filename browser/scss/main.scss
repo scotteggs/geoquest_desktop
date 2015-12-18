@@ -11,6 +11,10 @@ html, body, #main, #questmap {
     height: 100%;
 }
 
+.container {
+  width: 100% !important; /* Overrides Bootstrap */
+}
+
 @mixin clearfix {
   &:after {
     content: "";
