@@ -15,8 +15,8 @@ app.directive('resolveLoader', function($rootScope, $timeout) {
         });
       });
 
-      $rootScope.$on('$routeChangeSuccess', function() {
-        console.log('routeChangeSuccess');
+      $rootScope.$on('$stateChangeSuccess', function() {
+        console.log('stateChangeSuccess');
         element.addClass('ng-hide');
       });
     }
