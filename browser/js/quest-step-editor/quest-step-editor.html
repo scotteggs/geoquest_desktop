@@ -4,8 +4,6 @@
 	<button class="btn btn-info step-btn" ng-click="addQuestStep()" ng-disabled="stepform.$invalid">Create New Step</button>
 </div><!-- .conatiner -->
 
-<resolve-loader></resolve-loader>
-
 <div class="container right-panel">
 	<div class="steps-list">
 		<div ui-sortable class="stepsContainer pull-left" ng-model="quest.questSteps">
@@ -14,6 +12,8 @@
 		</div>
 	</div>
 </div>
+
+<resolve-loader></resolve-loader>
 
 <alert type="danger" ng-show="targetError">
 	Please designate a field of interest for this step
