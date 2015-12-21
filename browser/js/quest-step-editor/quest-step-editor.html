@@ -1,21 +1,26 @@
 <div class="container">
-	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()" ng-disabled="stepform.$invalid">Save And Return</button>
-	<button class="btn btn-info step-btn" ng-click="returnWithoutSaving()">Return w/o Saving</button>
+	<button class="btn btn-info step-btn" ng-click="saveQuestSteps()" ng-disabled="stepform.$invalid">Main Editor</button>
 	<button class="btn btn-info step-btn" ng-click="removeQuestStep()">Remove Current Step</button>
 	<button class="btn btn-info step-btn" ng-click="addQuestStep()" ng-disabled="stepform.$invalid">Create New Step</button>
 </div><!-- .conatiner -->
 
 <div class="container right-panel">
-
 	<div class="steps-list">
 		<div ui-sortable class="stepsContainer pull-left" ng-model="quest.questSteps">
 			<div ng-repeat="questStep in quest.questSteps track by $index" class="stepIcon" ng-click="switchStep(questStep)">{{questStep.name}}
 			</div>
 		</div>
 	</div>
+</div>
 
+<alert type="danger" ng-show="targetError">
+	Please designate a field of interest for this step
+</alert>
+<alert type="danger" ng-show="titleError">
+	Please include a message for your explorers
+</alert>
 
-
+<div class="container right-panel">
 	<div class="row">
 		<div class="col-sm-6">
 			<form name="stepform" class="form-horizontal edit-step" novalidate>
@@ -52,7 +57,7 @@
 			  <li ng-click="viewMap=false" ng-class="{'gray':!viewMap}">Preview Message</li>
 			</ol>
 
-			<p ng-show="viewMap" >Pick a Target Region for This Step</p>
+			<p ng-show="viewMap" >Create a Field of Interest for This Step</p>
 			<div ng-show="viewMap" id="quest-step-map" class="quest-step-map">
 				<leaflet></leaflet>
 			</div>
