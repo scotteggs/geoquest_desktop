@@ -67,7 +67,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 				$scope.quest = updatedQuest;
 				$state.go('editor', {id: $scope.quest._id}, {reload: true});	
 			});
-		} else flashError(targetError);
+		} else flashError('targetError');
 	};
 	$scope.addQuestStep = function () {
 		$scope.quest.questSteps.push($scope.newStep);
