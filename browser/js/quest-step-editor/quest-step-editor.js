@@ -22,6 +22,8 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 	$rootScope.editorVisible = false;
 	$scope.viewMap = true;
 	var userLocation;
+	$scope.targetError = false;
+	$scope.titleError = false;
 
 	//defind new Step for adding to steps array
 	$scope.newStep = {
@@ -30,8 +32,8 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 				center: [],
 				radius: null
 			}
-		}	
-	//if we have steps, find the index of the step that matches the params
+		};
+	// if we have steps, find the index of the step that matches the params
 	if($scope.quest.questSteps.length > 0) {
 		$scope.quest.questSteps.forEach( function (step, index) {
 			if (step._id === $stateParams.questStepId) {
@@ -42,26 +44,30 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 		$scope.currentStep = $scope.quest.questSteps[$scope.quest.idx];
 	} else {
 		$scope.quest.questSteps.push($scope.newStep);
-		$scope.currentStep = $scope.quest.questSteps[0]
+		$scope.currentStep = $scope.quest.questSteps[0];
 	}
 	//function to switch states within mapState editor
 	$scope.switchStep = function (clickedStep) {
-		QuestFactory.save($scope.quest)
-		.then(function () {
-		// redirect to the clicked mapstate
-			$state.go('editor.questStep', {questStepId: clickedStep._id});	
-		})
+		if ($scope.currentStep.targetCircle.center.length && $scope.currentStep.transitionInfo && $scope.currentStep.transitionInfo.title) {
+			QuestFactory.save($scope.quest)
+			.then(function () {
+			// redirect to the clicked mapstate
+				$state.go('editor.questStep', {questStepId: clickedStep._id});	
+			});
+		} else {
+			if (!$scope.currentStep.targetCircle.center.length) flashError('targetError');
+			if (!$scope.currentStep.transitionInfo || !$scope.currentStep.transitionInfo.title) flashError('titleError');
+		}
 	};
 	$scope.saveQuestSteps = function () {
-	//updates current mapState
-		QuestFactory.save($scope.quest)
-		.then(function (updatedQuest) {
-			$scope.quest = updatedQuest;
-			$state.go('editor', {id: $scope.quest._id}, {reload: true});	
-		})
-	};
-	$scope.returnWithoutSaving = function () {
-			$state.go('editor', {id: $scope.quest._id}, {reload: true});	
+		if ($scope.currentStep.targetCircle.center.length) {
+			//update quest
+			QuestFactory.save($scope.quest)
+			.then(function (updatedQuest) {
+				$scope.quest = updatedQuest;
+				$state.go('editor', {id: $scope.quest._id}, {reload: true});	
+			});
+		} else flashError(targetError);
 	};
 	$scope.addQuestStep = function () {
 		$scope.quest.questSteps.push($scope.newStep);
@@ -69,7 +75,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
 			$state.go('editor.questStep', {questStepId: $scope.quest.questSteps[$scope.quest.questSteps.length-1]._id});
-		})
+		});
 
 	};
 	$scope.removeQuestStep = function () {
@@ -83,6 +89,17 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 			$state.go('editor.questStep', {questStepId: stepDestination}, {reload: true});
 		});
 	};
+
+	function flashError(errorType) {
+		$scope[errorType] = true;
+		setTimeout(function() {
+			$scope[errorType] = false; 
+			$scope.$digest();
+		}, 3000);
+	}
+
+
+	// MAP BELOW ===================================>>
 
 	// initialize map
 	var questStepMap = L.map('quest-step-map');

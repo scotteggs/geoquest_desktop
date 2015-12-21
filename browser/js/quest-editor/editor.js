@@ -33,6 +33,11 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 
 	//update quest and go to dashboard for current user
 	$scope.saveQuest = function () {
+		// filter out all questSteps without targetCirlcles or transitionInfo.title
+		quest.questSteps = quest.questSteps.filter(function(step) {
+			return (step.targetCircle.center.length && step.transitionInfo.title);
+		});
+
 		if(!$scope.newQuest) {
 			return QuestFactory.save($scope.quest)		
 			.then(function () {
