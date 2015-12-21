@@ -10,9 +10,9 @@ app.directive('resolveLoader', function($rootScope, $timeout) {
         console.log('change start');
         //if (previousRoute) return;
 
-        //$timeout(function() {
+        $timeout(function() {
           element.removeClass('ng-hide');
-        //});
+        });
       });
 
       $rootScope.$on('$routeChangeSuccess', function() {
