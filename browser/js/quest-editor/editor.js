@@ -73,57 +73,48 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
     };
 
 	//***********  MAP FUNCTIONS BELOW  ***********************
-	var questMap = L.map('quest-map').setView($scope.quest.start, 13);
-
+	var userLocation;
+	var targetCircles = [];
+	var circleCenters = [];
+	var questMap = L.map('quest-map').setView([40.723008,-74.0006327], 13);
+	questMap.scrollWheelZoom.disable(); // Really annoying when it happens accidently
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     maxZoom: 18,
     id: 'scotteggs.o7614jl2',
     accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
 	}).addTo(questMap);
 
-	var drawnItems = new L.FeatureGroup();
-	questMap.addLayer(drawnItems);	
+	// If there are no targetCircles yet created, set map view to user's location
+	if (!$scope.quest.questSteps[0] || !$scope.quest.questSteps[0].targetCircle) {
 
-	// Initialise the draw control and pass it the FeatureGroup of editable layers
-	var drawControl = new L.Control.Draw({
-	    draw: {
-	    	polyline: false,
-	    	polygon: false,
-	    	rectangle: false,
-	    	circle: false
-	    },
-	    edit: {
-	        featureGroup: drawnItems
-	    }
-	});
-
-	questMap.addControl(drawControl);
-
-	var marker = L.marker($scope.quest.start, {draggable: true});
-	questMap.addLayer(marker);
-
-	questMap.on('draw:created', function (e) {
-		//	remove any existing markers
-	  if (marker) questMap.removeLayer(marker);
-	  var type = e.layerType;
-	  var layer = e.layer;
-	  //save start location of new marker
-	  $scope.quest.start = [layer._latlng.lat,layer._latlng.lng];
-	  //create marker and add to map
-	  marker = L.marker([layer._latlng.lat,layer._latlng.lng], {draggable: true});
-	  questMap.addLayer(marker);
-	});
-
-	marker.on('dragend', function (e) {
-		$scope.quest.start = [e.target._latlng.lat,e.target._latlng.lng];
-	})
-
-	if ($scope.newQuest) {
 		questMap.locate().on('locationfound', function (e) {
-			questMap.setView([e.latitude,e.longitude], 14);
-			marker.setLatLng([e.latitude,e.longitude]);
-			$scope.quest.start = [e.latitude,e.longitude];
+			userLocation = [e.latitude,e.longitude];
+			questMap.setView(userLocation, 14);
 		});
 	}
 
-})
+	// Redraw all targetCircles for the quest on the map and reset the bounds
+	function drawCircles() {
+		// Remove all circles
+		targetCircles.forEach(function(circle) {
+			questMap.removeLayer(circle);
+		});
+		// Draw a circle for every targetCircle in the quest
+		if ($scope.quest.questSteps.length) {
+			$scope.quest.questSteps.forEach(function(step, index) {
+				if (step.targetCircle && step.targetCircle.center.length) {
+					var center = step.targetCircle.center;
+					var radius = step.targetCircle.radius;
+					var circle = L.circle(center,radius);
+					circle.bindLabel((index+1).toString(), { noHide: true }).addTo(questMap);
+					targetCircles.push(circle);
+					circleCenters.push(step.targetCircle.center);
+				}
+			});
+			questMap.fitBounds(circleCenters);
+		}
+	}
+	drawCircles();
+
+});
+

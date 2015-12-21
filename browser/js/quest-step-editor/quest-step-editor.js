@@ -21,6 +21,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 	$scope.quest = quest;
 	$rootScope.editorVisible = false;
 	$scope.viewMap = true;
+	var userLocation;
 
 	//defind new Step for adding to steps array
 	$scope.newStep = {
@@ -36,7 +37,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 			if (step._id === $stateParams.questStepId) {
 				$scope.quest.idx = index;
 			}
-		})
+		});
 		//sets currentStep to that matching the parameters
 		$scope.currentStep = $scope.quest.questSteps[$scope.quest.idx];
 	} else {
@@ -80,26 +81,32 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 			$scope.quest = updatedQuest;
 			var stepDestination = $scope.quest.questSteps.length===0 ? null : $scope.quest.questSteps[index]._id;
 			$state.go('editor.questStep', {questStepId: stepDestination}, {reload: true});
-		})
+		});
 	};
 
-	// //function to set map to either target region or map starting point if no target region
-	var mapView = function () {
-
-		if ($scope.currentStep.targetCircle.center.length === 2) {
-			return($scope.currentStep.targetCircle.center)
-		} else {
-			return $scope.quest.start
-		}
-	};
-	// //initialize map and set view using mapView function
-	var questStepMap = L.map('quest-step-map').setView(mapView(), 15);
+	// initialize map
+	var questStepMap = L.map('quest-step-map');
+	questStepMap.scrollWheelZoom.disable(); // Really annoying when it happens accidently
 	//add pirate map tiles
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     maxZoom: 18,
     id: 'scotteggs.o7614jl2',
     accessToken: 'pk.eyJ1Ijoic2NvdHRlZ2dzIiwiYSI6ImNpaDZoZzhmdjBjMDZ1cWo5aGcyaXlteTkifQ.LZe0-IBRQmZ0PkQBsYIliw'
 	}).addTo(questStepMap);
+
+	// Set view using targetCircle for this step if defined
+	// Then try first targetCircle for quest if defined
+	// Otherwise get user's location and set map view with that
+	if ($scope.currentStep.targetCircle.center.length === 2) {
+		questStepMap.setView($scope.currentStep.targetCircle.center, 15);
+	} else if ($scope.quest.questSteps[0].targetCircle.center.length === 2) {
+		questStepMap.setView($scope.quest.questSteps[0].targetCircle.center, 15);
+	} else {
+		questStepMap.locate().on('locationfound', function (e) {
+			userLocation = [e.latitude,e.longitude];
+			questStepMap.setView(userLocation, 15);
+		});
+	}
 
 	// Initialize the FeatureGroup to store editable layers
 	var drawnItems = new L.FeatureGroup();
@@ -139,7 +146,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 	});
 
 	$scope.getModalButtonText = function() {
-		if ($scope.currentStep.transitionInfo.question) return "Submit!";
+		if ($scope.currentStep && $scope.currentStep.transitionInfo && $scope.currentStep.transitionInfo.question) return "Submit!";
 		return "Got it!";
 	};
 });
