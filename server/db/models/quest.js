@@ -27,9 +27,6 @@ var schema = new mongoose.Schema({
     distance: {
         type: Number
     },
-    start: {
-        type: []
-    },
     author: {
         ref: 'User', 
         type: Schema.Types.ObjectId
