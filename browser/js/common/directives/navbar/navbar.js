@@ -40,10 +40,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             $(window).scroll(function() {
                 if ($('.navbar').offset().top > 50 && scope.home) {
                     $('.navbar-fixed-top').addClass('top-nav-collapse');
-                    console.log('doooowwwwwn')
                 } else if (scope.home) {
                     $('.navbar-fixed-top').removeClass('top-nav-collapse');
-                    console.log('uuuuuuup')
                 }
             });
 
