@@ -64,7 +64,7 @@
 
         this.getLoggedInUser = function (fromServer) {
 
-            // If an authenticated session exists, we
+            // If an authenticated session exists,
             // return the user attached to that session
             // with a promise. This ensures that we can
             // always interface with this method asynchronously.
