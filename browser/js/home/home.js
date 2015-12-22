@@ -25,18 +25,20 @@ app.controller('HomeCtrl', function ($scope, AuthService, $state, requestedUser)
 
     $scope.sendLogin = function (loginInfo) {
         $scope.error = null;
-
+        console.log('loginInfo', loginInfo)
         AuthService.login(loginInfo).then(function (user) {
+            console.log('found existing user', user);
             $state.go('dashboard', {userId: user._id});
         }).catch(function () {
             $scope.loginError = "I think you\'ve entered the wrong info, friend";
         });
-
     };
 
     $scope.sendSignup = function(signupInfo) {
+        console.log('loginInfo', signupInfo)
         $scope.error = null;
         AuthService.signup(signupInfo).then(function (user) {
+            console.log('made new user', user);
             $state.go('dashboard', {userId: user._id}, {reload: true});
         }).catch(function(){
             $scope.signupError = "I'm afraid we already have someone by that name";

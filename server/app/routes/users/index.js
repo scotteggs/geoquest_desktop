@@ -29,7 +29,7 @@ router.param('userId', function(req, res, next, id) {
 
 // Gets all incompleted quest instances initiated by this user
 router.get('/:userId/startedQuests', function (req, res, next) {
-	if (req.requestedUser._id === req.user._id) {
+	if (req.requestedUser._id.toString() === req.user._id.toString()) {
 		var questsInProgressForUser = req.requestedUser.startedQuests;
 		StartedQuest.find({'_id': {$in: questsInProgressForUser} })
 		.then(function(startedQuests) {
@@ -40,7 +40,7 @@ router.get('/:userId/startedQuests', function (req, res, next) {
 
 // Adds a quest to the users 'startedQuests'
 router.post('/:userId/startedQuests', function (req, res, next) {
-	if (req.requestedUser._id === req.user._id) {
+	if (req.requestedUser._id.toString() === req.user._id.toString()) {
 		var theStartedQuest;
 		StartedQuest.create(req.body)
 		.then(function(startedQuest) {

@@ -15,7 +15,6 @@ app.config(function ($stateProvider){
 });
 
 app.controller('DashCtrl', function ($state, $scope, userQuests, Session, QuestFactory){
-	$scope.dashboard = true;
 	$scope.quests = [];
 	$scope.quests = userQuests.map(function(g) { 
 		g.showDetail = false;
