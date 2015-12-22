@@ -62,6 +62,21 @@ var schema = new mongoose.Schema({
     }      
 });
 
+schema.virtual('valid').get(function(){
+    var valid = true;
+    if (!this.questSteps.length) {
+        valid = false;
+    } else {
+        this.questSteps.forEach(function(step) {
+            if (!step.targetCircle.center.length || !step.transitionInfo.title) {
+                valid = false;
+                return;
+            }
+        });
+    }
+    return valid;
+});
+
 schema.virtual('averageReview').get(function(){
     var avg = this.reviews.reduce(function(cur, prev){ return cur + prev; }, 0) / this.reviews.length;
     return Math.round(avg*10)/10;
@@ -81,9 +96,10 @@ schema.virtual('totalDistance').get(function(){
     }
 });
 
-schema.set('toJSON', { virtuals: true });
 
+schema.set('toJSON', { virtuals: true }); // So client gets virtuals
 mongoose.model('Quest', schema);
+
 
 function getDistanceFromLatLonInMi(lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
