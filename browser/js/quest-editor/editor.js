@@ -90,7 +90,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	}).addTo(questMap);
 
 	// If there are no targetCircles yet created, set map view to user's location
-	if (!$scope.quest.questSteps[0] || !$scope.quest.questSteps[0].targetCircle) {
+	if (!$scope.quest.questSteps || !$scope.quest.questSteps[0] || !$scope.quest.questSteps[0].targetCircle) {
 
 		questMap.locate().on('locationfound', function (e) {
 			userLocation = [e.latitude,e.longitude];
@@ -105,7 +105,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 			questMap.removeLayer(circle);
 		});
 		// Draw a circle for every targetCircle in the quest
-		if ($scope.quest.questSteps.length) {
+		if ($scope.quest.questSteps) {
 			$scope.quest.questSteps.forEach(function(step, index) {
 				if (step.targetCircle && step.targetCircle.center.length) {
 					var center = step.targetCircle.center;
