@@ -17,55 +17,64 @@ router.get('/', function(req, res, next) {
 });
 
 router.param('questId', function(req, res, next, id) {
-  Quest.findById(id).populate('mapstates').populate('author')
+  Quest.findById(id)
     .then(function(quest) {
-      if(!quest) throw new Error('not found!')
-      req.quest = quest
-      next()
+      if(!quest) throw new Error('not found!');
+      req.quest = quest;
+      next();
     })
-    .then(null, next)
-})
+    .then(null, next);
+});
 
 router.get('/:questId', function (req, res, next) {
-  res.json(req.quest)
-})
+  res.json(req.quest);
+});
 
 router.put('/:questId/review', function(req,res,next){
-  req.quest.reviews.push(req.body.reviewToAdd)
+  req.quest.reviews.push(req.body.reviewToAdd);
   req.quest.save();
-  res.send(req.quest);
-  // req.quest.
-})
+  res.json(req.quest);
+});
 
 router.get('/userquests/:authorId', function (req, res, next) {
-  Quest.find({author: req.params.authorId})
-  .then(function(data){
-    res.send(data)
-  })
-  .then(null, next)
-})
+  if (req.user._id === req.params.authorId) {
+    Quest.find({author: req.params.authorId})
+    .then(function(data){
+      res.json(data);
+    })
+    .then(null, next);
+  }
+});
 
 router.post('/', function (req, res, next) {
-  	Quest.create(req.body)
-  	.then(function(newQuest){
-  		res.status(201).json(newQuest);
-  	})
-  	.then(null, next)
-})
+  if (req.user._id === req.body.author) {
+    Quest.create(req.body)
+    .then(function(newQuest){
+      res.status(201).json(newQuest);
+    })
+    .then(null, next);
+  }
+});
 
 router.put('/:questId', function(req, res, next) {
-    req.quest.set(req.body)
+  if (req.user._id === req.quest.author) {
+    req.quest.set(req.body);
     req.quest.save()
       .then(function(quest) {
-        res.status(200).json(quest)
+        res.status(200).json(quest);
       })
-      .then(null, next)
-})
+      .then(null, next);
+    }
+});
 
 router.delete('/:questId', function(req, res, next){
+  if (req.user._id === req.quest.author) {
     req.quest.remove()
     .then(function(){
-      res.status(204).end()
+      res.status(204).end();
     })
-    .then(null, next)
-})
+    .then(null, next);
+  }
+});
+
+

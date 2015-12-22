@@ -13,7 +13,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     startedQuests: [{
-        ref: 'Quest',
+        ref: 'StartedQuest',
         type: mongoose.Schema.Types.ObjectId,
     }]
 });
