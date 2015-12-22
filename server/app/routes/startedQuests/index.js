@@ -29,29 +29,36 @@ router.get('/:startedQuestId', function (req, res, next) {
 
 // Updates a user's startedQuest object (when the status of the quest changes)
 router.put('/:startedQuestId', function (req, res, next) {
-  req.startedQuest.currentStepIndex++;
-  req.startedQuest.save()
-  .then(function(startedQuest) {
-      res.status(201).json(startedQuest);
-  });
+  // Only increment if startedQuest belongs to req.user
+  if (req.user.startedQuests.indexOf(req.startedQuest._id) > -1) {
+    req.startedQuest.currentStepIndex++;
+    req.startedQuest.save()
+    .then(function(startedQuest) {
+        res.status(201).json(startedQuest);
+    });
+  }
 });
 
 // Replaces starteQuest.quest.questSteps with a shuffled version
 router.put('/reshuffle/:startedQuestId', function (req, res, next) {
-  req.startedQuest.quest.questSteps = req.body.questSteps;
-  req.startedQuest.save()
-  .then(function(startedQuest) {
-      res.status(201).json(startedQuest);
-  });
+  if (req.user.startedQuests.indexOf(req.startedQuest._id) > -1) {
+    req.startedQuest.quest.questSteps = req.body.questSteps;
+    req.startedQuest.save()
+    .then(function(startedQuest) {
+        res.status(201).json(startedQuest);
+    });
+  }
 });
 
 // Deletes a startedQuest by id
 router.delete('/:startedQuestId', function(req, res, next){
+  if (req.user.startedQuests.indexOf(req.startedQuest._id) > -1) {
     req.startedQuest.remove()
     .then(function(){
       res.status(204).end();
     })
     .then(null, next);
+  }
 });
 
 

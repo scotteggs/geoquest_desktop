@@ -1,4 +1,5 @@
 'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Quest = mongoose.model('Quest');
@@ -17,3 +18,4 @@ var startedQuestSchema = new mongoose.Schema({
 });
 
 mongoose.model('StartedQuest', startedQuestSchema);
+
