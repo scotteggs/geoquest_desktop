@@ -85,8 +85,9 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 		return QuestFactory.save($scope.quest)
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
-			var stepDestination = $scope.quest.questSteps.length===0 ? null : $scope.quest.questSteps[index]._id;
-			$state.go('editor.questStep', {questStepId: stepDestination}, {reload: true});
+			// If quest has no steps now, return to main editor
+			if (!$scope.quest.questSteps.length) $state.go('editor', {id: $scope.quest._id}, {reload: true});
+			else $state.go('editor.questStep', {questStepId: $scope.quest.questSteps[index]._id}, {reload: true});
 		});
 	};
 
