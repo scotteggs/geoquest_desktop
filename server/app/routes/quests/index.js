@@ -54,7 +54,6 @@ router.post('/', function (req, res, next) {
 })
 
 router.put('/:questId', function(req, res, next) {
-    console.log('put route hit')
     req.quest.set(req.body)
     req.quest.save()
       .then(function(quest) {

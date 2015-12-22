@@ -23,12 +23,10 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	$scope.quest = quest;
 	$scope.viewMainMap = true;
 	$scope.newQuest = false;
-	//if there is no new quest, set properties 
+	//if there is no quest, define one
 	if(!quest) {
 		$scope.newQuest = true;
-		$scope.quest= {
-			start:  [40.723008,-74.0006327]
-		};
+		$scope.quest= {};
 	}
 
 	//update quest and go to dashboard for current user
@@ -116,7 +114,7 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 					circleCenters.push(step.targetCircle.center);
 				}
 			});
-			questMap.fitBounds(circleCenters);
+			if (circleCenters.length) questMap.fitBounds(circleCenters);
 		}
 	}
 	drawCircles();
