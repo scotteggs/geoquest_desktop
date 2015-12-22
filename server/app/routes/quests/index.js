@@ -37,7 +37,7 @@ router.put('/:questId/review', function(req,res,next){
 });
 
 router.get('/userquests/:authorId', function (req, res, next) {
-  if (req.user._id === req.params.authorId) {
+  if (req.user._id.toString() === req.params.authorId.toString()) {
     Quest.find({author: req.params.authorId})
     .then(function(data){
       res.json(data);
@@ -47,7 +47,7 @@ router.get('/userquests/:authorId', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  if (req.user._id === req.body.author) {
+  if (req.user._id.toString() === req.body.author.toString()) {
     Quest.create(req.body)
     .then(function(newQuest){
       res.status(201).json(newQuest);
@@ -57,7 +57,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.put('/:questId', function(req, res, next) {
-  if (req.user._id === req.quest.author) {
+  if (req.user._id.toString() === req.body.author.toString()) {
     req.quest.set(req.body);
     req.quest.save()
       .then(function(quest) {
@@ -68,7 +68,7 @@ router.put('/:questId', function(req, res, next) {
 });
 
 router.delete('/:questId', function(req, res, next){
-  if (req.user._id === req.quest.author) {
+  if (req.user._id.toString() === req.quest.author.toString()) {
     req.quest.remove()
     .then(function(){
       res.status(204).end();
