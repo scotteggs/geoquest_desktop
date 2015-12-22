@@ -32,20 +32,22 @@ app.controller('EditorCtrl', function ($scope, $stateParams, $uibModal, $state, 
 	//update quest and go to dashboard for current user
 	$scope.saveQuest = function () {
 		// filter out all questSteps without targetCirlcles or transitionInfo.title
-		quest.questSteps = quest.questSteps.filter(function(step) {
-			return (step.targetCircle.center.length && step.transitionInfo.title);
-		});
+		if ($scope.quest.questSteps) {
+			$scope.quest.questSteps = $scope.quest.questSteps.filter(function(step) {
+				return (step.targetCircle.center.length && step.transitionInfo.title);
+			});
+		}
 
 		if(!$scope.newQuest) {
 			return QuestFactory.save($scope.quest)		
 			.then(function () {
 				$state.go('dashboard', {userId: Session.user._id});
-			})
+			});
 		} else {
 			return QuestFactory.saveNew($scope.quest)
 			.then(function () {
 				$state.go('dashboard', {userId: Session.user._id});
-			})
+			});
 		}
 	};
 	//go to mapStates editor and hide Quest editor 
