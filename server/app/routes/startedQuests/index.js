@@ -42,7 +42,7 @@ router.put('/:startedQuestId', function (req, res, next) {
 // Replaces starteQuest.quest.questSteps with a shuffled version
 router.put('/reshuffle/:startedQuestId', function (req, res, next) {
   if (req.user.startedQuests.indexOf(req.startedQuest._id) > -1) {
-    req.startedQuest.quest.questSteps = req.body.questSteps;
+    req.startedQuest.set(req.body);
     req.startedQuest.save()
     .then(function(startedQuest) {
         res.status(201).json(startedQuest);
