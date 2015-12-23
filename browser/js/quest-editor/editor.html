@@ -1,8 +1,8 @@
 <blue-header ng-show="editorVisible" head="Quest Editor" small="General"></blue-header>
 <blue-header ng-show="!editorVisible" head="Quest Editor" small="Steps"></blue-header>
 
-<div class="container">
-	<div ng-show="$root.editorVisible">
+<div ng-show="$root.editorVisible">
+	<div class="container">
 		<div class="btn-row">
 			<button class="btn btn-info" ng-click="transitionToMapStateEditor()" ng-disabled="form.$invalid">
 				Step Editor
@@ -11,6 +11,11 @@
 				Save and Return
 			</button>
 		</div><!-- .btn-row -->
+	</div><!-- .container -->
+
+	<resolve-loader></resolve-loader>
+
+	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
 				<form name="form" class="form-horizontal edit-quest-form" novalidate>
@@ -75,9 +80,9 @@
 				</div>
 			</div><!-- .col-sm-6 -->
 		</div><!-- .row -->
-	</div>
+	</div><!-- .container -->
+</div><!-- editorVisible -->
 
-</div><!-- .container -->
 <ui-view></ui-view>
 <footer>
     <p>Go GeoQuest 2016</p>
