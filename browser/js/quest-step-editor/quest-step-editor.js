@@ -26,13 +26,17 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 	$scope.titleError = false;
 
 	//defind new Step for adding to steps array
-	$scope.newStep = {
-		name: 'New Step',
-		targetCircle: {
+	function returnNewStep() {
+		var newStep = {
+			name: 'New Step',
+			targetCircle: {
 				center: [],
 				radius: null
 			}
 		};
+		return newStep;
+	}
+
 	// if we have steps, find the index of the step that matches the params
 	if($scope.quest.questSteps.length > 0) {
 		$scope.quest.questSteps.forEach( function (step, index) {
@@ -43,7 +47,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 		//sets currentStep to that matching the parameters
 		$scope.currentStep = $scope.quest.questSteps[$scope.quest.idx];
 	} else {
-		$scope.quest.questSteps.push($scope.newStep);
+		$scope.quest.questSteps.push(returnNewStep());
 		$scope.currentStep = $scope.quest.questSteps[0];
 	}
 	//function to switch states within mapState editor
@@ -70,7 +74,7 @@ app.controller('QuestStepEditCtrl', function ($stateParams, $scope, $state, $roo
 		} else flashError('targetError');
 	};
 	$scope.addQuestStep = function () {
-		$scope.quest.questSteps.push($scope.newStep);
+		$scope.quest.questSteps.push(returnNewStep());
 		return QuestFactory.save($scope.quest)
 		.then( function (updatedQuest) {
 			$scope.quest = updatedQuest;
